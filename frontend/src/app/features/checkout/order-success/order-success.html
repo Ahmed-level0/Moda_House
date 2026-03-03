@@ -1,0 +1,52 @@
+<div class="success-page">
+    <div class="container success-container">
+
+        <div class="success-card">
+            <div class="check-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="20 6 9 17 4 12" />
+                </svg>
+            </div>
+
+            <h1 class="title">Thank you for choosing Moda House</h1>
+            <p class="subtitle">Your order has been placed successfully and we're getting it ready for shipment.</p>
+            <p class="subtitle">Screenshot this page to use in case of refund or cancellation.</p>
+
+            <div class="order-box">
+                <div class="box-row">
+                    <span class="label">Order Number</span>
+                    <span class="value">#{{ orderNumber() }}</span>
+                </div>
+                <div class="box-row">
+                    <span class="label">Estimated Delivery</span>
+                    <span class="value">{{ deliveryDate() }}</span>
+                </div>
+            </div>
+
+            <div class="next-steps">
+                <h3>What happens next?</h3>
+                <div class="steps-grid">
+                    <div class="step-item">
+                        <div class="step-num">1</div>
+                        <p>Confirmation email sent to your inbox.</p>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-num">2</div>
+                        <p>Our team will verify and pack your items.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button class="btn-track" [routerLink]="['/track-order']" [queryParams]="{ id: orderNumber() }">Track
+                    Your Order</button>
+                <button routerLink="/" class="btn-outline">Continue Shopping</button>
+            </div>
+        </div>
+
+        <div class="confetti-container" aria-hidden="true">
+            <!-- Simulated CSS Confetti -->
+            <div class="confetti" *ngFor="let c of [1,2,3,4,5,6,7,8,9,10]"></div>
+        </div>
+    </div>
+</div>

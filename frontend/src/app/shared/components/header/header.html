@@ -1,0 +1,146 @@
+<div class="announcement-bar" [class.hidden]="isScrolled()">
+    <div class="ticker-wrapper">
+        <div class="ticker-content">
+            <span>Download the Moda House App to get 15% off your first order!</span>
+            <span>Free Express Shipping on orders over $500</span>
+            <span>Limited Time: 20% Discount on selected Accessories</span>
+            <span>Global Luxury Delivered to your doorstep</span>
+            <!-- Repeat to ensure smooth scrolling if needed, or use animation -->
+            <span>Download the Moda House App to get 15% off your first order!</span>
+            <span>Free Express Shipping on orders over $500</span>
+        </div>
+    </div>
+</div>
+
+<header class="main-header" [class.search-active]="isSearchOpen()">
+    <div class="container header-container">
+        <div class="header-left">
+            <button class="menu-toggle" (click)="toggleMenu(true)" aria-label="Open Menu">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                    <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z" />
+                </svg>
+            </button>
+            <div class="logo">
+                <a routerLink="/">MODA HOUSE</a>
+            </div>
+        </div>
+
+        <nav class="nav-links">
+            <ul>
+                <li><a routerLink="/products">Products</a></li>
+                <li><a routerLink="/faq">FAQ</a></li>
+                <li><a routerLink="/contact">Contact</a></li>
+            </ul>
+        </nav>
+
+        <div class="search-bar-container">
+            <div class="search-input-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"
+                    class="search-icon">
+                    <path
+                        d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
+                </svg>
+                <input type="text" placeholder="What are you looking for?" (focus)="toggleSearch(true)"
+                    (mouseenter)="toggleSearch(true)">
+                <button *ngIf="isSearchOpen()" class="close-search" (click)="toggleSearch(false)">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20">
+                        <path
+                            d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="header-actions">
+            <button class="icon-btn cart-btn" aria-label="Cart" (click)="openCart()">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                    <path
+                        d="M280-80q-33 0-56.5-23.5T200-160q0-33 23.5-56.5T280-240q33 0 56.5 23.5T360-160q0 33-23.5 56.5T280-80Zm400 0q-33 0-56.5-23.5T600-160q0-33 23.5-56.5T680-240q33 0 56.5 23.5T760-160q0 33-23.5 56.5T680-80ZM246-720l66 280h380l92-280H246Zm-40-80h630q18 0 29 14.5t5 32.5l-110 338q-8 26-29.5 40.5T682-360H322q-26 0-48-15.5T241-416L120-920H40v-80h130l36 160Zm106 360h380-380Z" />
+                </svg>
+                <span class="cart-badge" *ngIf="cartCount() > 0">{{ cartCount() }}</span>
+            </button>
+            <button class="icon-btn wishlist-btn" aria-label="Wishlist" routerLink="/wishlist">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                    <path
+                        d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Zm0-108q96-86 158-147.5t98-107q36-45.5 50-81t14-70.5q0-60-40-100t-100-40q-47 0-87 26.5T518-680h-76q-15-41-55-67.5T300-774q-60 0-100 40t-40 100q0 35 14 70.5t50 81q36 45.5 98 107t158 147.5Zm0-311Z" />
+                </svg>
+                <span class="wishlist-badge" *ngIf="wishlistCount() > 0">{{ wishlistCount() }}</span>
+            </button>
+            <button class="icon-btn" aria-label="Profile" [routerLink]="isLoggedIn() ? '/profile' : '/auth'">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                    <path
+                        d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v112H160Zm80-80h480v-32q0-11-5.5-20T700-306q-54-27-109-40.5T480-360q-56 0-111 13.5T260-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T560-640q0-33-23.5-56.5T480-720q-33 0-56.5 23.5T400-640q0 33 23.5 56.5T480-560Zm0-80Zm0 400Z" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Search Overlay -->
+    <div class="search-overlay" [class.open]="isSearchOpen()" (mouseleave)="toggleSearch(false)">
+        <div class="container overlay-content">
+            <div class="overlay-nav">
+                <button [class.active]="activeCategory() === 'womenswear'"
+                    (click)="setCategory('womenswear')">Womenswear</button>
+                <button [class.active]="activeCategory() === 'menswear'"
+                    (click)="setCategory('menswear')">Menswear</button>
+                <button [class.active]="activeCategory() === 'kidswear'"
+                    (click)="setCategory('kidswear')">Kidswear</button>
+            </div>
+
+            <div class="trending-section">
+                <h4 class="section-label">Trending</h4>
+                <div class="trending-slider-wrapper">
+                    <button class="slider-nav prev" (click)="scrollTrending('left')" aria-label="Previous">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M15 18l-6-6 6-6" />
+                        </svg>
+                    </button>
+
+                    <div class="trending-grid" #trendingScroll>
+                        <a [routerLink]="['/product', product.id]" class="trending-item"
+                            *ngFor="let product of trendingProducts()" (click)="toggleSearch(false)">
+                            <div class="item-img">
+                                <img [src]="product.image" [alt]="product.name">
+                            </div>
+                            <div class="item-info">
+                                <span class="item-brand">{{product.brand}}</span>
+                                <p class="item-name">{{product.name}}</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <button class="slider-nav next" (click)="scrollTrending('right')" aria-label="Next">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 18l6-6-6-6" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Mobile Menu Drawer -->
+<div class="mobile-menu-drawer" [class.open]="isMenuOpen()">
+    <div class="drawer-header">
+        <div class="logo">MODA HOUSE</div>
+        <button class="close-btn" (click)="toggleMenu(false)">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                <path
+                    d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+            </svg>
+        </button>
+    </div>
+    <nav class="mobile-nav">
+        <ul>
+            <li><a routerLink="/products" (click)="toggleMenu(false)">Products</a></li>
+            <li><a routerLink="/faq" (click)="toggleMenu(false)">FAQ</a></li>
+            <li><a routerLink="/contact" (click)="toggleMenu(false)">Contact</a></li>
+        </ul>
+    </nav>
+    <div class="drawer-footer">
+        <a routerLink="/" class="btn-premium" (click)="toggleMenu(false)"
+            style="width: 100%; text-align: center;">Account</a>
+    </div>
+</div>
+<div class="drawer-overlay" *ngIf="isMenuOpen()" (click)="toggleMenu(false)"></div>

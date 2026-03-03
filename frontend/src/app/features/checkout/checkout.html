@@ -1,0 +1,208 @@
+<div class="checkout-page">
+    <div class="container checkout-container">
+
+        <!-- Left Side: Form -->
+        <div class="checkout-main">
+            <header class="checkout-header">
+                <a routerLink="/" class="logo">MODA HOUSE</a>
+                <nav class="breadcrumb">
+                    <a routerLink="/cart">Bag</a>
+                    <span>Information</span>
+                </nav>
+            </header>
+
+            <div class="urgency-hint">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="12" y1="8" x2="12" y2="12" />
+                    <line x1="12" y1="16" x2="12.01" y2="16" />
+                </svg>
+                <span>Items in your bag are not reserved. Complete your order now to secure them.</span>
+            </div>
+
+            <section class="checkout-section">
+                <div class="section-header" *ngIf="!authService.isLoggedIn()">
+                    <h2>Contact Information</h2>
+                    <p>Already have an account? <a href="#">Log in</a> for faster checkout.</p>
+                </div>
+                <div class="form-group" [class.error]="showErrors() && !email()">
+                    <input type="email" placeholder="Email address" [value]="email()"
+                        (input)="updateField('email', $event)" autocomplete="email" required>
+                </div>
+            </section>
+
+            <section class="checkout-section">
+                <div class="section-header">
+                    <h2>Shipping Address</h2>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group" [class.error]="showErrors() && !firstName()">
+                        <input type="text" placeholder="First name" [value]="firstName()"
+                            (input)="updateField('firstName', $event)" autocomplete="given-name" required>
+                    </div>
+                    <div class="form-group" [class.error]="showErrors() && !lastName()">
+                        <input type="text" placeholder="Last name" [value]="lastName()"
+                            (input)="updateField('lastName', $event)" autocomplete="family-name" required>
+                    </div>
+                    <div class="form-group full-width" [class.error]="showErrors() && !address()">
+                        <input type="text" placeholder="Address" [value]="address()"
+                            (input)="updateField('address', $event)" autocomplete="street-address" required>
+                    </div>
+                    <div class="form-group" [class.error]="showErrors() && !city()">
+                        <select (change)="onCityChange($event)" required>
+                            <option value="">Select City</option>
+                            <option value="Damanhour">Damanhour</option>
+                            <option value="Cairo">Cairo</option>
+                            <option value="Giza">Giza</option>
+                            <option value="Alexandria">Alexandria</option>
+                            <option value="Mansoura">Mansoura</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group" [class.error]="showErrors() && !phone()">
+                        <input type="tel" placeholder="Phone number" [value]="phone()"
+                            (input)="updateField('phone', $event)" autocomplete="tel" required>
+                    </div>
+                </div>
+            </section>
+
+            <section class="checkout-section">
+                <div class="section-header">
+                    <h2>Payment Method</h2>
+                    <p>Transactions are secure and encrypted.</p>
+                </div>
+                <div class="payment-options">
+                    <label class="payment-card" [class.active]="paymentMethod() === 'cod'">
+                        <input type="radio" name="payment" value="cod" [checked]="paymentMethod() === 'cod'"
+                            (change)="paymentMethod.set('cod')">
+                        <div class="payment-info">
+                            <span class="title">Cash on Delivery (COD)</span>
+                            <span class="desc">Pay when you receive your order</span>
+                        </div>
+                        <div class="payment-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <rect x="2" y="5" width="20" height="14" rx="2" />
+                                <path d="M12 12h.01M8 12h.01M16 12h.01" />
+                            </svg>
+                        </div>
+                    </label>
+
+                    <label class="payment-card" [class.active]="paymentMethod() === 'online'">
+                        <input type="radio" name="payment" value="online" [checked]="paymentMethod() === 'online'"
+                            (change)="paymentMethod.set('online')">
+                        <div class="payment-info">
+                            <span class="title">Online Payment</span>
+                            <span class="desc">Encrypted & Secure</span>
+                        </div>
+                        <div class="payment-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <rect x="1" y="4" width="22" height="16" rx="2" />
+                                <line x1="1" y1="10" x2="23" y2="10" />
+                            </svg>
+                        </div>
+                    </label>
+                </div>
+            </section>
+
+            <footer class="checkout-footer">
+                <button class="btn-submit" [class.loading]="isPlacingOrder()" (click)="completeOrder()">
+                    <span *ngIf="!isPlacingOrder()">Complete Secure Order - {{ orderTotal() | currency }}</span>
+                    <span *ngIf="isPlacingOrder()" class="loader"></span>
+                </button>
+                <p class="security-note">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                        <path d="M7 11V7a5 5 0 0110 0v4" />
+                    </svg>
+                    Fully Encrypted & Secure Checkout
+                </p>
+            </footer>
+        </div>
+
+        <!-- Right Side: Summary (Accordion on Mobile) -->
+        <aside class="checkout-sidebar" [class.collapsed]="isSummaryCollapsed()">
+            <div class="mobile-summary-toggle" (click)="toggleSummary()">
+                <div class="toggle-left">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4H6zM3 6h18M16 10a4 4 0 0 1-8 0" />
+                    </svg>
+                    <span>{{ isSummaryCollapsed() ? 'Show' : 'Hide' }} Order Summary</span>
+                    <svg class="chevron" [class.open]="!isSummaryCollapsed()" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </div>
+                <span class="total-preview">{{ orderTotal() | currency }}</span>
+            </div>
+
+            <div class="sidebar-content">
+                <div class="items-list">
+                    @for (item of cartItems(); track item.id) {
+                    <div class="summary-item">
+                        <div class="item-img-wrapper">
+                            <img [src]="item.image" [alt]="item.name">
+                            <span class="qty-badge">{{ item.quantity }}</span>
+                        </div>
+                        <div class="item-info">
+                            <h3 class="name">{{ item.name }}</h3>
+                            <p class="brand">{{ item.brand }}</p>
+                        </div>
+                        <div class="price-box">
+                            <span class="price current" *ngIf="(item.discount ?? 0) > 0">{{ item.price * item.quantity |
+                                currency }}</span>
+                            <span class="price" [class.old]="(item.discount ?? 0) > 0">{{ (item.original_price ??
+                                item.price) * item.quantity | currency }}</span>
+                        </div>
+                    </div>
+                    }
+                </div>
+
+                <div class="coupon-section">
+                    <div class="form-group coupon-input">
+                        <input type="text" placeholder="Discount code" [value]="couponCodeInput()"
+                            (input)="updateField('couponCodeInput', $event)">
+                        <button class="btn-apply" (click)="applyCoupon()" [disabled]="!couponCodeInput()">Apply</button>
+                    </div>
+                    <div class="applied-coupon" *ngIf="currentCoupon()">
+                        <span class="tag">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path
+                                    d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" />
+                                <line x1="7" y1="7" x2="7.01" y2="7" />
+                            </svg>
+                            {{ currentCoupon() }}
+                            <button class="btn-remove-coupon" (click)="removeCoupon()" title="Remove Coupon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="18" y1="6" x2="6" y2="18" />
+                                    <line x1="6" y1="6" x2="18" y2="18" />
+                                </svg>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="costs-summary">
+                    <div class="cost-row">
+                        <span>Subtotal</span>
+                        <span>{{ subtotal() | currency }}</span>
+                    </div>
+                    <div class="cost-row discount-row" *ngIf="discount() > 0">
+                        <span>Discount</span>
+                        <span>-{{ discount() | currency }}</span>
+                    </div>
+                    <div class="cost-row">
+                        <span>Shipping</span>
+                        <span>{{ city() ? (shippingCost() | currency) : 'Calculated at next step' }}</span>
+                    </div>
+                    <div class="cost-row total-row">
+                        <span>Total</span>
+                        <div class="total-amount">
+                            <span class="currency">EGP</span>
+                            <span class="value">{{ orderTotal() | currency }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+</div>

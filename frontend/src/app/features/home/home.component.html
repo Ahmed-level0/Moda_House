@@ -1,0 +1,285 @@
+<section class="hero">
+    <video autoplay muted loop playsinline
+        poster="https://images.unsplash.com/photo-1549439602-43ebca2327af?q=80&w=2000" class="hero-video">
+        <source
+            src="https://player.vimeo.com/external/434045526.sd.mp4?s=c359ce98849646b1eb96a6039401736b42b6a0a0&profile_id=164&oauth2_token_id=57447761"
+            type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+        <h1 class="fade-in">Experience Luxury</h1>
+        <p class="fade-in-delay">Discover our curated collection of premium bags, perfumes, and silk scarfs.</p>
+        <div class="hero-btns fade-in-delay-2">
+            <a routerLink="/products" class="btn-premium">Shop Now</a>
+            <a routerLink="/about" class="btn-outline">Our Story</a>
+        </div>
+    </div>
+</section>
+
+<!-- 🔥 Trendy Now (Carousel with Nav) -->
+<section class="trendy-section container section-padding" *ngIf="trendyProducts.length > 0">
+    <div class="trendy-header">
+        <div class="header-text">
+            <h2>New in: handpicked daily</h2>
+            <p>From the world’s best luxury brands and boutiques</p>
+        </div>
+        <div class="header-nav-actions">
+            <div class="carousel-arrows">
+                <button class="nav-arrow prev" (click)="prevTrendy()" aria-label="Previous">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+                    </svg>
+                </button>
+                <button class="nav-arrow next" (click)="nextTrendy()" aria-label="Next">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+                    </svg>
+                </button>
+            </div>
+            <a routerLink="/products" class="btn-minimal-v2">View All</a>
+        </div>
+    </div>
+
+    <div class="carousel-viewport">
+        <div class="trendy-grid-carousel" [style.transform]="'translateX(-' + (currentTrendyIndex * 100) + '%)'">
+            <div class="trendy-card" *ngFor="let product of trendyProducts">
+                <div class="card-img-wrapper" [routerLink]="['/product', product.id]" style="cursor: pointer;">
+                    <img [src]="product.image" class="img-primary" alt="{{product.name}}">
+                    <div class="card-wishlist">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20">
+                            <path
+                                d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Zm0-108q96-86 158-147.5t98-107q36-45.5 50-81t14-70.5q0-60-40-100t-100-40q-47 0-87 26.5T518-680h-76q-15-41-55-67.5T300-774q-60 0-100 40t-40 100q0 35 14 70.5t50 81q36 45.5 98 107T480-228Zm0-273Z" />
+                        </svg>
+                    </div>
+                    <button class="quick-add-btn">View Details</button>
+                </div>
+                <div class="card-info">
+                    <span class="product-tag" *ngIf="product.discount > 0">-{{product.discount}}%</span>
+                    <h3 class="product-brand">{{product.brand}}</h3>
+                    <p class="product-name" [routerLink]="['/product', product.id]" style="cursor: pointer;">
+                        {{product.name}}</p>
+                    <p class="product-price">{{product.price | currency}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="carousel-indicators">
+        <span *ngFor="let item of [].constructor(maxTrendyIndex + 1); let i = index" class="dot"
+            [class.active]="i === currentTrendyIndex" (click)="setTrendy(i)">
+        </span>
+    </div>
+</section>
+
+<!-- Shop By Category RE-REORGANIZED (6/4 Split - Expanded) -->
+<section class="categories-section section-padding">
+    <div class="section-background-overlay"></div>
+    <div class="categories-column-logic">
+
+        <!-- Left Part (6/10 approximately) -->
+        <div class="logic-left">
+            <div class="section-title text-left">
+                <span class="editorial-label">Collections</span>
+                <h2>Shop By Category</h2>
+                <div class="title-line left"></div>
+                <p class="description">
+                    Discover our meticulously curated selections, from statement handbags to signature fragrances.
+                    Every piece is chosen to celebrate the art of modern luxury.
+                </p>
+            </div>
+
+            <div class="category-grid-mini">
+                <div class="category-card">
+                    <div class="card-img bg-bags"></div>
+                    <div class="category-overlay">
+                        <div class="overlay-inner">
+                            <h3>Bags</h3>
+                            <a [routerLink]="['/products', 'bags']" class="btn-minimal-light">Explore</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <div class="card-img bg-perfumes"></div>
+                    <div class="category-overlay">
+                        <div class="overlay-inner">
+                            <h3>Perfumes</h3>
+                            <a [routerLink]="['/products', 'perfumes']" class="btn-minimal-light">Explore</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <div class="card-img bg-scarfs"></div>
+                    <div class="category-overlay">
+                        <div class="overlay-inner">
+                            <h3>Scarfs</h3>
+                            <a [routerLink]="['/products', 'scarfs']" class="btn-minimal-light">Explore</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <div class="card-img bg-accessories"></div>
+                    <div class="category-overlay">
+                        <div class="overlay-inner">
+                            <h3>Accessories</h3>
+                            <a [routerLink]="['/products', 'accessories']" class="btn-minimal-light">Explore</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Part (4/10 approximately) -->
+        <div class="logic-right">
+            <div class="featured-editorial-card">
+                <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1000" alt="Editorial">
+                <div class="editorial-content">
+                    <span class="tag">Editorial</span>
+                    <h3>The Art of Living</h3>
+                    <p>Sophistication in every detail.</p>
+                    <a routerLink="/editorial" class="btn-premium">View Lookbook</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- 🥇 Shop By Style -->
+<section class="shop-by-style container section-padding">
+    <div class="section-title">
+        <h2>Shop By Style</h2>
+        <p class="sub-title">Wear your personality</p>
+        <div class="title-line"></div>
+    </div>
+    <div class="style-cards-container">
+        @for (style of styles; track style.name) {
+        <div class="style-card" [ngClass]="style.class">
+            <div class="style-icon" [innerHTML]="style.safeSvg"></div>
+            <h3>{{style.name}}</h3>
+            <a [routerLink]="['/products/style', style.name.toLowerCase().split(' ')[0]]"
+                class="btn-minimal">Discover</a>
+        </div>
+        }
+    </div>
+</section>
+
+<!-- 🌸 Perfume Highlight -->
+<section class="perfume-highlight" *ngIf="highlightPerfume">
+    <div class="highlight-container container">
+        <div class="highlight-image" [routerLink]="['/products/perfumes']">
+            <img [src]="highlightPerfume.image" alt="{{highlightPerfume.name}}">
+        </div>
+        <div class="highlight-info">
+            <span class="label">Scent of the season</span>
+            <h2>{{highlightPerfume.name}}</h2>
+            <p>{{highlightPerfume.description | slice:0:150}}...</p>
+            <a [routerLink]="['/product', highlightPerfume.id]" class="btn-premium">Discover Fragrance</a>
+        </div>
+    </div>
+</section>
+
+<!-- 🥉 Special Offers (Carousel) -->
+<section class="trendy-section container section-padding" *ngIf="specialOffers.length > 0">
+    <div class="trendy-header">
+        <div class="header-text">
+            <h2>Luxury on Sale</h2>
+            <p>Exclusive deals on our most-coveted pieces</p>
+        </div>
+        <div class="header-nav-actions">
+            <div class="carousel-arrows">
+                <button class="nav-arrow prev" (click)="prevOffers()" aria-label="Previous">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+                    </svg>
+                </button>
+                <button class="nav-arrow next" (click)="nextOffers()" aria-label="Next">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+                    </svg>
+                </button>
+            </div>
+            <a routerLink="/products/on-sale" class="btn-minimal-v2">View All Sales</a>
+        </div>
+    </div>
+
+    <div class="carousel-viewport">
+        <div class="trendy-grid-carousel" [style.transform]="'translateX(-' + (currentOffersIndex * 100) + '%)'">
+            <div class="trendy-card" *ngFor="let product of specialOffers">
+                <div class="card-img-wrapper" [routerLink]="['/product', product.id]" style="cursor: pointer;">
+                    <img [src]="product.image" class="img-primary" alt="{{product.name}}">
+                    <div class="card-wishlist">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20">
+                            <path
+                                d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Zm0-108q96-86 158-147.5t98-107q36-45.5 50-81t14-70.5q0-60-40-100t-100-40q-47 0-87 26.5T518-680h-76q-15-41-55-67.5T300-774q-60 0-100 40t-40 100q0 35 14 70.5t50 81q36 45.5 98 107T480-228Zm0-273Z" />
+                        </svg>
+                    </div>
+                    <button class="quick-add-btn">View Details</button>
+                    <span class="sale-badge" *ngIf="product.discount > 0">-{{product.discount}}%</span>
+                </div>
+                <div class="card-info">
+                    <h3 class="product-brand">{{product.brand}}</h3>
+                    <p class="product-name" [routerLink]="['/product', product.id]" style="cursor: pointer;">
+                        {{product.name}}</p>
+                    <div class="product-price-wrapper">
+                        <span class="product-price current">{{product.final_price | currency}}</span>
+                        <span class="product-price old" *ngIf="product.discount > 0">{{product.price | currency}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="carousel-indicators">
+        <span *ngFor="let item of [].constructor(maxOffersIndex + 1); let i = index" class="dot"
+            [class.active]="i === currentOffersIndex" (click)="setOffers(i)">
+        </span>
+    </div>
+</section>
+
+<!-- 👜 Help Center Section -->
+<section class="help-center-section section-padding">
+    <div class="overlay"></div>
+    <div class="container relative-z">
+        <div class="section-title white-text">
+            <h2>Need Assistance?</h2>
+            <p class="sub-title">We're here to help you with your luxury experience</p>
+            <div class="title-line"></div>
+        </div>
+        <div class="help-grid">
+            <a routerLink="/faq" class="help-card">
+                <div class="help-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                        <line x1="12" y1="17" x2="12.01" y2="17" />
+                    </svg>
+                </div>
+                <h3>FAQ</h3>
+                <p>Find quick answers to your questions about shipping, returns, and more.</p>
+                <span class="btn-minimal-light">View All</span>
+            </a>
+            <a routerLink="/contact" class="help-card">
+                <div class="help-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                    </svg>
+                </div>
+                <h3>Need Help?</h3>
+                <p>Our concierge team is available to assist you with any personalized requests.</p>
+                <span class="btn-minimal-light">Contact Us</span>
+            </a>
+            <a routerLink="/order-cancellation-policy" class="help-card">
+                <div class="help-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M11 15h2M8 11h8m-9 9l-2-2m0 0l2-2m-2 2h18M7 9L9 7m0 0l-2-2m2 2H1"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                    </svg>
+                </div>
+                <h3>Cancellations & Refunds</h3>
+                <p>Review our policies on order cancellations, refunds, and cashback procedures.</p>
+                <span class="btn-minimal-light">Learn More</span>
+            </a>
+        </div>
+    </div>
+</section>

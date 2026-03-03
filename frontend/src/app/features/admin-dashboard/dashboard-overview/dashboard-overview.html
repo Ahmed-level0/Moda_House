@@ -1,0 +1,107 @@
+<div class="dashboard-overview">
+    <h1>Dashboard Overview</h1>
+
+    @if (loading()) {
+    <div class="loading">
+        <i class="fas fa-spinner fa-spin"></i> Loading...
+    </div>
+    } @else {
+    <!-- Stats Cards -->
+    <div class="stats-grid">
+        <div class="stat-card revenue">
+            <div class="icon">
+                <i class="fas fa-dollar-sign"></i>
+            </div>
+            <div class="info">
+                <h3>Total Revenue</h3>
+                <p class="value">${{ stats().totalRevenue.toFixed(2) }}</p>
+                <span class="change positive">
+                    <i class="fas fa-arrow-up"></i> +12% from last month
+                </span>
+            </div>
+        </div>
+
+        <div class="stat-card orders">
+            <div class="icon">
+                <i class="fas fa-shopping-bag"></i>
+            </div>
+            <div class="info">
+                <h3>Total Orders</h3>
+                <p class="value">{{ stats().totalOrders }}</p>
+                <span class="change positive">
+                    <i class="fas fa-arrow-up"></i> +8% from last month
+                </span>
+            </div>
+        </div>
+
+        <div class="stat-card customers">
+            <div class="icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="info">
+                <h3>Total Customers</h3>
+                <p class="value">{{ stats().totalCustomers }}</p>
+                <span class="change positive">
+                    <i class="fas fa-arrow-up"></i> +15% from last month
+                </span>
+            </div>
+        </div>
+
+        <div class="stat-card stock">
+            <div class="icon">
+                <i class="fas fa-box-open"></i>
+            </div>
+            <div class="info">
+                <h3>Products in Stock</h3>
+                <p class="value">{{ stats().productsInStock }}</p>
+                <span class="change neutral">
+                    <i class="fas fa-minus"></i> No change
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="charts-section">
+        <div class="chart-card">
+            <h2><i class="fas fa-chart-area"></i> Sales Overview</h2>
+            <div class="chart-container">
+                <canvas #salesChart></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Top Selling Products -->
+    <div class="top-products">
+        <h2><i class="fas fa-fire"></i> Top Selling Products</h2>
+        <div class="products-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Sold</th>
+                        <th>Revenue</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (product of topProducts(); track product.name) {
+                    <tr>
+                        <td>
+                            <i class="fas fa-box"></i> {{ product.name }}
+                        </td>
+                        <td>{{ product.soldCount }}</td>
+                        <td>${{ product.revenue.toFixed(2) }}</td>
+                    </tr>
+                    } @empty {
+                    <tr>
+                        <td colspan="3" style="text-align: center;">
+                            <i class="fas fa-inbox"></i> No data available
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    }
+</div>

@@ -1,0 +1,40 @@
+<div class="manage-users">
+    <header>
+        <h2>Manage Users</h2>
+    </header>
+
+    <div class="users-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (user of users(); track user._id) {
+                <tr>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>
+                        <span class="role-badge" [class.admin]="user.role === 'admin'">
+                            {{ user.role }}
+                        </span>
+                    </td>
+                    <td>
+                        <button class="btn-toggle" (click)="toggleRole(user)" [class.demote]="user.role === 'admin'">
+                            {{ user.role === 'admin' ? 'Demote to User' : 'Promote to Admin' }}
+                        </button>
+                    </td>
+                </tr>
+                } @empty {
+                <tr>
+                    <td colspan="4" style="text-align: center;">No users found</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

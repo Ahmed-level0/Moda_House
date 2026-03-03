@@ -1,0 +1,86 @@
+<div class="cart-overlay" [class.open]="isDrawerOpen()" (click)="close()">
+    <div class="cart-panel" [class.open]="isDrawerOpen()" (click)="$event.stopPropagation()">
+        <!-- Header -->
+        <div class="cart-header">
+            <h3>Shopping Bag <span>({{ cartService.totalCount() }})</span></h3>
+            <button class="close-btn" (click)="close()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Content -->
+        <div class="cart-content">
+            @if (cartItems().length === 0) {
+            <div class="empty-cart">
+                <div class="empty-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+                        <path d="M2 2h3.27a2 2 0 0 1 1.94 1.51L8.58 10h10.33a2 2 0 0 0 1.94-1.51L22 4" />
+                        <path d="M7 14h13M10 21a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM18 21a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" />
+                    </svg>
+                </div>
+                <p>Your shopping bag is empty.</p>
+                <button (click)="close()" class="btn-primary">Continue Shopping</button>
+            </div>
+            } @else {
+            <div class="cart-items-list">
+                @for (item of cartItems(); track item.id) {
+                <div class="cart-item">
+                    <div class="item-img">
+                        <img [src]="item.image" [alt]="item.name">
+                    </div>
+                    <div class="item-details">
+                        <div class="item-top">
+                            <div>
+                                <span class="brand">{{ item.brand }}</span>
+                                <h4 class="name">{{ item.name }}</h4>
+                            </div>
+                            <div class="price-box">
+                                <span class="price current" *ngIf="(item.discount || 0) > 0">{{ item.price *
+                                    item.quantity | currency }}</span>
+                                <span class="price" [class.old]="(item.discount || 0) > 0">{{ (item.original_price ||
+                                    item.price) * item.quantity | currency }}</span>
+                            </div>
+                            <button class="remove-btn" (click)="removeItem(item.product)">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M18 6L6 18M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="item-bottom">
+                            <div class="bottom-left">
+                                <div class="qty-selector">
+                                    <button (click)="updateQty(item.product, -1)">-</button>
+                                    <span>{{ item.quantity }}</span>
+                                    <button (click)="updateQty(item.product, 1)">+</button>
+                                </div>
+                                <button class="text-remove-btn" (click)="removeItem(item.product)">Remove</button>
+                            </div>
+                            <div class="price-box">
+                                <span class="price current" *ngIf="(item.discount ?? 0) > 0">{{ item.price *
+                                    item.quantity | currency }}</span>
+                                <span class="price" [class.old]="(item.discount ?? 0) > 0">{{ (item.original_price ??
+                                    item.price) * item.quantity | currency }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+            }
+        </div>
+
+        <!-- Footer -->
+        @if (cartItems().length > 0) {
+        <div class="cart-footer">
+            <div class="subtotal-row">
+                <span>Subtotal</span>
+                <span class="amount">{{ subtotal() | currency }}</span>
+            </div>
+            <p class="tax-info">Shipping and taxes calculated at checkout.</p>
+            <button class="btn-checkout" routerLink="/checkout" (click)="close()">Checkout</button>
+        </div>
+        }
+    </div>
+</div>

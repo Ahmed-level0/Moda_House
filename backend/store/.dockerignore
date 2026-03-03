@@ -1,0 +1,11 @@
+venv/
+.git/
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+.env
+media/products/
+ngrok.exe
+*.rar
+Doc/

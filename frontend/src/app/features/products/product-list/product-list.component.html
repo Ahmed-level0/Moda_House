@@ -1,0 +1,207 @@
+<div class="product-listing-page">
+
+    <!-- Page Header -->
+    <header class="listing-header">
+        <div class="container">
+            <h1 class="page-title">{{ activeCategory() === 'all' ? 'All Collections' : activeCategory() }}</h1>
+            <p class="results-count">{{ filteredProducts().length }} Products Found</p>
+        </div>
+    </header>
+
+    <div class="container layout-container">
+        <!-- Sidebar Filters (Desktop) -->
+        <aside class="filters-sidebar" [class.open]="filtersOpen()">
+            <div class="filters-header-mobile">
+                <h3>Filters</h3>
+                <button (click)="toggleFilters()">
+                    <svg viewBox="0 0 24 24" fill="none" class="close-icon">
+                        <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </button>
+            </div>
+
+            <div class="filter-group">
+                <h4>Category</h4>
+                <ul>
+                    <li [class.active]="activeCategory() === 'all'" (click)="setCategory('all')">View All</li>
+                    <li [class.active]="activeCategory() === 'bags'" (click)="setCategory('bags')">Bags</li>
+                    <li [class.active]="activeCategory() === 'perfumes'" (click)="setCategory('perfumes')">Perfumes</li>
+                    <li [class.active]="activeCategory() === 'scarfs'" (click)="setCategory('scarfs')">Scarfs</li>
+                    <li [class.active]="activeCategory() === 'accessories'" (click)="setCategory('accessories')">
+                        Accessories</li>
+                </ul>
+            </div>
+
+            <!-- Style Filter -->
+            <div class="filter-group">
+                <h4>Shop By Style</h4>
+                <ul>
+                    <li [class.active]="activeStyle() === 'all'" (click)="setStyle('all')">All Styles</li>
+                    @for(style of availableStyles; track style) {
+                    <li [class.active]="activeStyle() === style" (click)="setStyle(style)">{{ style }}</li>
+                    }
+                </ul>
+            </div>
+
+            <!-- Color Filter -->
+            <div class="filter-group">
+                <h4>Filter By Color</h4>
+                <div class="color-filter-grid">
+                    @for(color of availableColors; track color.name) {
+                    <div class="color-item" [class.active]="activeColor() === color.hex" (click)="setColor(color.hex)"
+                        title="{{ color.name }}">
+                        <span class="color-circle" [style.background-color]="color.hex"
+                            [class.white-border]="color.hex === '#FFFFFF'"></span>
+                    </div>
+                    }
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <h4>Sort By</h4>
+                <select #sortSelect (change)="setSort(sortSelect.value)" class="sort-select">
+                    <option value="newest">Newest Arrivals</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                </select>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="products-grid-container">
+
+            <!-- Mobile Controls -->
+            <div class="mobile-controls">
+                <button class="btn-filter" (click)="toggleFilters()">
+                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" fill="none"
+                        stroke-width="1.5">
+                        <path d="M4 21v-7m0-4V3m8 18v-9m0-4V3m8 18v-5m0-4V3M1 14h6m2-6h6m2 8h6" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                    Filters
+                </button>
+                <div class="mobile-sort">
+                    <select #sortSelectMobile (change)="setSort(sortSelectMobile.value)">
+                        <option value="newest">Newest</option>
+                        <option value="price-low">Low - High</option>
+                        <option value="price-high">High - Low</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="products-grid" *ngIf="filteredProducts().length > 0; else noItems">
+                @for(product of filteredProducts(); track product.id) {
+                <div class="product-card">
+                    <div class="img-wrapper" [routerLink]="['/product', product.id]">
+                        <img [src]="product.images[0].image" class="img-front" [alt]="product.name">
+                        <!-- <img [src]="product.images[1].image" class="img-back" [alt]="product.name"> -->
+                        <button class="btn-wishlist" [class.active]="isInWishlist(product.id)"
+                            (click)="toggleWishlist(product, $event)" title="Add to Wishlist">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                </path>
+                            </svg>
+                        </button>
+                        <button class="btn-quick-view" title="Quick View" (click)="openQuickView(product, $event)">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                        </button>
+
+                        <div class="badges-container">
+                            @if(product.isNew) { <span class="badge new">New</span> }
+                            @if(product.onSale) { <span class="badge sale">Sale</span> }
+                            @if(product.isBestSeller) { <span class="badge best-seller">Best Seller</span> }
+                            @if(product.stock <= 0) { <span class="badge out-of-stock">Out of Stock</span> }
+                                @if(product.style) { <span class="badge style">{{ product.style }}</span> }
+                        </div>
+
+                        <button class="btn-add-cart" [disabled]="product.stock <= 0"
+                            (click)="addToBag(product, $event)">
+                            {{ product.stock <= 0 ? 'Out of Stock' : 'Add to Bag' }} </button>
+                    </div>
+                    <div class="product-info">
+                        <div class="info-top">
+                            <span class="brand">{{ product.brand }}</span>
+                            @if(product.material) {
+                            <span class="material">{{ product.material }}</span>
+                            }
+                        </div>
+                        <h3 class="name" [routerLink]="['/product', product.id]">{{ product.name }}</h3>
+                        <div class="price-wrapper">
+                            @if(product.discount > 0) {
+                            <span class="price current">{{ product.final_price | currency }}</span>
+                            <span class="price old">{{ product.price | currency }}</span>
+                            } @else {
+                            <span class="price">{{ product.price | currency }}</span>
+                            }
+                        </div>
+                        <div class="card-footer">
+                            <div class="card-colors">
+                                @for(color of product.colors; track color) {
+                                <span class="card-color-dot" [style.background-color]="color"
+                                    [class.border]="color === '#FFFFFF'"></span>
+                                }
+                            </div>
+                            @if(product.size) {
+                            <span class="size-label">Size: {{ product.size }}</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+
+            <ng-template #noItems>
+                <div class="no-results">
+                    <p>No products found in this category.</p>
+                    <button (click)="setCategory('all')" class="btn-underline">View All Products</button>
+                </div>
+            </ng-template>
+
+        </main>
+    </div>
+
+    <!-- Quick View Modal -->
+    @if(quickViewProduct(); as qp) {
+    <div class="quick-view-overlay" (click)="closeQuickView()">
+        <div class="quick-view-modal" (click)="$event.stopPropagation()">
+            <button class="close-btn" (click)="closeQuickView()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12" />
+                </svg>
+            </button>
+            <div class="qv-content">
+                <div class="qv-image">
+                    <img [src]="qp.image1" [alt]="qp.name">
+                </div>
+                <div class="qv-info">
+                    <span class="brand">{{ qp.brand }}</span>
+                    <h2 class="name">{{ qp.name }}</h2>
+                    <div class="price-wrapper">
+                        @if(qp.discount > 0) {
+                        <span class="price current">{{ qp.final_price | currency }}</span>
+                        <span class="price old">{{ qp.price | currency }}</span>
+                        } @else {
+                        <span class="price">{{ qp.price | currency }}</span>
+                        }
+                    </div>
+                    <p class="description">Experience unparalleled luxury with this exquisite piece from {{ qp.brand }}.
+                        Crafted with premium materials and timeless design.</p>
+                    <div class="qv-actions">
+                        <button class="btn-add-bag" [disabled]="qp.stock <= 0" (click)="addToBag(qp)">
+                            {{ qp.stock <= 0 ? 'Out of Stock' : 'Add to Bag' }} </button>
+                                <a [routerLink]="['/product', qp.id]" class="btn-view-details"
+                                    (click)="closeQuickView()">View
+                                    Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+</div>

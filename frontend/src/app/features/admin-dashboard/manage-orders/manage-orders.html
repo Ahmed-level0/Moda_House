@@ -1,0 +1,131 @@
+<div class="manage-orders">
+    <header>
+        <h2>Manage Orders</h2>
+        <div class="header-actions">
+            <span class="order-count">{{ orders().length }} Total Orders</span>
+        </div>
+    </header>
+
+    @if (loading()) {
+    <div class="loading-state">
+        <i class="fas fa-spinner fa-spin"></i> Loading orders...
+    </div>
+    } @else {
+    <div class="orders-table-container">
+        <table class="orders-table">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer</th>
+                    <th>Date</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (order of orders(); track order._id) {
+                <tr>
+                    <td><span class="order-id">#{{ order._id }}</span></td>
+                    <td>
+                        <div class="customer-info">
+                            <span class="name">{{ order.user.username }}</span>
+                            <span class="email">{{ order.user.email }}</span>
+                        </div>
+                    </td>
+                    <td>{{ formatDate(order.createdAt) }}</td>
+                    <td><span class="price">${{ order.totalPrice.toFixed(2) }}</span></td>
+                    <td>
+                        <span class="status-badge" [ngClass]="getStatusClass(order.deliveryStatus)">
+                            {{ order.deliveryStatus }}
+                        </span>
+                    </td>
+                    <td>
+                        <button class="btn-action" (click)="viewOrderDetails(order)">
+                            <i class="fas fa-eye"></i> View
+                        </button>
+                    </td>
+                </tr>
+                } @empty {
+                <tr>
+                    <td colspan="6" class="empty-table">No orders found.</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    }
+
+    <!-- Order Details Modal -->
+    @if (selectedOrder()) {
+    <div class="modal-overlay" (click)="closeDetails()">
+        <div class="order-details-modal" (click)="$event.stopPropagation()">
+            <header class="modal-header">
+                <h3>Order Details - #{{ selectedOrder()?._id }}</h3>
+                <button class="close-btn" (click)="closeDetails()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </header>
+
+            <div class="modal-body">
+                <div class="details-grid">
+                    <!-- Customer Info -->
+                    <section class="details-section">
+                        <h4><i class="fas fa-user"></i> Customer Information</h4>
+                        <p><strong>Name:</strong> {{ selectedOrder()?.user?.username }}</p>
+                        <p><strong>Email:</strong> {{ selectedOrder()?.user?.email }}</p>
+                    </section>
+
+                    <!-- Shipping Info -->
+                    <section class="details-section">
+                        <h4><i class="fas fa-truck"></i> Shipping Address</h4>
+                        <p>{{ selectedOrder()?.shippingAddress?.address }}</p>
+                        <p>{{ selectedOrder()?.shippingAddress?.city }}, {{ selectedOrder()?.shippingAddress?.postalCode
+                            }}</p>
+                        <p>{{ selectedOrder()?.shippingAddress?.country }}</p>
+                    </section>
+
+                    <!-- Order Summary -->
+                    <section class="details-section full-width">
+                        <h4><i class="fas fa-list"></i> Order Items</h4>
+                        <div class="items-list">
+                            @for (item of selectedOrder()?.orderItems; track item.product) {
+                            <div class="order-item">
+                                <img [src]="item.image" [alt]="item.name">
+                                <div class="item-info">
+                                    <span class="item-name">{{ item.name }}</span>
+                                    <span class="item-meta">Qty: {{ item.qty }} x ${{ item.price }}</span>
+                                </div>
+                                <span class="item-total">${{ (item.qty * item.price).toFixed(2) }}</span>
+                            </div>
+                            }
+                        </div>
+                        <div class="order-total">
+                            <span>Total Amount:</span>
+                            <span class="total-price">${{ selectedOrder()?.totalPrice?.toFixed(2) }}</span>
+                        </div>
+                    </section>
+
+                    <!-- Status Controls -->
+                    <section class="details-section full-width">
+                        <h4><i class="fas fa-tasks"></i> Order Status</h4>
+                        <div class="status-actions">
+                            <select #statusSelect [value]="selectedOrder()?.deliveryStatus">
+                                <option value="Pending">Pending</option>
+                                <option value="Processing">Processing</option>
+                                <option value="Shipped">Shipped</option>
+                                <option value="Delivered">Delivered</option>
+                                <option value="Cancelled">Cancelled</option>
+                            </select>
+                            <button class="btn-primary"
+                                (click)="updateStatus(selectedOrder()!._id, statusSelect.value)">
+                                Update Status
+                            </button>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+</div>

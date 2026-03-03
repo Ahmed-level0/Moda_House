@@ -1,0 +1,308 @@
+<div class="profile-page" *ngIf="user() as u">
+    <div class="container profile-container" [class.sidebar-collapsed]="isSidebarCollapsed()">
+
+        <!-- Sidebar Navigation -->
+        <aside class="profile-sidebar">
+            <button class="sidebar-toggle" (click)="toggleSidebar()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M15 18l-6-6 6-6" *ngIf="!isSidebarCollapsed()" />
+                    <path d="M9 18l6-6-6-6" *ngIf="isSidebarCollapsed()" />
+                </svg>
+            </button>
+
+            <div class="user-info">
+                <div class="avatar">
+                    <img [src]="u.profile?.avatar || 'https://ui-avatars.com/api/?name=' + u.name" [alt]="u.name">
+                </div>
+                <div class="user-text">
+                    <h3>{{ u.name }}</h3>
+                    <p>{{ u.email }}</p>
+                    <small class="user-id">ID: #{{ u.id }}</small>
+                </div>
+            </div>
+
+            <nav class="side-nav">
+                <button [class.active]="activeTab() === 'overview'" (click)="setTab('overview')" title="Dashboard">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="7" height="7" />
+                        <rect x="14" y="3" width="7" height="7" />
+                        <rect x="14" y="14" width="7" height="7" />
+                        <rect x="3" y="14" width="7" height="7" />
+                    </svg>
+                    <span>Dashboard</span>
+                </button>
+                <button [class.active]="activeTab() === 'orders'" (click)="setTab('orders')" title="My Orders">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4H6zM3 6h18M16 10a4 4 0 0 1-8 0" />
+                    </svg>
+                    <span>My Orders</span>
+                </button>
+                <button [class.active]="activeTab() === 'settings'" (click)="setTab('settings')" title="Settings">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                    </svg>
+                    <span>Settings</span>
+                </button>
+                <div class="nav-divider"></div>
+                <button class="btn-logout" (click)="logout()" title="Sign Out">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" />
+                    </svg>
+                    <span>Sign Out</span>
+                </button>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="profile-content">
+
+            <!-- Global Profile Progress Bar -->
+            <div class="global-progress" *ngIf="profileCompletion() < 100">
+                <div class="progress-info">
+                    <span>Profile Completion</span>
+                    <span>{{ profileCompletion() }}%</span>
+                </div>
+                <div class="progress-track">
+                    <div class="progress-fill" [style.width.%]="profileCompletion()"></div>
+                </div>
+            </div>
+
+            <!-- Overview Tab -->
+            @if (activeTab() === 'overview') {
+            <section class="tab-pane">
+                <header class="pane-header">
+                    <h2>Hello, {{ (u?.name || u?.username || 'User').split(' ')[0] }}</h2>
+                    <p>Welcome to your Moda House dashboard.</p>
+                </header>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="label">Orders</span>
+                        <span class="value">{{ orders().length }}</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="label">Primary Address</span>
+                        @if (primaryAddress()) {
+                        <p class="address-preview">{{ primaryAddress()?.content }}</p>
+                        } @else {
+                        <span class="value">0</span>
+                        }
+                    </div>
+                    <div class="stat-card highlight">
+                        <span class="label">Items waiting</span>
+                        <p>Items in your bag are not reserved.</p>
+                        <a routerLink="/cart" class="link">View Bag</a>
+                    </div>
+                </div>
+
+                <div class="recent-activity">
+                    <h3>Recent Activity</h3>
+                    <div class="activity-card">
+                        @if (u.orders && u.orders.length > 0) {
+                        <div class="activity-item">
+                            <div class="dot active"></div>
+                            <div class="text">
+                                <p>Order #{{ u.orders[0].id }} status: {{ u.orders[0].status }}.</p>
+                                <span>{{ u.orders[0].created | date }}</span>
+                            </div>
+                        </div>
+                        } @else {
+                        <p class="no-data">No recent activity found.</p>
+                        }
+                    </div>
+                </div>
+            </section>
+            }
+
+            <!-- Orders Tab -->
+            @if (activeTab() === 'orders') {
+            <section class="tab-pane">
+                <div class="policy-links-top">
+                    <a routerLink="/order-cancellation-policy" class="policy-link-inline">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="12" y1="16" x2="12" y2="12" />
+                            <line x1="12" y1="8" x2="12.01" y2="8" />
+                        </svg>
+                        Order Cancellation Policy
+                    </a>
+                </div>
+                <header class="pane-header">
+                    <h2>Order History</h2>
+                </header>
+
+                <div class="orders-interactive">
+                    <div class="filter-actions">
+                        <div class="date-filter">
+                            <label for="order-date">Filter by Date:</label>
+                            <input type="date" id="order-date" [value]="filterDate()"
+                                (change)="filterDate.set($any($event.target).value)">
+                        </div>
+                        <button *ngIf="filterDate()" class="btn-clear-filter" (click)="clearFilter()">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 6L6 18M6 6l12 12" />
+                            </svg>
+                            Clear Filter
+                        </button>
+                    </div>
+
+                    @if (!u.orders || u.orders.length === 0) {
+                    <p class="no-data">You haven't placed any orders yet.</p>
+                    }
+                    @else if (filteredOrders().length === 0) {
+                    <p class="no-data">No orders found for the selected date.</p>
+                    }
+
+                    @for (order of filteredOrders(); track order.id) {
+                    <div class="order-expandable" [class.expanded]="expandedOrderId() === order.id">
+                        <div class="order-header" (click)="toggleOrder(order.id)">
+                            <div class="main-info">
+                                <span class="id">#{{ order.id }}</span>
+                                <span class="date">{{ order.created | date }}</span>
+                            </div>
+                            <div class="status-group">
+                                <span class="status-badge" [attr.data-status]="order.status">{{
+                                    order.status }}</span>
+                                <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <polyline points="6 9 12 15 18 9" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="order-details-content">
+                            <div class="order-actions">
+                                <div class="total-bar">
+                                    <span>Total: {{ order.total | currency }}</span>
+                                </div>
+                                <div class="btn-group">
+                                    <button class="btn-track-sub" [routerLink]="['/track-order']"
+                                        [queryParams]="{ id: order.id }">Track</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    }
+                </div>
+            </section>
+            }
+
+            <!-- Settings Tab -->
+            @if (activeTab() === 'settings') {
+            <section class="tab-pane">
+                <header class="pane-header">
+                    <h2>Account Settings</h2>
+                </header>
+
+                <div class="settings-grid">
+                    <div class="settings-column">
+                        <h3>Personal Information</h3>
+                        <div class="input-group">
+                            <label>Full Name</label>
+                            <input type="text" #nameInput [value]="u.name">
+                        </div>
+                        <div class="input-group">
+                            <label>Phone Number</label>
+                            <input type="tel" #phoneInput [value]="u.profile?.phone || ''"
+                                placeholder="+20 XXX XXX XXXX">
+                        </div>
+                        <button class="btn-save-black"
+                            (click)="updatePersonalInfo(nameInput.value, phoneInput.value)">Save Personal Info</button>
+
+                        <div class="divider-space"></div>
+
+                        <h3>Security</h3>
+                        <div class="input-group password-group">
+                            <label>Current Password</label>
+                            <div class="password-wrapper">
+                                <input [type]="showOldPassword() ? 'text' : 'password'" #oldPass placeholder="••••••••">
+                                <button type="button" class="btn-toggle-visibility" (click)="toggleVisibility('old')">
+                                    <span class="icon">{{ showOldPassword() ? '👁️' : '🙈' }}</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="input-group password-group">
+                            <label>New Password</label>
+                            <div class="password-wrapper">
+                                <input [type]="showNewPassword() ? 'text' : 'password'" #newPass placeholder="••••••••">
+                                <button type="button" class="btn-toggle-visibility" (click)="toggleVisibility('new')">
+                                    <span class="icon">{{ showNewPassword() ? '👁️' : '🙈' }}</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="input-group password-group">
+                            <label>Confirm New Password</label>
+                            <div class="password-wrapper">
+                                <input [type]="showConfirmPassword() ? 'text' : 'password'" #confirmPass
+                                    placeholder="••••••••">
+                                <button type="button" class="btn-toggle-visibility"
+                                    (click)="toggleVisibility('confirm')">
+                                    <span class="icon">{{ showConfirmPassword() ? '👁️' : '🙈' }}</span>
+                                </button>
+                            </div>
+                        </div>
+                        <button class="btn-save-black" (click)="updatePassword(newPass.value, confirmPass.value)">Update
+                            Password</button>
+                    </div>
+
+                    <div class="settings-column">
+                        <h3>Address Book</h3>
+                        <div class="address-list">
+                            @for (addr of u.addresses; track addr.id) {
+                            <div class="address-item">
+                                <div class="address-header">
+                                    <span class="type">{{ addr.address_type }}</span>
+                                    <button class="btn-icon-small" (click)="deleteAddress(addr.id)">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path
+                                                d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                                        </svg>
+                                    </button>
+                                </div>
+                                <p>{{ addr.content }}</p>
+                            </div>
+                            }
+                            <div class="address-book-actions">
+                                @if (showAddAddressForm()) {
+                                <div class="add-address-form">
+                                    <div class="input-group">
+                                        <label>Address Type</label>
+                                        <select (change)="newAddress.address_type = $any($event.target).value">
+                                            <option value="Home">Home</option>
+                                            <option value="Work">Work</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                    <div class="input-group">
+                                        <label>Detailed Address</label>
+                                        <textarea placeholder="City, Area, Street, Building..."
+                                            (input)="newAddress.content = $any($event.target).value"></textarea>
+                                    </div>
+                                    <div class="form-actions">
+                                        <button class="btn-save-address" (click)="saveAddress()">Save</button>
+                                        <button class="btn-cancel-address"
+                                            (click)="showAddAddressForm.set(false)">Cancel</button>
+                                    </div>
+                                </div>
+                                } @else {
+                                <button class="btn-add-address" (click)="showAddAddressForm.set(true)">+ Add New
+                                    Address</button>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="danger-zone">
+                    <div class="zone-header">
+                        <h3>Danger Zone</h3>
+                        <p>Irreversible actions for your account.</p>
+                    </div>
+                    <button class="btn-delete">Delete My Account</button>
+                </div>
+            </section>
+            }
+
+        </main>
+    </div>
+</div>

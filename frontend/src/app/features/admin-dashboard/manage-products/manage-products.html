@@ -1,0 +1,206 @@
+<div class="manage-products">
+    <header>
+        <h2>Manage Products</h2>
+        <button class="btn-primary" (click)="addProduct()">
+            <i class="fas fa-plus"></i> Add Product
+        </button>
+    </header>
+
+    <!-- Product Form Modal -->
+    @if (showForm()) {
+    <div class="modal-overlay" (click)="closeForm()">
+        <div class="product-form" (click)="$event.stopPropagation()">
+            <div class="form-header">
+                <h3>{{ editingProduct() ? 'Edit Product' : 'Add New Product' }}</h3>
+                <button class="close-btn" (click)="closeForm()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="form-body">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Product Name *</label>
+                        <input type="text" [(ngModel)]="formData.name" placeholder="Enter product name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Category *</label>
+                        <select [(ngModel)]="formData.category">
+                            <option value="Bags">Bags</option>
+                            <option value="Perfumes">Perfumes</option>
+                            <option value="Scarfs">Scarfs</option>
+                            <option value="Accessories">Accessories</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Image URL *</label>
+                    <input type="url" [(ngModel)]="formData.image" placeholder="https://example.com/image.jpg" required>
+                    @if (formData.image) {
+                    <div class="image-preview">
+                        <img [src]="formData.image" alt="Preview">
+                    </div>
+                    }
+                </div>
+
+                <div class="form-group">
+                    <label>Description *</label>
+                    <textarea [(ngModel)]="formData.description" rows="4" placeholder="Enter product description"
+                        required></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Price ($) *</label>
+                        <input type="number" [(ngModel)]="formData.price" min="0" step="0.01" placeholder="0.00"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Discount (%)</label>
+                        <input type="number" [(ngModel)]="formData.discount" min="0" max="100" placeholder="0">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Stock *</label>
+                        <input type="number" [(ngModel)]="formData.stock" min="0" placeholder="0" required>
+                    </div>
+                </div>
+
+                @if (formData.discount > 0) {
+                <div class="price-summary">
+                    <div class="price-item">
+                        <span>Original Price:</span>
+                        <strong>${{ formData.price.toFixed(2) }}</strong>
+                    </div>
+                    <div class="price-item discount">
+                        <span>Discount:</span>
+                        <strong>{{ formData.discount }}%</strong>
+                    </div>
+                    <div class="price-item final">
+                        <span>Final Price:</span>
+                        <strong>${{ getFinalPrice().toFixed(2) }}</strong>
+                    </div>
+                </div>
+                }
+
+                <div class="form-group">
+                    <label>Available Colors</label>
+                    <div class="color-input-group">
+                        <input type="text" [(ngModel)]="newColor" placeholder="Enter color (e.g., #FF5733 or Red)"
+                            (keyup.enter)="addColor()">
+                        <button type="button" class="btn-add-color" (click)="addColor()">
+                            <i class="fas fa-plus"></i> Add
+                        </button>
+                    </div>
+
+                    @if (formData.colors.length > 0) {
+                    <div class="colors-list">
+                        @for (color of formData.colors; track color) {
+                        <div class="color-chip">
+                            <span class="color-preview"
+                                [style.background-color]="color.startsWith('#') ? color : color">
+                            </span>
+                            <span class="color-name">{{ color }}</span>
+                            <button type="button" (click)="removeColor(color)">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        }
+                    </div>
+                    }
+                </div>
+
+                <div class="form-group checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" [(ngModel)]="formData.featured">
+                        <span>Featured Product</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-footer">
+                <button class="btn-secondary" (click)="closeForm()">Cancel</button>
+                <button class="btn-primary" (click)="saveProduct()">
+                    <i class="fas fa-save"></i> Save Product
+                </button>
+            </div>
+        </div>
+    </div>
+    }
+
+    <!-- Products Table -->
+    <div class="products-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th>Featured</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (product of products(); track product.id) {
+                <tr>
+                    <td>
+                        <img [src]="product.image" [alt]="product.name" class="product-thumb">
+                    </td>
+                    <td>
+                        <div class="product-name-cell">
+                            <strong>{{ product.name }}</strong>
+                            @if (product.colors && product.colors.length > 0) {
+                            <div class="color-dots">
+                                @for (color of product.colors; track color) {
+                                <span class="color-dot" [style.background-color]="color"></span>
+                                }
+                            </div>
+                            }
+                        </div>
+                    </td>
+                    <td>{{ product.category }}</td>
+                    <td>
+                        <div class="price-cell">
+                            @if (product.discount) {
+                            <span class="original-price">${{ product.price }}</span>
+                            <span class="final-price">${{ product.finalPrice }}</span>
+                            <span class="discount-badge">-{{ product.discount }}%</span>
+                            } @else {
+                            <span class="final-price">${{ product.price }}</span>
+                            }
+                        </div>
+                    </td>
+                    <td>
+                        <span [class.low-stock]="product.stock < 10">{{ product.stock }}</span>
+                    </td>
+                    <td>
+                        <span class="badge" [class.featured]="product.featured">
+                            {{ product.featured ? 'Yes' : 'No' }}
+                        </span>
+                    </td>
+                    <td class="actions">
+                        <button class="btn-edit" (click)="editProduct(product)" title="Edit">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn-delete" (click)="deleteProduct(product.id)" title="Delete">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+                } @empty {
+                <tr>
+                    <td colspan="7" style="text-align: center; padding: 2rem; color: var(--text-muted);">
+                        <i class="fas fa-inbox fa-2x" style="display: block; margin-bottom: 1rem; opacity: 0.5;"></i>
+                        No products found
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

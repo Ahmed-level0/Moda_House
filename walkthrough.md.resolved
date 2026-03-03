@@ -1,0 +1,99 @@
+# Walkthrough: Docker VPS Deployment — Moda House
+
+## What Changed
+
+### 1. Angular Environment Configuration
+- Created [environment.ts](file:///d:/colleage/Work/Moda%20House/frontend/src/environments/environment.ts) — dev config (`apiUrl: 'http://localhost:8000'`)
+- Created [environment.prod.ts](file:///d:/colleage/Work/Moda%20House/frontend/src/environments/environment.prod.ts) — production config (`apiUrl: ''`, relative paths)
+- Updated [angular.json](file:///d:/colleage/Work/Moda%20House/frontend/angular.json) — added `fileReplacements` for production builds
+- Updated **7 files** to replace hardcoded `modashopbackend-production.up.railway.app` with `environment.apiUrl`:
+  - [auth.service.ts](file:///d:/colleage/Work/Moda%20House/frontend/src/app/core/services/auth.service.ts), [cart.service.ts](file:///d:/colleage/Work/Moda%20House/frontend/src/app/core/services/cart.service.ts), [product.service.ts](file:///d:/colleage/Work/Moda%20House/frontend/src/app/core/services/product.service.ts), [profile.service.ts](file:///d:/colleage/Work/Moda%20House/frontend/src/app/core/services/profile.service.ts), [order.service.ts](file:///d:/colleage/Work/Moda%20House/frontend/src/app/core/services/order.service.ts), [track-order.ts](file:///d:/colleage/Work/Moda%20House/frontend/src/app/features/track-order/track-order.ts), [contact.ts](file:///d:/colleage/Work/Moda%20House/frontend/src/app/features/contact/contact.ts)
+
+### 2. Backend Production Hardening
+- Updated [settings.py](file:///d:/colleage/Work/Moda%20House/backend/store/store/settings.py):
+  - `DEBUG`, `ALLOWED_HOSTS`, `CORS_ALLOWED_ORIGINS`, `CSRF_TRUSTED_ORIGINS` all from env vars
+  - `CORS_ALLOW_ALL_ORIGINS` only in development
+  - `MEDIA_ROOT` configurable via env
+- Updated [urls.py](file:///d:/colleage/Work/Moda%20House/backend/store/store/urls.py) — media files served regardless of DEBUG
+
+### 3. Docker Files Created
+
+| File | Purpose |
+|------|---------|
+| [backend/store/Dockerfile](file:///d:/colleage/Work/Moda%20House/backend/store/Dockerfile) | Python 3.12 + gunicorn |
+| [backend/store/entrypoint.sh](file:///d:/colleage/Work/Moda%20House/backend/store/entrypoint.sh) | Migrations + collectstatic on startup |
+| [backend/store/.dockerignore](file:///d:/colleage/Work/Moda%20House/backend/store/.dockerignore) | Exclude venv, .git, etc. |
+| [backend/store/.env.example](file:///d:/colleage/Work/Moda%20House/backend/store/.env.example) | Backend env var template |
+| [frontend/Dockerfile](file:///d:/colleage/Work/Moda%20House/frontend/Dockerfile) | Node 22 build → Nginx serve |
+| [frontend/nginx.conf](file:///d:/colleage/Work/Moda%20House/frontend/nginx.conf) | SPA routing + asset caching |
+| [frontend/.dockerignore](file:///d:/colleage/Work/Moda%20House/frontend/.dockerignore) | Exclude node_modules, dist, etc. |
+| [docker-compose.yml](file:///d:/colleage/Work/Moda%20House/docker-compose.yml) | Orchestrates all 4 services |
+| [nginx/nginx.conf](file:///d:/colleage/Work/Moda%20House/nginx/nginx.conf) | Reverse proxy (API→backend, *→frontend) |
+| [.env.example](file:///d:/colleage/Work/Moda%20House/.env.example) | Root env var template |
+
+---
+
+## Architecture
+
+```mermaid
+graph LR
+    Client([Browser]) --> Nginx[Nginx :80/:443]
+    Nginx -->|/api /admin /accounts /static| Backend[Django/Gunicorn :8000]
+    Nginx -->|/media| Volume[Media Volume]
+    Nginx -->|Everything else| Frontend[Angular/Nginx :80]
+    Backend --> DB[(PostgreSQL :5432)]
+    Backend --> Volume
+```
+
+---
+
+## Deployment Steps (on your VPS)
+
+### 1. Install Docker
+```bash
+# Ubuntu/Debian
+curl -fsSL https://get.docker.com | sh
+sudo usermod -aG docker $USER
+# Log out and back in, then verify:
+docker --version
+docker compose version
+```
+
+### 2. Upload your project
+```bash
+# From your local machine:
+scp -r "d:/colleage/Work/Moda House" user@your-vps-ip:~/moda-house
+# Or clone from your Git repo
+```
+
+### 3. Configure environment
+```bash
+cd ~/moda-house
+cp .env.example .env
+nano .env   # Fill in your real values
+```
+
+> [!IMPORTANT]
+> Make sure to set these critical values:
+> - `SECRET_KEY_BASE64` — a unique random string
+> - `DB_PASSWORD` — a strong database password
+> - `ALLOWED_HOSTS` — your domain name(s)
+> - `CORS_ALLOWED_ORIGINS` / `CSRF_TRUSTED_ORIGINS` — your frontend URL(s)
+
+### 4. Build and start
+```bash
+docker compose up -d --build
+```
+
+### 5. Create Django superuser (first time only)
+```bash
+docker compose exec backend python manage.py createsuperuser
+```
+
+### 6. Verify
+- Visit `http://your-vps-ip` — Angular app loads
+- Visit `http://your-vps-ip/admin/` — Django admin loads
+- Test login, product browsing, cart operations
+
+### 7. (Optional) Add SSL with Let's Encrypt
+Update [nginx/nginx.conf](file:///d:/colleage/Work/Moda%20House/nginx/nginx.conf) to add a server block with SSL certificates. You can use Certbot or a separate container like `nginx-proxy` with `acme-companion`.

@@ -1,0 +1,231 @@
+.success-page {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    background: #fafafa;
+    padding: 60px 0;
+}
+
+.success-container {
+    max-width: 700px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.success-card {
+    background: #fff;
+    padding: 60px 40px;
+    border-radius: 8px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    position: relative;
+    z-index: 2;
+
+    @media (max-width: 576px) {
+        padding: 40px 20px;
+    }
+}
+
+.check-icon {
+    width: 80px;
+    height: 80px;
+    background: var(--primary);
+    color: #fff;
+    border-radius: 50%;
+    margin: 0 auto 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+.title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: var(--primary);
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin-bottom: 40px;
+    line-height: 1.6;
+}
+
+.order-box {
+    background: #fcfcfc;
+    border: 1px solid #f0f0f0;
+    padding: 25px;
+    border-radius: 6px;
+    margin-bottom: 40px;
+
+    .box-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+
+        &:not(:last-child) {
+            border-bottom: 1px solid #f8f8f8;
+        }
+
+        .label {
+            color: #999;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .value {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1rem;
+        }
+    }
+}
+
+.next-steps {
+    text-align: left;
+    margin-bottom: 40px;
+
+    h3 {
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 20px;
+        color: #aaa;
+        text-align: center;
+    }
+
+    .steps-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+
+        @media (max-width: 576px) {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .step-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 15px;
+        background: #fdfdfd;
+        padding: 15px;
+        border-radius: 4px;
+
+        .step-num {
+            background: #eee;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        p {
+            font-size: 0.9rem;
+            color: #666;
+            margin: 0;
+        }
+    }
+}
+
+.actions {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    .btn-track {
+        background: var(--primary);
+        color: #fff;
+        border: none;
+        padding: 18px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        cursor: pointer;
+        transition: all 0.3s;
+        border-radius: 4px;
+
+        &:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+    }
+
+    .btn-outline {
+        background: none;
+        border: 1px solid #ddd;
+        padding: 15px;
+        color: var(--primary);
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-decoration: none;
+        border-radius: 4px;
+
+        &:hover {
+            border-color: var(--primary);
+        }
+    }
+}
+
+/* Confetti Animation */
+.confetti-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.confetti {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: var(--secondary);
+    top: -10%;
+    border-radius: 2px;
+
+    &:nth-child(even) {
+        background: var(--primary);
+        width: 6px;
+        height: 12px;
+    }
+
+    @at-root {
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(800px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+    }
+
+    animation: fall 3s ease-out forwards;
+}
+
+// Randomize particles
+@for $i from 1 through 10 {
+    .confetti:nth-child(#{$i}) {
+        left: random(100) * 1%;
+        animation-delay: random(10) * 0.1s;
+    }
+}

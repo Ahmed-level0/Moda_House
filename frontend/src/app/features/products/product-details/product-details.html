@@ -1,0 +1,221 @@
+<div class="product-details-page" *ngIf="product() as p">
+    <div class="container">
+
+        <!-- Smart UX: Back Button -->
+        <div class="back-nav">
+            <button (click)="goBack()" class="btn-back">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7" />
+                </svg>
+                Back to Collection
+            </button>
+        </div>
+
+        <!-- Top Section: Gallery & Info -->
+        <div class="product-main-grid">
+
+            <!-- Gallery Section -->
+            <div class="gallery-section">
+                <div class="main-image-wrapper" (click)="openZoom()">
+                    <img [src]="selectedImage()" [alt]="p.name" class="main-img">
+                    <span *ngIf="p.discount > 0" class="badge sale">Sale</span>
+                    <div class="zoom-hint">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="M21 21l-4.35-4.35M11 8v6M8 11h6" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="thumbnails-scroll">
+                    @for(imgObj of p.images; track imgObj.id) {
+                    <div class="thumb-item" [class.active]="selectedImage() === imgObj.image"
+                        (click)="setImage(imgObj); $event.stopPropagation()">
+                        <img [src]="imgObj.image" [alt]="p.name">
+                    </div>
+                    }
+                </div>
+            </div>
+
+            <!-- Product Info Section (Sticky on Desktop) -->
+            <div class="info-section sticky-info">
+                <div class="product-header">
+                    <h2 class="brand">{{ p.brand }}</h2>
+                    <h1 class="title">{{ p.name }}</h1>
+
+                    <div class="price-container">
+                        @if(p.discount > 0) {
+                        <span class="price current">{{ p.final_price | currency }}</span>
+                        <span class="price old">{{ p.price | currency }}</span>
+                        <span class="discount-tag">{{ p.discount | number:'1.0-0' }}% OFF</span>
+                        } @else {
+                        <span class="price">{{ p.price | currency }}</span>
+                        }
+
+                        <!-- Out of Stock / Low Stock Hints -->
+                        @if(p.stock <= 0) { <span class="out-of-stock-status">Out of Stock</span>
+                            } @else if(p.stock <= 3) { <span class="stock-hint">Only {{ p.stock }} left!</span>
+                                }
+                    </div>
+                </div>
+
+                <p class="description">{{ p.description }}</p>
+
+                <!-- Perfume Specific Notes -->
+                @if(p.category === 'perfumes' && p.notes) {
+                <div class="perfume-notes">
+                    <h4>Olfactory Notes</h4>
+                    <div class="notes-grid">
+                        <div class="note-item">
+                            <span class="label">Top</span>
+                            <span class="value">{{ p.notes.top }}</span>
+                        </div>
+                        <div class="note-item">
+                            <span class="label">Heart</span>
+                            <span class="value">{{ p.notes.middle }}</span>
+                        </div>
+                        <div class="note-item">
+                            <span class="label">Base</span>
+                            <span class="value">{{ p.notes.base }}</span>
+                        </div>
+                    </div>
+                </div>
+                }
+
+                <!-- Options: Color -->
+                @if(p.colors?.length) {
+                <div class="option-group" [class.error-highlight]="errorMessage() && !selectedColor()">
+                    <label>Color: <span>{{ selectedColor() || 'Select a color' }}</span></label>
+                    <div class="colors-row">
+                        @for(color of p.colors; track color.hex) {
+                        <div class="color-swatch" [class.active]="selectedColor() === color.hex"
+                            [style.background-color]="color.hex" [title]="color.name" (click)="setColor(color.hex)">
+                        </div>
+                        }
+                    </div>
+                </div>
+                }
+
+                <!-- Options: Size -->
+                @if(p.sizes?.length) {
+                <div class="option-group" [class.error-highlight]="errorMessage() && !selectedSize()">
+                    <label>Size / Volume: <span>{{ selectedSize() || 'Select a size' }}</span></label>
+                    <div class="sizes-row">
+                        @for(size of p.sizes; track size) {
+                        <button class="size-btn" [class.active]="selectedSize() === size" (click)="setSize(size)">
+                            {{ size }}
+                        </button>
+                        }
+                    </div>
+                </div>
+                }
+
+                <!-- Actions -->
+                <div class="actions-row">
+                    <!-- Smart Error Message (Toast style inline) -->
+                    <div class="validation-msg" [class.show]="errorMessage()">
+                        {{ errorMessage() }}
+                    </div>
+
+                    <div class="qty-selector">
+                        <button [disabled]="p.stock <= 0" (click)="decrementQty()">-</button>
+                        <span>{{ quantity() }}</span>
+                        <button [disabled]="p.stock <= 0" (click)="incrementQty()">+</button>
+                    </div>
+                    <button class="btn-add-bag" [disabled]="p.stock <= 0" (click)="addToBag()">
+                        {{ p.stock <= 0 ? 'Out of Stock' : 'Add to Bag - ' + ((p.final_price || p.price) * quantity() |
+                            currency) }} </button>
+                            <button class="btn-wishlist-large" [class.active]="isInWishlist()"
+                                (click)="toggleWishlist()"
+                                [title]="isInWishlist() ? 'Remove from Wishlist' : 'Add to Wishlist'">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path
+                                        d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                    </path>
+                                </svg>
+                            </button>
+                </div>
+
+                <!-- Product Specifications -->
+                <div class="product-specs" *ngIf="p.style || p.material || p.size || p.color">
+                    <h4>Specifications</h4>
+                    <div class="specs-grid">
+                        <div class="spec-item" *ngIf="p.style">
+                            <span class="label">Style</span>
+                            <span class="value">{{ p.style }}</span>
+                        </div>
+                        <div class="spec-item" *ngIf="p.material">
+                            <span class="label">Material</span>
+                            <span class="value">{{ p.material }}</span>
+                        </div>
+                        <div class="spec-item" *ngIf="p.size && !p.sizes?.length">
+                            <span class="label">Size</span>
+                            <span class="value">{{ p.size }}</span>
+                        </div>
+                        <div class="spec-item" *ngIf="p.color && !p.colors?.length">
+                            <span class="label">Color</span>
+                            <span class="value">{{ p.color }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trust Badges -->
+                <div class="trust-section">
+                    <div class="trust-item">
+                        <svg viewBox="0 0 24 24" fill="none" class="icon" stroke="currentColor" stroke-width="1.5">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                        <span>{{ p.shippingInfo || 'Free Worldwide Shipping' }}</span>
+                    </div>
+                    <div class="trust-item">
+                        <svg viewBox="0 0 24 24" fill="none" class="icon" stroke="currentColor" stroke-width="1.5">
+                            <path
+                                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                        </svg>
+                        <span>{{ p.returnsInfo || 'Easy Returns' }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Related Products -->
+        <div class="related-products-section">
+            <h3 class="section-title">You May Also Like</h3>
+            <div class="slider-wrapper">
+                <button class="slider-nav prev" (click)="scrollRelated('left')" aria-label="Previous">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M15 18l-6-6 6-6" />
+                    </svg>
+                </button>
+                <div class="related-grid" #relatedScroll>
+                    @for(rp of relatedProducts(); track rp.id) {
+                    <a [routerLink]="['/product', rp.id]" class="related-card" (click)="product.set(null)">
+                        <div class="img-box">
+                            <img [src]="rp.image" [alt]="rp.name">
+                        </div>
+                        <div class="rp-info">
+                            <span class="rp-brand">{{ rp.brand }}</span>
+                            <span class="rp-name">{{ rp.name }}</span>
+                            <span class="rp-price">{{ rp.price | currency }}</span>
+                        </div>
+                    </a>
+                    }
+                </div>
+                <button class="slider-nav next" (click)="scrollRelated('right')" aria-label="Next">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 18l6-6-6-6" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Micro: Zoom Modal -->
+    <div class="zoom-modal" *ngIf="isZoomOpen()" (click)="closeZoom()">
+        <button class="close-zoom">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 6L6 18M6 6l12 12" />
+            </svg>
+        </button>
+        <img [src]="selectedImage()" class="zoomed-img" (click)="$event.stopPropagation()">
+    </div>
+</div>

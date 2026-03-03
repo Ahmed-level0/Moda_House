@@ -1,0 +1,255 @@
+.wishlist-page {
+    padding: 80px 0;
+    min-height: 70vh;
+    background: var(--white);
+}
+
+.wishlist-header {
+    text-align: center;
+    margin-bottom: 60px;
+
+    .page-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.8rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 10px;
+    }
+
+    .items-count {
+        font-size: 0.95rem;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+}
+
+/* Empty State */
+.empty-wishlist {
+    max-width: 500px;
+    margin: 40px auto;
+    text-align: center;
+    padding: 40px 20px;
+
+    .empty-icon {
+        color: var(--primary);
+        width: 100px;
+        height: 100px;
+        margin: 0 auto 30px;
+        opacity: 0.15;
+
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    .empty-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.2rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        color: var(--primary);
+    }
+
+    .empty-text {
+        font-size: 1.1rem;
+        color: var(--text-muted);
+        margin-bottom: 40px;
+        line-height: 1.6;
+    }
+
+    .btn-primary {
+        background: var(--primary);
+        color: var(--white);
+        border: none;
+        padding: 18px 45px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        cursor: pointer;
+        transition: var(--transition);
+
+        &:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+    }
+}
+
+/* Wishlist Grid & Cards */
+.wishlist-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 40px;
+
+    @media (max-width: 768px) {
+        grid-template-columns: 1fr; // Vertical cards for emotional decision making
+    }
+}
+
+.wishlist-card {
+    background: var(--white);
+    transition: var(--transition);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+
+    &:hover {
+        .item-img-container img {
+            transform: scale(1.05);
+        }
+    }
+
+    &.out-of-stock {
+        opacity: 0.7;
+
+        .item-img-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.4);
+        }
+    }
+
+    .item-img-container {
+        position: relative;
+        aspect-ratio: 4/5;
+        background: var(--bg-light);
+        overflow: hidden;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .remove-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--white);
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--primary);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+            transition: all 0.3s ease;
+
+            svg {
+                width: 18px;
+                height: 18px;
+            }
+
+            &:hover {
+                background: var(--primary);
+                color: var(--white);
+            }
+        }
+
+        .stock-badge {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: #fff;
+            padding: 8px 15px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+    }
+
+    .item-details {
+        padding: 20px 0;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .item-info {
+        .brand {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin: 0 0 8px;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+
+            &:hover {
+                color: var(--secondary);
+            }
+        }
+
+        .price {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+    }
+
+    .item-actions {
+        .btn-move-bag {
+            width: 100%;
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+
+            svg {
+                width: 20px;
+                height: 20px;
+            }
+
+            &:hover {
+                background: var(--secondary);
+                transform: translateY(-2px);
+            }
+        }
+
+        .btn-disabled {
+            width: 100%;
+            background: #eee;
+            color: #999;
+            border: 1px solid #ddd;
+            padding: 15px;
+            cursor: not-allowed;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+    }
+}

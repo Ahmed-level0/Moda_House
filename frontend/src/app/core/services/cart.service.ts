@@ -175,7 +175,7 @@ export class CartService {
         }
     }
 
-    checkout(data: { phone: string, address: string, payment_method?: string, card_data?: any }) {
+    checkout(data: { phone: string, address: string, city: string, payment_method?: string, card_data?: any }) {
         return this.http.post<any>(`${this.apiUrl}checkout/`, data, { headers: this.getHeaders() });
     }
 

@@ -96,7 +96,7 @@ class UpdateOrderView(APIView):
             else:
                 order.discount_amount = 0
 
-            order.total_price = items_total - order.discount_amount
+            order.total_price = float(items_total) - float(order.discount_amount) + float(order.shipping_fee) + float(order.cod_fee)
 
         order.save()
 

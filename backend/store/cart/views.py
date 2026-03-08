@@ -112,7 +112,16 @@ class CartViewSet(viewsets.ViewSet):
 
         phone = request.data.get('phone')
         address = request.data.get('address')
+        city = request.data.get('city', '').lower()
         payment_method = request.data.get('payment_method', 'online')
+        
+        # Calculate shipping fee on backend for security
+        if not city:
+            shipping_fee = 0
+        else:
+            shipping_fee = 50 if city in ['cairo', 'giza'] else 80
+            
+        cod_fee = 100 if payment_method == 'cod' else 0
 
         if not phone or not address:
             return Response({"error": "Phone and address required"}, status=400)
@@ -129,7 +138,9 @@ class CartViewSet(viewsets.ViewSet):
         # Creating an order for the user
         order = Order.objects.create(
             user=request.user,
-            total_price=cart.total_price,
+            total_price=float(cart.total_price) + shipping_fee + cod_fee,
+            shipping_fee=shipping_fee,
+            cod_fee=cod_fee,
             coupon=cart.coupon,
             discount_amount=discount_amount,
             phone=phone,

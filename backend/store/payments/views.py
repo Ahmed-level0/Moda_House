@@ -96,10 +96,10 @@ class PayOrderView(APIView):
                 },
                 "currency": "EGP",
                 "integration_id": settings.PAYMOB_INTEGRATION_ID,
+                "redirection_url": "http://127.0.0.1:8000/api/payments/callback/", # in case of development
             }
         ).json()
         
-        # "redirection_url": "http://127.0.0.1:8000/api/payments/callback/", # in case of development
 
         payment_token = payment_key_response.get("token") # The token used to generate the payment URL
 

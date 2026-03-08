@@ -41,7 +41,9 @@ export class CheckoutComponent {
         return (selectedCity === 'cairo' || selectedCity === 'giza') ? 50 : 80;
     });
 
-    orderTotal = computed(() => (this.subtotal() - this.discount()) + this.shippingCost());
+    codFee = computed(() => this.paymentMethod() === 'cod' ? 100 : 0);
+
+    orderTotal = computed(() => (this.subtotal() - this.discount()) + this.shippingCost() + this.codFee());
 
     // UI State
     isSummaryCollapsed = signal(true);
@@ -107,7 +109,8 @@ export class CheckoutComponent {
 
         const checkoutData = {
             phone: this.phone(),
-            address: `${this.address()}, ${this.city()}`,
+            address: this.address(), // Just the address, city is separate
+            city: this.city(),
             payment_method: this.paymentMethod(),
             card_data: null
         };

@@ -22,7 +22,7 @@ COPY . .
 
 # Copy and prepare entrypoint script
 COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
+RUN sed -i 's/\r$//' /entrypoint.sh && chmod +x /entrypoint.sh
 
 # Create media directory
 RUN mkdir -p /app/media

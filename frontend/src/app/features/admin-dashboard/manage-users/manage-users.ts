@@ -1,6 +1,7 @@
 import { Component, signal, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { TranslationService } from '../../../core/services/translation.service';
 
 interface User {
     _id: string;
@@ -18,6 +19,8 @@ interface User {
 })
 export class ManageUsersComponent implements OnInit {
     private http = inject(HttpClient);
+    public translationService = inject(TranslationService);
+    t = this.translationService.translate.bind(this.translationService);
 
     // Mock users for demonstration
     users = signal<User[]>([

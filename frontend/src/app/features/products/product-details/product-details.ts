@@ -4,6 +4,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CartService } from '../../../core/services/cart.service';
 import { WishlistService } from '../../../core/services/wishlist.service';
 import { ProductService, Product } from '../../../core/services/product.service';
+import { TranslationService } from '../../../core/services/translation.service';
 
 
 @Component({
@@ -19,6 +20,11 @@ export class ProductDetails implements OnInit {
   private cartService = inject(CartService);
   private wishlistService = inject(WishlistService);
   private productService = inject(ProductService);
+  private translationService = inject(TranslationService);
+
+  t(key: string, params: any = {}) {
+    return this.translationService.translate(key, params);
+  }
 
   product = signal<Product | null>(null);
   relatedProducts = signal<Product[]>([]);
@@ -108,12 +114,12 @@ export class ProductDetails implements OnInit {
 
     // Smart Validation
     if (p.sizes?.length && !this.selectedSize()) {
-      this.errorMessage.set('Please select a size');
+      this.errorMessage.set(this.t('product_details.alert_select_size'));
       setTimeout(() => this.errorMessage.set(''), 3000); // Clear after 3 seconds
       return;
     }
     if (p.colors?.length && !this.selectedColor()) {
-      this.errorMessage.set('Please select a color');
+      this.errorMessage.set(this.t('product_details.alert_select_color'));
       setTimeout(() => this.errorMessage.set(''), 3000); // Clear after 3 seconds
       return;
     }

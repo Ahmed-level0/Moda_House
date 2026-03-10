@@ -1,6 +1,7 @@
 import { Component, signal, inject, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { TranslationService } from '../../../core/services/translation.service';
 import { Chart, registerables } from 'chart.js';
 
 Chart.register(...registerables);
@@ -21,6 +22,8 @@ interface AnalyticsData {
 })
 export class AnalyticsComponent implements OnInit, AfterViewInit {
     private http = inject(HttpClient);
+    public translationService = inject(TranslationService);
+    t = this.translationService.translate.bind(this.translationService);
 
     @ViewChild('revenueChart') revenueChartCanvas!: ElementRef<HTMLCanvasElement>;
     @ViewChild('categoryChart') categoryChartCanvas!: ElementRef<HTMLCanvasElement>;

@@ -1,20 +1,22 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { TranslationService } from '../../core/services/translation.service';
 
 @Component({
     selector: 'app-faq',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, RouterLink],
     template: `
     <div class="faq-page">
         <div class="container narrow">
             <header class="faq-header">
-                <h1>Frequently Asked Questions</h1>
-                <p>Finding answers to your common inquiries</p>
+                <h1>{{ t('faq.title') }}</h1>
+                <p>{{ t('faq.subtitle') }}</p>
             </header>
 
             <div class="faq-sections">
-                @for (section of faqs; track section.title) {
+                @for (section of faqs(); track section.title) {
                     <div class="faq-category">
                         <h2>{{ section.title }}</h2>
                         <div class="accordion">
@@ -37,8 +39,8 @@ import { CommonModule } from '@angular/common';
             </div>
             
             <div class="faq-footer">
-                <p>Have more questions?</p>
-                <a href="/contact" class="btn-outline">Contact Support</a>
+                <p>{{ t('faq.footer_q') }}</p>
+                <a routerLink="/contact" class="btn-outline">{{ t('faq.contact_btn') }}</a>
             </div>
         </div>
     </div>
@@ -76,6 +78,7 @@ import { CommonModule } from '@angular/common';
             transition: color 0.3s;
             
             &:hover { color: #d4af37; }
+            [dir="rtl"] & { text-align: right; }
             .chevron { width: 18px; height: 18px; transition: transform 0.3s; color: #ccc; }
         }
 
@@ -88,7 +91,7 @@ import { CommonModule } from '@angular/common';
 
         &.active {
             .accordion-trigger { color: #d4af37; .chevron { transform: rotate(180deg); color: #d4af37; } }
-            .accordion-content { max-height: 200px; }
+            .accordion-content { max-height: 400px; }
         }
     }
     .faq-footer {
@@ -114,24 +117,29 @@ import { CommonModule } from '@angular/common';
   `]
 })
 export class FAQComponent {
+    private translationService = inject(TranslationService);
     activeQuestion = signal<string | null>(null);
 
-    faqs = [
+    t(key: string) {
+        return this.translationService.translate(key);
+    }
+
+    faqs = computed(() => [
         {
-            title: 'Products & Collections',
+            title: this.t('faq.section1_title'),
             items: [
-                { q: 'Are your items authentic?', a: 'Every item at Moda House is guaranteed to be 100% authentic. We source directly from authorized distributors and artisans.' },
-                { q: 'Can I request a custom perfume?', a: 'Currently, we do not offer custom blending services, but we do curate limited edition collections periodically.' }
+                { q: this.t('faq.q1'), a: this.t('faq.a1') },
+                { q: this.t('faq.q2'), a: this.t('faq.a2') }
             ]
         },
         {
-            title: 'Orders & Payments',
+            title: this.t('faq.section2_title'),
             items: [
-                { q: 'What payment methods do you accept?', a: 'We accept Cash on Delivery (COD), Instapay, and all major Credit/Debit cards.' },
-                { q: 'Can I cancel my order?', a: 'Orders can be cancelled within 2 hours of placement. Please contact our support team immediately for assistance.' }
+                { q: this.t('faq.q3'), a: this.t('faq.a3') },
+                { q: this.t('faq.q4'), a: this.t('faq.a4') }
             ]
         }
-    ];
+    ]);
 
     toggle(q: string) {
         this.activeQuestion.update(v => v === q ? null : q);

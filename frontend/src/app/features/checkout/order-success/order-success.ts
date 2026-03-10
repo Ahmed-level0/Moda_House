@@ -1,6 +1,7 @@
 import { Component, OnInit, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, ActivatedRoute } from '@angular/router';
+import { TranslationService } from '../../../core/services/translation.service';
 
 @Component({
     selector: 'app-order-success',
@@ -11,6 +12,11 @@ import { RouterLink, ActivatedRoute } from '@angular/router';
 })
 export class OrderSuccessComponent implements OnInit {
     private route = inject(ActivatedRoute);
+    private translationService = inject(TranslationService);
+
+    t(key: string, params: any = {}) {
+        return this.translationService.translate(key, params);
+    }
     orderNumber = signal('');
     deliveryDate = signal('');
 
@@ -25,7 +31,7 @@ export class OrderSuccessComponent implements OnInit {
         // Set delivery date to 3 days from now
         const date = new Date();
         date.setDate(date.getDate() + 3);
-        this.deliveryDate.set(date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }));
+        this.deliveryDate.set(date.toLocaleDateString(this.translationService.currentLang() === 'ar' ? 'ar-EG' : 'en-US', { month: 'long', day: 'numeric', year: 'numeric' }));
 
         this.triggerConfetti();
     }

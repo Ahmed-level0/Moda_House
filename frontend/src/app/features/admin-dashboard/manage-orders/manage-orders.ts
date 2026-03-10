@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../core/services/auth.service';
-
+import { TranslationService } from '../../../core/services/translation.service';
 interface OrderItem {
     name: string;
     qty: number;
@@ -45,6 +45,9 @@ interface Order {
 export class ManageOrdersComponent implements OnInit {
     private http = inject(HttpClient);
     private authService = inject(AuthService);
+    public translationService = inject(TranslationService);
+
+    t = this.translationService.translate.bind(this.translationService);
 
     orders = signal<Order[]>([]);
     selectedOrder = signal<Order | null>(null);

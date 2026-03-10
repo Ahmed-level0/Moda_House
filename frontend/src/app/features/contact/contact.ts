@@ -2,6 +2,7 @@ import { Component, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
+import { TranslationService } from '../../core/services/translation.service';
 
 @Component({
     selector: 'app-contact',
@@ -12,8 +13,14 @@ import { environment } from '../../../environments/environment';
 })
 export class ContactComponent {
     private http = inject(HttpClient);
+    private translationService = inject(TranslationService);
+    currentLang = this.translationService.currentLang;
     isSubmitted = signal(false);
     isLoading = signal(false);
+
+    t(key: string, params: any = {}) {
+        return this.translationService.translate(key, params);
+    }
 
     onSubmit(event: Event) {
         event.preventDefault();
@@ -47,7 +54,7 @@ export class ContactComponent {
                 error: (err) => {
                     console.error('Contact error:', err);
                     this.isLoading.set(false);
-                    alert('There was an error sending your message. Please try again later.');
+                    alert(this.t('contact.error'));
                 }
             });
     }

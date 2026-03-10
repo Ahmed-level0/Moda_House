@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslationService } from '../../core/services/translation.service';
 
 @Component({
     selector: 'app-refund-policy',
@@ -9,40 +10,40 @@ import { CommonModule } from '@angular/common';
     <div class="policy-page">
         <div class="container narrow">
             <header class="policy-header">
-                <h1>Returns & Exchanges</h1>
-                <p>Ensuring your absolute satisfaction</p>
+                <h1>{{ t('policies.refund.title') }}</h1>
+                <p>{{ t('policies.refund.subtitle') }}</p>
             </header>
 
             <section class="policy-section">
-                <h2>14-Day Return Guarantee</h2>
-                <p>We take immense pride in the quality of our products. If you are not entirely satisfied with your purchase, you may return the item(s) within 14 days of receipt for a full refund or exchange.</p>
+                <h2>{{ t('policies.refund.guarantee_title') }}</h2>
+                <p>{{ t('policies.refund.guarantee_desc') }}</p>
             </section>
 
             <section class="policy-section">
-                <h2>Return Conditions</h2>
-                <p>To be eligible for a return, your item must be:</p>
+                <h2>{{ t('policies.refund.conditions_title') }}</h2>
+                <p>{{ t('policies.refund.conditions_intro') }}</p>
                 <ul>
-                    <li>In its original, unused condition (unworn, unwashed).</li>
-                    <li>In the original premium packaging with all tags attached.</li>
-                    <li>Accompanied by the original invoice or proof of purchase.</li>
+                    <li>{{ t('policies.refund.cond1') }}</li>
+                    <li>{{ t('policies.refund.cond2') }}</li>
+                    <li>{{ t('policies.refund.cond3') }}</li>
                 </ul>
                 <div class="alert-box">
-                    <p><strong>Note:</strong> Specialized items such as opened perfumes and bespoke accessories cannot be returned due to hygiene and customization reasons.</p>
+                    <p><strong>{{ t('policies.refund.note_title') }}</strong> {{ t('policies.refund.note_desc') }}</p>
                 </div>
             </section>
 
             <section class="policy-section">
-                <h2>How to Initiate a Return</h2>
+                <h2>{{ t('policies.refund.initiate_title') }}</h2>
                 <ol>
-                    <li>Contact our concierge team at <a href="mailto:returns@modahouse.com">returns@modahouse.com</a> with your order number.</li>
-                    <li>Securely package the item in its original box.</li>
-                    <li>Our courier will collect the package from your doorstep within 48 hours.</li>
+                    <li>{{ t('policies.refund.step1') }}</li>
+                    <li>{{ t('policies.refund.step2') }}</li>
+                    <li>{{ t('policies.refund.step3') }}</li>
                 </ol>
             </section>
 
             <section class="policy-section">
-                <h2>Refund Process</h2>
-                <p>Once your return is received and inspected, we will notify you of the approval or rejection of your refund. Approved refunds will be processed via your original payment method within 5-7 business days.</p>
+                <h2>{{ t('policies.refund.process_title') }}</h2>
+                <p>{{ t('policies.refund.process_desc') }}</p>
             </section>
         </div>
     </div>
@@ -72,4 +73,10 @@ import { CommonModule } from '@angular/common';
     }
   `]
 })
-export class RefundPolicyComponent { }
+export class RefundPolicyComponent {
+    private translationService = inject(TranslationService);
+
+    t(key: string, params: any = {}) {
+        return this.translationService.translate(key, params);
+    }
+}

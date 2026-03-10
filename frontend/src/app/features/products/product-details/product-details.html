@@ -7,7 +7,7 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M19 12H5M12 19l-7-7 7-7" />
                 </svg>
-                Back to Collection
+                {{ t('product_details.back_to_collection') }}
             </button>
         </div>
 
@@ -18,7 +18,7 @@
             <div class="gallery-section">
                 <div class="main-image-wrapper" (click)="openZoom()">
                     <img [src]="selectedImage()" [alt]="p.name" class="main-img">
-                    <span *ngIf="p.discount > 0" class="badge sale">Sale</span>
+                    <span *ngIf="p.discount > 0" class="badge sale">{{ t('products.badge_sale') }}</span>
                     <div class="zoom-hint">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <circle cx="11" cy="11" r="8"></circle>
@@ -46,14 +46,17 @@
                         @if(p.discount > 0) {
                         <span class="price current">{{ p.final_price | currency }}</span>
                         <span class="price old">{{ p.price | currency }}</span>
-                        <span class="discount-tag">{{ p.discount | number:'1.0-0' }}% OFF</span>
+                        <span class="discount-tag">{{ p.discount | number:'1.0-0' }}% {{ t('product_details.off')
+                            }}</span>
                         } @else {
                         <span class="price">{{ p.price | currency }}</span>
                         }
 
                         <!-- Out of Stock / Low Stock Hints -->
-                        @if(p.stock <= 0) { <span class="out-of-stock-status">Out of Stock</span>
-                            } @else if(p.stock <= 3) { <span class="stock-hint">Only {{ p.stock }} left!</span>
+                        @if(p.stock <= 0) { <span class="out-of-stock-status">{{ t('products.badge_out_of_stock')
+                            }}</span>
+                            } @else if(p.stock <= 3) { <span class="stock-hint">{{
+                                t('product_details.only_left').replace('{{ count }}', p.stock.toString()) }}</span>
                                 }
                     </div>
                 </div>
@@ -63,18 +66,18 @@
                 <!-- Perfume Specific Notes -->
                 @if(p.category === 'perfumes' && p.notes) {
                 <div class="perfume-notes">
-                    <h4>Olfactory Notes</h4>
+                    <h4>{{ t('product_details.olfactory_notes') }}</h4>
                     <div class="notes-grid">
                         <div class="note-item">
-                            <span class="label">Top</span>
+                            <span class="label">{{ t('product_details.note_top') }}</span>
                             <span class="value">{{ p.notes.top }}</span>
                         </div>
                         <div class="note-item">
-                            <span class="label">Heart</span>
+                            <span class="label">{{ t('product_details.note_heart') }}</span>
                             <span class="value">{{ p.notes.middle }}</span>
                         </div>
                         <div class="note-item">
-                            <span class="label">Base</span>
+                            <span class="label">{{ t('product_details.note_base') }}</span>
                             <span class="value">{{ p.notes.base }}</span>
                         </div>
                     </div>
@@ -84,7 +87,8 @@
                 <!-- Options: Color -->
                 @if(p.colors?.length) {
                 <div class="option-group" [class.error-highlight]="errorMessage() && !selectedColor()">
-                    <label>Color: <span>{{ selectedColor() || 'Select a color' }}</span></label>
+                    <label>{{ t('product_details.label_color') }}: <span>{{ selectedColor() ||
+                            t('product_details.select_color') }}</span></label>
                     <div class="colors-row">
                         @for(color of p.colors; track color.hex) {
                         <div class="color-swatch" [class.active]="selectedColor() === color.hex"
@@ -98,7 +102,8 @@
                 <!-- Options: Size -->
                 @if(p.sizes?.length) {
                 <div class="option-group" [class.error-highlight]="errorMessage() && !selectedSize()">
-                    <label>Size / Volume: <span>{{ selectedSize() || 'Select a size' }}</span></label>
+                    <label>{{ t('product_details.label_size') }}: <span>{{ selectedSize() ||
+                            t('product_details.select_size') }}</span></label>
                     <div class="sizes-row">
                         @for(size of p.sizes; track size) {
                         <button class="size-btn" [class.active]="selectedSize() === size" (click)="setSize(size)">
@@ -122,11 +127,12 @@
                         <button [disabled]="p.stock <= 0" (click)="incrementQty()">+</button>
                     </div>
                     <button class="btn-add-bag" [disabled]="p.stock <= 0" (click)="addToBag()">
-                        {{ p.stock <= 0 ? 'Out of Stock' : 'Add to Bag - ' + ((p.final_price || p.price) * quantity() |
-                            currency) }} </button>
+                        {{ p.stock <= 0 ? t('products.badge_out_of_stock') :
+                            t('product_details.add_to_bag_with_price').replace('{{ price }}', ((p.final_price ||
+                            p.price) * quantity() | currency) || '' ) }} </button>
                             <button class="btn-wishlist-large" [class.active]="isInWishlist()"
                                 (click)="toggleWishlist()"
-                                [title]="isInWishlist() ? 'Remove from Wishlist' : 'Add to Wishlist'">
+                                [title]="isInWishlist() ? t('product_details.remove_from_wishlist') : t('products.add_to_wishlist')">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                                     <path
                                         d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
@@ -137,22 +143,22 @@
 
                 <!-- Product Specifications -->
                 <div class="product-specs" *ngIf="p.style || p.material || p.size || p.color">
-                    <h4>Specifications</h4>
+                    <h4>{{ t('product_details.specifications') }}</h4>
                     <div class="specs-grid">
                         <div class="spec-item" *ngIf="p.style">
-                            <span class="label">Style</span>
-                            <span class="value">{{ p.style }}</span>
+                            <span class="label">{{ t('product_details.spec_style') }}</span>
+                            <span class="value">{{ t('styles.' + p.style) }}</span>
                         </div>
                         <div class="spec-item" *ngIf="p.material">
-                            <span class="label">Material</span>
+                            <span class="label">{{ t('product_details.spec_material') }}</span>
                             <span class="value">{{ p.material }}</span>
                         </div>
                         <div class="spec-item" *ngIf="p.size && !p.sizes?.length">
-                            <span class="label">Size</span>
+                            <span class="label">{{ t('product_details.spec_size') }}</span>
                             <span class="value">{{ p.size }}</span>
                         </div>
                         <div class="spec-item" *ngIf="p.color && !p.colors?.length">
-                            <span class="label">Color</span>
+                            <span class="label">{{ t('product_details.spec_color') }}</span>
                             <span class="value">{{ p.color }}</span>
                         </div>
                     </div>
@@ -164,14 +170,14 @@
                         <svg viewBox="0 0 24 24" fill="none" class="icon" stroke="currentColor" stroke-width="1.5">
                             <path d="M5 12h14M12 5l7 7-7 7" />
                         </svg>
-                        <span>{{ p.shippingInfo || 'Free Worldwide Shipping' }}</span>
+                        <span>{{ p.shippingInfo || t('product_details.free_shipping') }}</span>
                     </div>
-                    <div class="trust-item">
+                    <div class="trust-section-item">
                         <svg viewBox="0 0 24 24" fill="none" class="icon" stroke="currentColor" stroke-width="1.5">
                             <path
                                 d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                         </svg>
-                        <span>{{ p.returnsInfo || 'Easy Returns' }}</span>
+                        <span>{{ p.returnsInfo || t('product_details.easy_returns') }}</span>
                     </div>
                 </div>
             </div>
@@ -179,7 +185,7 @@
 
         <!-- Related Products -->
         <div class="related-products-section">
-            <h3 class="section-title">You May Also Like</h3>
+            <h3 class="section-title">{{ t('product_details.related_products') }}</h3>
             <div class="slider-wrapper">
                 <button class="slider-nav prev" (click)="scrollRelated('left')" aria-label="Previous">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

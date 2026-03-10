@@ -2,30 +2,29 @@
     <div class="container contact-container">
 
         <header class="contact-header">
-            <h1 class="page-title">Contact Us</h1>
-            <p class="subtitle">Our concierge team is here to assist you with any inquiries regarding our collections or
-                your orders.</p>
+            <h1 class="page-title">{{ t('contact.title') }}</h1>
+            <p class="subtitle">{{ t('contact.subtitle') }}</p>
         </header>
 
         <div class="contact-grid">
             <!-- Contact Info -->
             <div class="contact-info">
                 <div class="info-block">
-                    <h3>Customer Support</h3>
-                    <p>Available Monday – Friday</p>
-                    <p>9:00 AM – 6:00 PM (GMT+2)</p>
+                    <h3>{{ t('contact.support') }}</h3>
+                    <p>{{ t('contact.available') }}</p>
+                    <p>{{ t('contact.hours') }}</p>
                     <a href="mailto:support@modahouse.com" class="link">support@modahouse.com</a>
                 </div>
 
                 <div class="info-block">
-                    <h3>Headquarters</h3>
-                    <p>Building 40, Smart Village</p>
-                    <p>Cairo-Alexandria Desert Road</p>
-                    <p>Giza, Egypt</p>
+                    <h3>{{ t('contact.headquarters') }}</h3>
+                    <p>{{ t('contact.address1') }}</p>
+                    <p>{{ t('contact.address2') }}</p>
+                    <p>{{ t('contact.address3') }}</p>
                 </div>
 
                 <div class="info-block">
-                    <h3>Phone</h3>
+                    <h3>{{ t('contact.phone') }}</h3>
                     <p>+20 123 456 7890</p>
                     <p>+20 2 987 6543</p>
                 </div>
@@ -38,39 +37,39 @@
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <polyline points="20 6 9 17 4 12" />
                     </svg>
-                    <h3>Message Received</h3>
-                    <p>Thank you for reaching out. A member of our team will contact you shortly.</p>
+                    <h3>{{ t('contact.success_title') }}</h3>
+                    <p>{{ t('contact.success_desc') }}</p>
                 </div>
                 } @else {
                 <form (submit)="onSubmit($event)" class="contact-form">
                     <div class="form-row">
                         <div class="input-group">
-                            <label>Your Name</label>
-                            <input type="text" placeholder="Full Name" required>
+                            <label>{{ t('contact.label_name') }}</label>
+                            <input type="text" [placeholder]="t('contact.placeholder_name')" required>
                         </div>
                         <div class="input-group">
-                            <label>Email Address</label>
-                            <input type="email" placeholder="email@example.com" required>
+                            <label>{{ t('contact.label_email') }}</label>
+                            <input type="email" [placeholder]="t('contact.placeholder_email')" required>
                         </div>
                     </div>
 
                     <div class="input-group">
-                        <label>Subject</label>
+                        <label>{{ t('contact.label_subject') }}</label>
                         <select>
-                            <option>Inquiry about a product</option>
-                            <option>Order status & tracking</option>
-                            <option>Returns & Exchanges</option>
-                            <option>Password reset</option>
-                            <option>Feedback</option>
+                            <option>{{ t('contact.subject_opt1') }}</option>
+                            <option>{{ t('contact.subject_opt2') }}</option>
+                            <option>{{ t('contact.subject_opt3') }}</option>
+                            <option>{{ t('contact.subject_opt4') }}</option>
+                            <option>{{ t('contact.subject_opt5') }}</option>
                         </select>
                     </div>
 
                     <div class="input-group">
-                        <label>Message</label>
-                        <textarea rows="6" placeholder="How can we help you?"></textarea>
+                        <label>{{ t('contact.label_message') }}</label>
+                        <textarea rows="6" [placeholder]="t('contact.placeholder_message')"></textarea>
                     </div>
 
-                    <button type="submit" class="btn-send">Send Message</button>
+                    <button type="submit" class="btn-send">{{ t('contact.send_btn') }}</button>
                 </form>
                 }
             </div>

@@ -8,39 +8,40 @@
                 </svg>
             </div>
 
-            <h1 class="title">Thank you for choosing Moda House</h1>
-            <p class="subtitle">Your order has been placed successfully and we're getting it ready for shipment.</p>
-            <p class="subtitle">Screenshot this page to use in case of refund or cancellation.</p>
+            <h1 class="title">{{ t('order_success.title') }}</h1>
+            <p class="subtitle">{{ t('order_success.subtitle') }}</p>
+            <p class="subtitle">{{ t('order_success.screenshot_hint') }}</p>
 
             <div class="order-box">
                 <div class="box-row">
-                    <span class="label">Order Number</span>
+                    <span class="label">{{ t('order_success.order_number') }}</span>
                     <span class="value">#{{ orderNumber() }}</span>
                 </div>
                 <div class="box-row">
-                    <span class="label">Estimated Delivery</span>
+                    <span class="label">{{ t('order_success.estimated_delivery') }}</span>
                     <span class="value">{{ deliveryDate() }}</span>
                 </div>
             </div>
 
             <div class="next-steps">
-                <h3>What happens next?</h3>
+                <h3>{{ t('order_success.next_steps_title') }}</h3>
                 <div class="steps-grid">
                     <div class="step-item">
                         <div class="step-num">1</div>
-                        <p>Confirmation email sent to your inbox.</p>
+                        <p>{{ t('order_success.step1') }}</p>
                     </div>
                     <div class="step-item">
                         <div class="step-num">2</div>
-                        <p>Our team will verify and pack your items.</p>
+                        <p>{{ t('order_success.step2') }}</p>
                     </div>
                 </div>
             </div>
 
             <div class="actions">
-                <button class="btn-track" [routerLink]="['/track-order']" [queryParams]="{ id: orderNumber() }">Track
-                    Your Order</button>
-                <button routerLink="/" class="btn-outline">Continue Shopping</button>
+                <button class="btn-track" [routerLink]="['/track-order']" [queryParams]="{ id: orderNumber() }">
+                    {{ t('order_success.track_order') }}
+                </button>
+                <button routerLink="/" class="btn-outline">{{ t('order_success.continue_shopping') }}</button>
             </div>
         </div>
 

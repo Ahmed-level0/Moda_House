@@ -5,6 +5,7 @@ import { AuthService } from '../../core/services/auth.service';
 import { CartService } from '../../core/services/cart.service';
 import { ProfileService } from '../../core/services/profile.service';
 import { HttpClient } from '@angular/common/http';
+import { TranslationService } from '../../core/services/translation.service';
 
 @Component({
     selector: 'app-profile',
@@ -19,6 +20,11 @@ export class ProfileComponent implements OnInit {
     private profileService = inject(ProfileService);
     private http = inject(HttpClient);
     private router = inject(Router);
+    private translationService = inject(TranslationService);
+
+    t(key: string, params: any = {}) {
+        return this.translationService.translate(key, params);
+    }
 
     user = this.authService.user;
     orders = signal<any[]>([]);
@@ -126,41 +132,72 @@ export class ProfileComponent implements OnInit {
     };
 
     updatePersonalInfo(name: string, phone: string) {
-        console.log('Update personal info called with:', name, phone);
-        // ProfileService.updateProfile was specific to Node.js backend
-        // Update this once Django equivalent is known
-        alert('Update functionality is being aligned with the new backend.');
+        if (!name) {
+            alert(this.t('profile.alert_name_required'));
+            return;
+        }
+        this.profileService.updateProfile({ name, phone }).subscribe({
+            next: () => {
+                alert(this.t('profile.alert_profile_updated'));
+            },
+            error: (err) => {
+                console.error('Update failed', err);
+                alert(this.t('profile.alert_profile_failed'));
+            }
+        });
     }
 
     updatePassword(pass1: string, pass2: string) {
         if (!pass1 || !pass2) {
-            alert('Please fill in both password fields.');
+            alert(this.t('profile.alert_pass_required'));
             return;
         }
         if (pass1 !== pass2) {
-            alert('Passwords do not match.');
+            alert(this.t('profile.alert_pass_mismatch'));
             return;
         }
 
         this.authService.changePassword(pass1, pass2).subscribe({
             next: () => {
-                alert('Password updated successfully!');
+                alert(this.t('profile.alert_pass_updated'));
             },
             error: (err) => {
                 console.error('Password update failed', err);
-                const errorMsg = err.error?.detail || 'Failed to update password. Please check your current authentication.';
+                const errorMsg = err.error?.detail || this.t('profile.alert_profile_failed');
                 alert(errorMsg);
             }
         });
     }
 
     saveAddress() {
-        console.log('Save address called');
-        // Update this once Django equivalent is known
+        if (!this.newAddress.content) {
+            alert(this.t('profile.alert_address_details'));
+            return;
+        }
+        this.profileService.addAddress(this.newAddress).subscribe({
+            next: () => {
+                this.showAddAddressForm.set(false);
+                this.newAddress = { address_type: 'Home', content: '' };
+                alert(this.t('profile.alert_address_saved'));
+            },
+            error: (err) => {
+                console.error('Save address failed', err);
+                alert(this.t('profile.alert_address_failed'));
+            }
+        });
     }
 
     deleteAddress(id: number) {
-        console.log('Delete address called for id:', id);
-        // Update this once Django equivalent is known
+        if (confirm(this.t('profile.confirm_delete_address'))) {
+            this.profileService.deleteAddress(id).subscribe({
+                next: () => {
+                    alert(this.t('profile.alert_address_deleted'));
+                },
+                error: (err) => {
+                    console.error('Delete address failed', err);
+                    alert(this.t('profile.alert_address_delete_failed'));
+                }
+            });
+        }
     }
 }

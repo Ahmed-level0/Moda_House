@@ -1,8 +1,8 @@
 <div class="manage-products">
     <header>
-        <h2>Manage Products</h2>
+        <h2>{{ t('admin.products.title') }}</h2>
         <button class="btn-primary" (click)="addProduct()">
-            <i class="fas fa-plus"></i> Add Product
+            <i class="fas fa-plus"></i> {{ t('admin.products.add_product') }}
         </button>
     </header>
 
@@ -11,7 +11,7 @@
     <div class="modal-overlay" (click)="closeForm()">
         <div class="product-form" (click)="$event.stopPropagation()">
             <div class="form-header">
-                <h3>{{ editingProduct() ? 'Edit Product' : 'Add New Product' }}</h3>
+                <h3>{{ editingProduct() ? t('admin.products.edit_product') : t('admin.products.add_new') }}</h3>
                 <button class="close-btn" (click)="closeForm()">
                     <i class="fas fa-times"></i>
                 </button>
@@ -20,12 +20,12 @@
             <div class="form-body">
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Product Name *</label>
+                        <label>{{ t('admin.products.name') }}</label>
                         <input type="text" [(ngModel)]="formData.name" placeholder="Enter product name" required>
                     </div>
 
                     <div class="form-group">
-                        <label>Category *</label>
+                        <label>{{ t('admin.products.category') }}</label>
                         <select [(ngModel)]="formData.category">
                             <option value="Bags">Bags</option>
                             <option value="Perfumes">Perfumes</option>
@@ -36,7 +36,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Image URL *</label>
+                    <label>{{ t('admin.products.image_url') }}</label>
                     <input type="url" [(ngModel)]="formData.image" placeholder="https://example.com/image.jpg" required>
                     @if (formData.image) {
                     <div class="image-preview">
@@ -46,25 +46,25 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Description *</label>
+                    <label>{{ t('admin.products.desc') }}</label>
                     <textarea [(ngModel)]="formData.description" rows="4" placeholder="Enter product description"
                         required></textarea>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Price ($) *</label>
+                        <label>{{ t('admin.products.price') }}</label>
                         <input type="number" [(ngModel)]="formData.price" min="0" step="0.01" placeholder="0.00"
                             required>
                     </div>
 
                     <div class="form-group">
-                        <label>Discount (%)</label>
+                        <label>{{ t('admin.products.discount') }}</label>
                         <input type="number" [(ngModel)]="formData.discount" min="0" max="100" placeholder="0">
                     </div>
 
                     <div class="form-group">
-                        <label>Stock *</label>
+                        <label>{{ t('admin.products.stock') }}</label>
                         <input type="number" [(ngModel)]="formData.stock" min="0" placeholder="0" required>
                     </div>
                 </div>
@@ -72,27 +72,27 @@
                 @if (formData.discount > 0) {
                 <div class="price-summary">
                     <div class="price-item">
-                        <span>Original Price:</span>
+                        <span>{{ t('admin.products.original_price') }}:</span>
                         <strong>${{ formData.price.toFixed(2) }}</strong>
                     </div>
                     <div class="price-item discount">
-                        <span>Discount:</span>
+                        <span>{{ t('admin.products.discount') }}:</span>
                         <strong>{{ formData.discount }}%</strong>
                     </div>
                     <div class="price-item final">
-                        <span>Final Price:</span>
+                        <span>{{ t('admin.products.final_price') }}:</span>
                         <strong>${{ getFinalPrice().toFixed(2) }}</strong>
                     </div>
                 </div>
                 }
 
                 <div class="form-group">
-                    <label>Available Colors</label>
+                    <label>{{ t('admin.products.colors') }}</label>
                     <div class="color-input-group">
-                        <input type="text" [(ngModel)]="newColor" placeholder="Enter color (e.g., #FF5733 or Red)"
+                        <input type="text" [(ngModel)]="newColor" [placeholder]="t('admin.products.enter_color')"
                             (keyup.enter)="addColor()">
                         <button type="button" class="btn-add-color" (click)="addColor()">
-                            <i class="fas fa-plus"></i> Add
+                            <i class="fas fa-plus"></i> {{ t('admin.products.add') }}
                         </button>
                     </div>
 
@@ -116,15 +116,15 @@
                 <div class="form-group checkbox-group">
                     <label class="checkbox-label">
                         <input type="checkbox" [(ngModel)]="formData.featured">
-                        <span>Featured Product</span>
+                        <span>{{ t('admin.products.featured') }}</span>
                     </label>
                 </div>
             </div>
 
             <div class="form-footer">
-                <button class="btn-secondary" (click)="closeForm()">Cancel</button>
+                <button class="btn-secondary" (click)="closeForm()">{{ t('admin.products.cancel') }}</button>
                 <button class="btn-primary" (click)="saveProduct()">
-                    <i class="fas fa-save"></i> Save Product
+                    <i class="fas fa-save"></i> {{ t('admin.products.save_product') }}
                 </button>
             </div>
         </div>
@@ -136,13 +136,13 @@
         <table>
             <thead>
                 <tr>
-                    <th>Image</th>
-                    <th>Name</th>
-                    <th>Category</th>
-                    <th>Price</th>
-                    <th>Stock</th>
-                    <th>Featured</th>
-                    <th>Actions</th>
+                    <th>{{ t('admin.products.table_image') }}</th>
+                    <th>{{ t('admin.products.table_name') }}</th>
+                    <th>{{ t('admin.products.table_category') }}</th>
+                    <th>{{ t('admin.products.table_price') }}</th>
+                    <th>{{ t('admin.products.table_stock') }}</th>
+                    <th>{{ t('admin.products.table_featured') }}</th>
+                    <th>{{ t('admin.products.table_actions') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -180,7 +180,7 @@
                     </td>
                     <td>
                         <span class="badge" [class.featured]="product.featured">
-                            {{ product.featured ? 'Yes' : 'No' }}
+                            {{ product.featured ? t('admin.products.yes') : t('admin.products.no') }}
                         </span>
                     </td>
                     <td class="actions">
@@ -196,7 +196,7 @@
                 <tr>
                     <td colspan="7" style="text-align: center; padding: 2rem; color: var(--text-muted);">
                         <i class="fas fa-inbox fa-2x" style="display: block; margin-bottom: 1rem; opacity: 0.5;"></i>
-                        No products found
+                        {{ t('admin.products.empty') }}
                     </td>
                 </tr>
                 }

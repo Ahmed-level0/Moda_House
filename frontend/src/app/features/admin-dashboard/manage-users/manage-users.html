@@ -1,16 +1,16 @@
 <div class="manage-users">
     <header>
-        <h2>Manage Users</h2>
+        <h2>{{ t('admin.users.title') }}</h2>
     </header>
 
     <div class="users-table">
         <table>
             <thead>
                 <tr>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>Actions</th>
+                    <th>{{ t('admin.users.username') }}</th>
+                    <th>{{ t('admin.users.email') }}</th>
+                    <th>{{ t('admin.users.role') }}</th>
+                    <th>{{ t('admin.users.actions') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,13 +25,13 @@
                     </td>
                     <td>
                         <button class="btn-toggle" (click)="toggleRole(user)" [class.demote]="user.role === 'admin'">
-                            {{ user.role === 'admin' ? 'Demote to User' : 'Promote to Admin' }}
+                            {{ user.role === 'admin' ? t('admin.users.demote') : t('admin.users.promote') }}
                         </button>
                     </td>
                 </tr>
                 } @empty {
                 <tr>
-                    <td colspan="4" style="text-align: center;">No users found</td>
+                    <td colspan="4" style="text-align: center;">{{ t('admin.users.empty') }}</td>
                 </tr>
                 }
             </tbody>

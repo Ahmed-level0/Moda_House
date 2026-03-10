@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../core/services/auth.service';
+import { TranslationService } from '../../../core/services/translation.service';
 
 @Component({
     selector: 'app-admin-settings',
@@ -14,6 +15,8 @@ import { AuthService } from '../../../core/services/auth.service';
 export class SettingsComponent implements OnInit {
     private http = inject(HttpClient);
     private authService = inject(AuthService);
+    public translationService = inject(TranslationService);
+    t = this.translationService.translate.bind(this.translationService);
 
     activeSection = signal<'profile' | 'password' | 'store'>('profile');
 

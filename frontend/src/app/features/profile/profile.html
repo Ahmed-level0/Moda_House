@@ -17,39 +17,42 @@
                 <div class="user-text">
                     <h3>{{ u.name }}</h3>
                     <p>{{ u.email }}</p>
-                    <small class="user-id">ID: #{{ u.id }}</small>
+                    <small class="user-id">{{ t('header.id') }}: #{{ u.id }}</small>
                 </div>
             </div>
 
             <nav class="side-nav">
-                <button [class.active]="activeTab() === 'overview'" (click)="setTab('overview')" title="Dashboard">
+                <button [class.active]="activeTab() === 'overview'" (click)="setTab('overview')"
+                    [title]="t('profile.dashboard')">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <rect x="3" y="3" width="7" height="7" />
                         <rect x="14" y="3" width="7" height="7" />
                         <rect x="14" y="14" width="7" height="7" />
                         <rect x="3" y="14" width="7" height="7" />
                     </svg>
-                    <span>Dashboard</span>
+                    <span>{{ t('profile.dashboard') }}</span>
                 </button>
-                <button [class.active]="activeTab() === 'orders'" (click)="setTab('orders')" title="My Orders">
+                <button [class.active]="activeTab() === 'orders'" (click)="setTab('orders')"
+                    [title]="t('profile.my_orders')">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4H6zM3 6h18M16 10a4 4 0 0 1-8 0" />
                     </svg>
-                    <span>My Orders</span>
+                    <span>{{ t('profile.my_orders') }}</span>
                 </button>
-                <button [class.active]="activeTab() === 'settings'" (click)="setTab('settings')" title="Settings">
+                <button [class.active]="activeTab() === 'settings'" (click)="setTab('settings')"
+                    [title]="t('profile.settings')">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                         <circle cx="12" cy="7" r="4" />
                     </svg>
-                    <span>Settings</span>
+                    <span>{{ t('profile.settings') }}</span>
                 </button>
                 <div class="nav-divider"></div>
-                <button class="btn-logout" (click)="logout()" title="Sign Out">
+                <button class="btn-logout" (click)="logout()" [title]="t('profile.sign_out')">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" />
                     </svg>
-                    <span>Sign Out</span>
+                    <span>{{ t('profile.sign_out') }}</span>
                 </button>
             </nav>
         </aside>
@@ -60,7 +63,7 @@
             <!-- Global Profile Progress Bar -->
             <div class="global-progress" *ngIf="profileCompletion() < 100">
                 <div class="progress-info">
-                    <span>Profile Completion</span>
+                    <span>{{ t('profile.profile_completion') }}</span>
                     <span>{{ profileCompletion() }}%</span>
                 </div>
                 <div class="progress-track">
@@ -72,17 +75,17 @@
             @if (activeTab() === 'overview') {
             <section class="tab-pane">
                 <header class="pane-header">
-                    <h2>Hello, {{ (u?.name || u?.username || 'User').split(' ')[0] }}</h2>
-                    <p>Welcome to your Moda House dashboard.</p>
+                    <h2>{{ t('profile.hello') }}, {{ (u?.name || u?.username || 'User').split(' ')[0] }}</h2>
+                    <p>{{ t('profile.welcome_msg') }}</p>
                 </header>
 
                 <div class="stats-grid">
                     <div class="stat-card">
-                        <span class="label">Orders</span>
+                        <span class="label">{{ t('profile.order_count_label') }}</span>
                         <span class="value">{{ orders().length }}</span>
                     </div>
                     <div class="stat-card">
-                        <span class="label">Primary Address</span>
+                        <span class="label">{{ t('profile.primary_address_label') }}</span>
                         @if (primaryAddress()) {
                         <p class="address-preview">{{ primaryAddress()?.content }}</p>
                         } @else {
@@ -90,25 +93,26 @@
                         }
                     </div>
                     <div class="stat-card highlight">
-                        <span class="label">Items waiting</span>
-                        <p>Items in your bag are not reserved.</p>
-                        <a routerLink="/cart" class="link">View Bag</a>
+                        <span class="label">{{ t('profile.items_waiting') }}</span>
+                        <p>{{ t('profile.items_not_reserved') }}</p>
+                        <a routerLink="/cart" class="link">{{ t('profile.view_bag') }}</a>
                     </div>
                 </div>
 
                 <div class="recent-activity">
-                    <h3>Recent Activity</h3>
+                    <h3>{{ t('profile.recent_activity') }}</h3>
                     <div class="activity-card">
                         @if (u.orders && u.orders.length > 0) {
                         <div class="activity-item">
                             <div class="dot active"></div>
                             <div class="text">
-                                <p>Order #{{ u.orders[0].id }} status: {{ u.orders[0].status }}.</p>
+                                <p>{{ t('profile.order_status_msg', { id: u.orders[0].id.toString(), status:
+                                    t('profile.status_' + u.orders[0].status.toLowerCase()) }) }}</p>
                                 <span>{{ u.orders[0].created | date }}</span>
                             </div>
                         </div>
                         } @else {
-                        <p class="no-data">No recent activity found.</p>
+                        <p class="no-data">{{ t('profile.no_activity') }}</p>
                         }
                     </div>
                 </div>
@@ -125,17 +129,17 @@
                             <line x1="12" y1="16" x2="12" y2="12" />
                             <line x1="12" y1="8" x2="12.01" y2="8" />
                         </svg>
-                        Order Cancellation Policy
+                        {{ t('profile.order_cancellation_policy') }}
                     </a>
                 </div>
                 <header class="pane-header">
-                    <h2>Order History</h2>
+                    <h2>{{ t('profile.order_history') }}</h2>
                 </header>
 
                 <div class="orders-interactive">
                     <div class="filter-actions">
                         <div class="date-filter">
-                            <label for="order-date">Filter by Date:</label>
+                            <label for="order-date">{{ t('profile.filter_by_date') }}:</label>
                             <input type="date" id="order-date" [value]="filterDate()"
                                 (change)="filterDate.set($any($event.target).value)">
                         </div>
@@ -143,15 +147,15 @@
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M18 6L6 18M6 6l12 12" />
                             </svg>
-                            Clear Filter
+                            {{ t('profile.clear_filter') }}
                         </button>
                     </div>
 
                     @if (!u.orders || u.orders.length === 0) {
-                    <p class="no-data">You haven't placed any orders yet.</p>
+                    <p class="no-data">{{ t('profile.no_orders') }}</p>
                     }
                     @else if (filteredOrders().length === 0) {
-                    <p class="no-data">No orders found for the selected date.</p>
+                    <p class="no-data">{{ t('profile.no_orders_filtered') }}</p>
                     }
 
                     @for (order of filteredOrders(); track order.id) {
@@ -163,7 +167,7 @@
                             </div>
                             <div class="status-group">
                                 <span class="status-badge" [attr.data-status]="order.status">{{
-                                    order.status }}</span>
+                                    t('profile.status_' + order.status.toLowerCase()) }}</span>
                                 <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2">
                                     <polyline points="6 9 12 15 18 9" />
@@ -173,11 +177,11 @@
                         <div class="order-details-content">
                             <div class="order-actions">
                                 <div class="total-bar">
-                                    <span>Total: {{ order.total | currency }}</span>
+                                    <span>{{ t('profile.total') }}: {{ order.total | currency }}</span>
                                 </div>
                                 <div class="btn-group">
                                     <button class="btn-track-sub" [routerLink]="['/track-order']"
-                                        [queryParams]="{ id: order.id }">Track</button>
+                                        [queryParams]="{ id: order.id }">{{ t('profile.track') }}</button>
                                 </div>
                             </div>
                         </div>
@@ -191,29 +195,30 @@
             @if (activeTab() === 'settings') {
             <section class="tab-pane">
                 <header class="pane-header">
-                    <h2>Account Settings</h2>
+                    <h2>{{ t('profile.account_settings') }}</h2>
                 </header>
 
                 <div class="settings-grid">
                     <div class="settings-column">
-                        <h3>Personal Information</h3>
+                        <h3>{{ t('profile.personal_info') }}</h3>
                         <div class="input-group">
-                            <label>Full Name</label>
+                            <label>{{ t('profile.full_name') }}</label>
                             <input type="text" #nameInput [value]="u.name">
                         </div>
                         <div class="input-group">
-                            <label>Phone Number</label>
+                            <label>{{ t('profile.phone_number') }}</label>
                             <input type="tel" #phoneInput [value]="u.profile?.phone || ''"
                                 placeholder="+20 XXX XXX XXXX">
                         </div>
                         <button class="btn-save-black"
-                            (click)="updatePersonalInfo(nameInput.value, phoneInput.value)">Save Personal Info</button>
+                            (click)="updatePersonalInfo(nameInput.value, phoneInput.value)">{{
+                            t('profile.save_personal_info') }}</button>
 
                         <div class="divider-space"></div>
 
-                        <h3>Security</h3>
+                        <h3>{{ t('profile.security') }}</h3>
                         <div class="input-group password-group">
-                            <label>Current Password</label>
+                            <label>{{ t('profile.current_pass') }}</label>
                             <div class="password-wrapper">
                                 <input [type]="showOldPassword() ? 'text' : 'password'" #oldPass placeholder="••••••••">
                                 <button type="button" class="btn-toggle-visibility" (click)="toggleVisibility('old')">
@@ -222,7 +227,7 @@
                             </div>
                         </div>
                         <div class="input-group password-group">
-                            <label>New Password</label>
+                            <label>{{ t('profile.new_pass') }}</label>
                             <div class="password-wrapper">
                                 <input [type]="showNewPassword() ? 'text' : 'password'" #newPass placeholder="••••••••">
                                 <button type="button" class="btn-toggle-visibility" (click)="toggleVisibility('new')">
@@ -231,7 +236,7 @@
                             </div>
                         </div>
                         <div class="input-group password-group">
-                            <label>Confirm New Password</label>
+                            <label>{{ t('profile.confirm_pass') }}</label>
                             <div class="password-wrapper">
                                 <input [type]="showConfirmPassword() ? 'text' : 'password'" #confirmPass
                                     placeholder="••••••••">
@@ -241,17 +246,17 @@
                                 </button>
                             </div>
                         </div>
-                        <button class="btn-save-black" (click)="updatePassword(newPass.value, confirmPass.value)">Update
-                            Password</button>
+                        <button class="btn-save-black" (click)="updatePassword(newPass.value, confirmPass.value)">{{
+                            t('profile.update_pass') }}</button>
                     </div>
 
                     <div class="settings-column">
-                        <h3>Address Book</h3>
+                        <h3>{{ t('profile.address_book') }}</h3>
                         <div class="address-list">
                             @for (addr of u.addresses; track addr.id) {
                             <div class="address-item">
                                 <div class="address-header">
-                                    <span class="type">{{ addr.address_type }}</span>
+                                    <span class="type">{{ t('profile.type_' + addr.address_type.toLowerCase()) }}</span>
                                     <button class="btn-icon-small" (click)="deleteAddress(addr.id)">
                                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                             <path
@@ -266,27 +271,28 @@
                                 @if (showAddAddressForm()) {
                                 <div class="add-address-form">
                                     <div class="input-group">
-                                        <label>Address Type</label>
+                                        <label>{{ t('profile.address_type') }}</label>
                                         <select (change)="newAddress.address_type = $any($event.target).value">
-                                            <option value="Home">Home</option>
-                                            <option value="Work">Work</option>
-                                            <option value="Other">Other</option>
+                                            <option value="Home">{{ t('profile.type_home') }}</option>
+                                            <option value="Work">{{ t('profile.type_work') }}</option>
+                                            <option value="Other">{{ t('profile.type_other') }}</option>
                                         </select>
                                     </div>
                                     <div class="input-group">
-                                        <label>Detailed Address</label>
+                                        <label>{{ t('profile.detailed_address') }}</label>
                                         <textarea placeholder="City, Area, Street, Building..."
                                             (input)="newAddress.content = $any($event.target).value"></textarea>
                                     </div>
                                     <div class="form-actions">
-                                        <button class="btn-save-address" (click)="saveAddress()">Save</button>
-                                        <button class="btn-cancel-address"
-                                            (click)="showAddAddressForm.set(false)">Cancel</button>
+                                        <button class="btn-save-address" (click)="saveAddress()">{{ t('profile.save')
+                                            }}</button>
+                                        <button class="btn-cancel-address" (click)="showAddAddressForm.set(false)">{{
+                                            t('profile.cancel') }}</button>
                                     </div>
                                 </div>
                                 } @else {
-                                <button class="btn-add-address" (click)="showAddAddressForm.set(true)">+ Add New
-                                    Address</button>
+                                <button class="btn-add-address" (click)="showAddAddressForm.set(true)">+ {{
+                                    t('profile.add_new_address') }}</button>
                                 }
                             </div>
                         </div>
@@ -295,10 +301,10 @@
 
                 <div class="danger-zone">
                     <div class="zone-header">
-                        <h3>Danger Zone</h3>
-                        <p>Irreversible actions for your account.</p>
+                        <h3>{{ t('profile.danger_zone') }}</h3>
+                        <p>{{ t('profile.danger_desc') }}</p>
                     </div>
-                    <button class="btn-delete">Delete My Account</button>
+                    <button class="btn-delete">{{ t('profile.delete_account') }}</button>
                 </div>
             </section>
             }

@@ -2,6 +2,7 @@ import { Component, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../core/services/auth.service';
 import { Router } from '@angular/router';
+import { TranslationService } from '../../core/services/translation.service';
 import { DashboardOverviewComponent } from './dashboard-overview/dashboard-overview';
 import { ManageProductsComponent } from './manage-products/manage-products';
 import { ManageUsersComponent } from './manage-users/manage-users';
@@ -29,6 +30,9 @@ import { SettingsComponent } from './settings/settings';
 export class AdminDashboardComponent {
     private authService = inject(AuthService);
     private router = inject(Router);
+    public translationService = inject(TranslationService);
+
+    t = this.translationService.translate.bind(this.translationService);
 
     activeTab = signal<'dashboard' | 'products' | 'orders' | 'customers' | 'categories' | 'analytics' | 'settings'>('dashboard');
     adminName = signal(this.authService.user()?.username || 'Admin');

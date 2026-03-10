@@ -1,6 +1,7 @@
 import { Component, signal, inject, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { TranslationService } from '../../../core/services/translation.service';
 import { Chart, registerables } from 'chart.js';
 
 Chart.register(...registerables);
@@ -27,6 +28,9 @@ interface TopProduct {
 })
 export class DashboardOverviewComponent implements OnInit {
     private http = inject(HttpClient);
+    public translationService = inject(TranslationService);
+
+    t = this.translationService.translate.bind(this.translationService);
 
     @ViewChild('salesChart') salesChartCanvas!: ElementRef<HTMLCanvasElement>;
     private chart?: Chart;

@@ -2,6 +2,7 @@ import { Component, signal, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { TranslationService } from '../../../core/services/translation.service';
 
 interface Product {
     id: string;
@@ -38,6 +39,9 @@ interface ProductForm {
 })
 export class ManageProductsComponent implements OnInit {
     private http = inject(HttpClient);
+    public translationService = inject(TranslationService);
+
+    t = this.translationService.translate.bind(this.translationService);
 
     // Mock products for demonstration
     products = signal<Product[]>([

@@ -2,6 +2,7 @@ import { Component, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
+import { TranslationService } from '../../core/services/translation.service';
 
 @Component({
     selector: 'app-auth',
@@ -13,6 +14,11 @@ import { AuthService } from '../../core/services/auth.service';
 export class AuthComponent {
     private authService = inject(AuthService);
     private router = inject(Router);
+    private translationService = inject(TranslationService);
+
+    t(key: string, params: any = {}) {
+        return this.translationService.translate(key, params);
+    }
 
     isLoginMode = signal(true);
 
@@ -58,7 +64,7 @@ export class AuthComponent {
                 },
                 error: (err) => {
                     console.error('Login failed', err);
-                    this.errorMessage.set(err.error?.detail || 'Invalid email or password.');
+                    this.errorMessage.set(err.error?.detail || this.t('auth.alert_login_failed'));
                 }
             });
         } else {
@@ -69,12 +75,12 @@ export class AuthComponent {
             };
             this.authService.register(data).subscribe({
                 next: () => {
-                    this.successMessage.set('Registration successful! Please login.');
+                    this.successMessage.set(this.t('auth.alert_register_success'));
                     this.isLoginMode.set(true);
                 },
                 error: (err) => {
                     console.error('Registration failed', err);
-                    this.errorMessage.set(err.error?.message || 'Registration failed. Please try again.');
+                    this.errorMessage.set(err.error?.message || this.t('auth.alert_register_failed'));
                 }
             });
         }

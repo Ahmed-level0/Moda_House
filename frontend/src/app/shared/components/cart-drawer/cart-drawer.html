@@ -2,7 +2,7 @@
     <div class="cart-panel" [class.open]="isDrawerOpen()" (click)="$event.stopPropagation()">
         <!-- Header -->
         <div class="cart-header">
-            <h3>Shopping Bag <span>({{ cartService.totalCount() }})</span></h3>
+            <h3>{{ t('cart.title') }} <span>({{ cartService.totalCount() }})</span></h3>
             <button class="close-btn" (click)="close()">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M18 6L6 18M6 6l12 12" />
@@ -20,8 +20,8 @@
                         <path d="M7 14h13M10 21a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM18 21a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" />
                     </svg>
                 </div>
-                <p>Your shopping bag is empty.</p>
-                <button (click)="close()" class="btn-primary">Continue Shopping</button>
+                <p>{{ t('cart.empty_text') }}</p>
+                <button (click)="close()" class="btn-primary">{{ t('cart.continue_shopping') }}</button>
             </div>
             } @else {
             <div class="cart-items-list">
@@ -55,7 +55,8 @@
                                     <span>{{ item.quantity }}</span>
                                     <button (click)="updateQty(item.product, 1)">+</button>
                                 </div>
-                                <button class="text-remove-btn" (click)="removeItem(item.product)">Remove</button>
+                                <button class="text-remove-btn" (click)="removeItem(item.product)">{{ t('cart.remove')
+                                    }}</button>
                             </div>
                             <div class="price-box">
                                 <span class="price current" *ngIf="(item.discount ?? 0) > 0">{{ item.price *
@@ -75,11 +76,11 @@
         @if (cartItems().length > 0) {
         <div class="cart-footer">
             <div class="subtotal-row">
-                <span>Subtotal</span>
+                <span>{{ t('cart.subtotal') }}</span>
                 <span class="amount">{{ subtotal() | currency }}</span>
             </div>
-            <p class="tax-info">Shipping and taxes calculated at checkout.</p>
-            <button class="btn-checkout" routerLink="/checkout" (click)="close()">Checkout</button>
+            <p class="tax-info">{{ t('cart.tax_info') }}</p>
+            <button class="btn-checkout" routerLink="/checkout" (click)="close()">{{ t('cart.checkout') }}</button>
         </div>
         }
     </div>

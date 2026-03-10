@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../../core/services/auth.service';
 import { OrderService } from '../../core/services/order.service';
 import { environment } from '../../../environments/environment';
+import { TranslationService } from '../../core/services/translation.service';
 
 @Component({
     selector: 'app-track-order',
@@ -18,6 +19,11 @@ export class TrackOrderComponent implements OnInit {
     private route = inject(ActivatedRoute);
     private authService = inject(AuthService);
     private orderService = inject(OrderService);
+    private translationService = inject(TranslationService);
+
+    t(key: string, params: any = {}) {
+        return this.translationService.translate(key, params);
+    }
 
     orderIdInput = signal('');
     trackingData = signal<any>(null);
@@ -74,7 +80,7 @@ export class TrackOrderComponent implements OnInit {
 
                 this.trackingData.set({
                     id: order.id,
-                    date: order.created_at ? new Date(order.created_at).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' }) : 'Date unknown',
+                    date: order.created_at ? new Date(order.created_at).toLocaleDateString(this.translationService.currentLang() === 'ar' ? 'ar-EG' : 'en-US', { day: 'numeric', month: 'long', year: 'numeric' }) : this.t('track_order.unknown_date'),
                     status: uiStatus,
                     address: order.address || 'Address not available',
                     phone: order.phone || '',
@@ -163,7 +169,7 @@ export class TrackOrderComponent implements OnInit {
             error: (err) => {
                 console.error('Update failed:', err);
                 this.isUpdating.set(false);
-                alert('Failed to update order. Please try again.');
+                alert(this.t('track_order.update_failed'));
             }
         });
     }

@@ -4,6 +4,7 @@ import { Router, RouterLink } from '@angular/router';
 import { CartService } from '../../core/services/cart.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../../core/services/auth.service';
+import { TranslationService } from '../../core/services/translation.service';
 
 @Component({
     selector: 'app-checkout',
@@ -17,6 +18,11 @@ export class CheckoutComponent {
     private router = inject(Router);
     private http = inject(HttpClient);
     public authService = inject(AuthService);
+    private translationService = inject(TranslationService);
+
+    t(key: string, params: any = {}) {
+        return this.translationService.translate(key, params);
+    }
 
     cartItems = this.cartService.cartItems;
     subtotal = this.cartService.subtotal;
@@ -78,7 +84,7 @@ export class CheckoutComponent {
             },
             error: (err) => {
                 console.error('Failed to apply coupon:', err);
-                alert(err.error?.detail || 'Invalid coupon code');
+                alert(err.error?.detail || this.t('checkout.invalid_coupon'));
             }
         });
     }
@@ -146,7 +152,7 @@ export class CheckoutComponent {
             },
             error: (err) => {
                 console.error('Order placement failed:', err);
-                alert(err.error?.detail || 'Failed to place order. Please try again.');
+                alert(err.error?.detail || this.t('checkout.order_failed'));
                 this.isPlacingOrder.set(false);
             }
         });

@@ -1,26 +1,26 @@
 <div class="manage-orders">
     <header>
-        <h2>Manage Orders</h2>
+        <h2>{{ t('admin.orders.title') }}</h2>
         <div class="header-actions">
-            <span class="order-count">{{ orders().length }} Total Orders</span>
+            <span class="order-count">{{ orders().length }} {{ t('admin.orders.total_orders') }}</span>
         </div>
     </header>
 
     @if (loading()) {
     <div class="loading-state">
-        <i class="fas fa-spinner fa-spin"></i> Loading orders...
+        <i class="fas fa-spinner fa-spin"></i> {{ t('admin.orders.loading') }}
     </div>
     } @else {
     <div class="orders-table-container">
         <table class="orders-table">
             <thead>
                 <tr>
-                    <th>Order ID</th>
-                    <th>Customer</th>
-                    <th>Date</th>
-                    <th>Total</th>
-                    <th>Status</th>
-                    <th>Actions</th>
+                    <th>{{ t('admin.orders.order_id') }}</th>
+                    <th>{{ t('admin.orders.customer') }}</th>
+                    <th>{{ t('admin.orders.date') }}</th>
+                    <th>{{ t('admin.orders.total') }}</th>
+                    <th>{{ t('admin.orders.status') }}</th>
+                    <th>{{ t('admin.orders.actions') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -42,13 +42,13 @@
                     </td>
                     <td>
                         <button class="btn-action" (click)="viewOrderDetails(order)">
-                            <i class="fas fa-eye"></i> View
+                            <i class="fas fa-eye"></i> {{ t('admin.orders.view') }}
                         </button>
                     </td>
                 </tr>
                 } @empty {
                 <tr>
-                    <td colspan="6" class="empty-table">No orders found.</td>
+                    <td colspan="6" class="empty-table">{{ t('admin.orders.empty') }}</td>
                 </tr>
                 }
             </tbody>
@@ -61,7 +61,7 @@
     <div class="modal-overlay" (click)="closeDetails()">
         <div class="order-details-modal" (click)="$event.stopPropagation()">
             <header class="modal-header">
-                <h3>Order Details - #{{ selectedOrder()?._id }}</h3>
+                <h3>{{ t('admin.orders.details_title') }} - #{{ selectedOrder()?._id }}</h3>
                 <button class="close-btn" (click)="closeDetails()">
                     <i class="fas fa-times"></i>
                 </button>
@@ -71,14 +71,14 @@
                 <div class="details-grid">
                     <!-- Customer Info -->
                     <section class="details-section">
-                        <h4><i class="fas fa-user"></i> Customer Information</h4>
-                        <p><strong>Name:</strong> {{ selectedOrder()?.user?.username }}</p>
-                        <p><strong>Email:</strong> {{ selectedOrder()?.user?.email }}</p>
+                        <h4><i class="fas fa-user"></i> {{ t('admin.orders.cust_info') }}</h4>
+                        <p><strong>{{ t('admin.orders.name') }}:</strong> {{ selectedOrder()?.user?.username }}</p>
+                        <p><strong>{{ t('admin.orders.email') }}:</strong> {{ selectedOrder()?.user?.email }}</p>
                     </section>
 
                     <!-- Shipping Info -->
                     <section class="details-section">
-                        <h4><i class="fas fa-truck"></i> Shipping Address</h4>
+                        <h4><i class="fas fa-truck"></i> {{ t('admin.orders.shipping') }}</h4>
                         <p>{{ selectedOrder()?.shippingAddress?.address }}</p>
                         <p>{{ selectedOrder()?.shippingAddress?.city }}, {{ selectedOrder()?.shippingAddress?.postalCode
                             }}</p>
@@ -87,28 +87,29 @@
 
                     <!-- Order Summary -->
                     <section class="details-section full-width">
-                        <h4><i class="fas fa-list"></i> Order Items</h4>
+                        <h4><i class="fas fa-list"></i> {{ t('admin.orders.order_items') }}</h4>
                         <div class="items-list">
                             @for (item of selectedOrder()?.orderItems; track item.product) {
                             <div class="order-item">
                                 <img [src]="item.image" [alt]="item.name">
                                 <div class="item-info">
                                     <span class="item-name">{{ item.name }}</span>
-                                    <span class="item-meta">Qty: {{ item.qty }} x ${{ item.price }}</span>
+                                    <span class="item-meta">{{ t('admin.orders.qty') }}: {{ item.qty }} x ${{ item.price
+                                        }}</span>
                                 </div>
                                 <span class="item-total">${{ (item.qty * item.price).toFixed(2) }}</span>
                             </div>
                             }
                         </div>
                         <div class="order-total">
-                            <span>Total Amount:</span>
+                            <span>{{ t('admin.orders.total_amount') }}:</span>
                             <span class="total-price">${{ selectedOrder()?.totalPrice?.toFixed(2) }}</span>
                         </div>
                     </section>
 
                     <!-- Status Controls -->
                     <section class="details-section full-width">
-                        <h4><i class="fas fa-tasks"></i> Order Status</h4>
+                        <h4><i class="fas fa-tasks"></i> {{ t('admin.orders.order_status') }}</h4>
                         <div class="status-actions">
                             <select #statusSelect [value]="selectedOrder()?.deliveryStatus">
                                 <option value="Pending">Pending</option>
@@ -119,7 +120,7 @@
                             </select>
                             <button class="btn-primary"
                                 (click)="updateStatus(selectedOrder()!._id, statusSelect.value)">
-                                Update Status
+                                {{ t('admin.orders.update_status') }}
                             </button>
                         </div>
                     </section>

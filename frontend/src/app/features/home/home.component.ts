@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ProductService, Product } from '../../core/services/product.service';
+import { TranslationService } from '../../core/services/translation.service';
 
 @Component({
     selector: 'app-home',
@@ -14,6 +15,12 @@ import { ProductService, Product } from '../../core/services/product.service';
 export class HomeComponent implements OnInit {
     private productService = inject(ProductService);
     private sanitizer = inject(DomSanitizer);
+    private translationService = inject(TranslationService);
+    currentLang = this.translationService.currentLang;
+
+    t(key: string) {
+        return this.translationService.translate(key);
+    }
 
     categoryMapping: Record<string, number> = {
         'bags': 1,

@@ -29,13 +29,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
-<<<<<<< HEAD
-    expose:
-      - "8000"
-=======
     ports:
       - "8000:8000"
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
 
   # ── Angular Frontend ──
   frontend:

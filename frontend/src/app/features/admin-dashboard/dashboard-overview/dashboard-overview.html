@@ -1,9 +1,17 @@
 <div class="dashboard-overview">
+<<<<<<< HEAD
     <h1>Dashboard Overview</h1>
 
     @if (loading()) {
     <div class="loading">
         <i class="fas fa-spinner fa-spin"></i> Loading...
+=======
+    <h1>{{ t('admin.overview.title') }}</h1>
+
+    @if (loading()) {
+    <div class="loading">
+        <i class="fas fa-spinner fa-spin"></i> {{ t('admin.overview.loading') }}
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
     </div>
     } @else {
     <!-- Stats Cards -->
@@ -13,10 +21,17 @@
                 <i class="fas fa-dollar-sign"></i>
             </div>
             <div class="info">
+<<<<<<< HEAD
                 <h3>Total Revenue</h3>
                 <p class="value">${{ stats().totalRevenue.toFixed(2) }}</p>
                 <span class="change positive">
                     <i class="fas fa-arrow-up"></i> +12% from last month
+=======
+                <h3>{{ t('admin.overview.revenue') }}</h3>
+                <p class="value">${{ stats().totalRevenue.toFixed(2) }}</p>
+                <span class="change positive">
+                    <i class="fas fa-arrow-up"></i> +12% {{ t('admin.overview.vs_last_month') }}
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                 </span>
             </div>
         </div>
@@ -26,10 +41,17 @@
                 <i class="fas fa-shopping-bag"></i>
             </div>
             <div class="info">
+<<<<<<< HEAD
                 <h3>Total Orders</h3>
                 <p class="value">{{ stats().totalOrders }}</p>
                 <span class="change positive">
                     <i class="fas fa-arrow-up"></i> +8% from last month
+=======
+                <h3>{{ t('admin.overview.total_orders') }}</h3>
+                <p class="value">{{ stats().totalOrders }}</p>
+                <span class="change positive">
+                    <i class="fas fa-arrow-up"></i> +8% {{ t('admin.overview.vs_last_month') }}
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                 </span>
             </div>
         </div>
@@ -39,10 +61,17 @@
                 <i class="fas fa-users"></i>
             </div>
             <div class="info">
+<<<<<<< HEAD
                 <h3>Total Customers</h3>
                 <p class="value">{{ stats().totalCustomers }}</p>
                 <span class="change positive">
                     <i class="fas fa-arrow-up"></i> +15% from last month
+=======
+                <h3>{{ t('admin.overview.total_customers') }}</h3>
+                <p class="value">{{ stats().totalCustomers }}</p>
+                <span class="change positive">
+                    <i class="fas fa-arrow-up"></i> +15% {{ t('admin.overview.vs_last_month') }}
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                 </span>
             </div>
         </div>
@@ -52,10 +81,17 @@
                 <i class="fas fa-box-open"></i>
             </div>
             <div class="info">
+<<<<<<< HEAD
                 <h3>Products in Stock</h3>
                 <p class="value">{{ stats().productsInStock }}</p>
                 <span class="change neutral">
                     <i class="fas fa-minus"></i> No change
+=======
+                <h3>{{ t('admin.overview.in_stock') }}</h3>
+                <p class="value">{{ stats().productsInStock }}</p>
+                <span class="change neutral">
+                    <i class="fas fa-minus"></i> {{ t('admin.overview.no_change') }}
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                 </span>
             </div>
         </div>
@@ -64,7 +100,11 @@
     <!-- Charts Section -->
     <div class="charts-section">
         <div class="chart-card">
+<<<<<<< HEAD
             <h2><i class="fas fa-chart-area"></i> Sales Overview</h2>
+=======
+            <h2><i class="fas fa-chart-area"></i> {{ t('admin.overview.sales_overview') }}</h2>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
             <div class="chart-container">
                 <canvas #salesChart></canvas>
             </div>
@@ -73,14 +113,24 @@
 
     <!-- Top Selling Products -->
     <div class="top-products">
+<<<<<<< HEAD
         <h2><i class="fas fa-fire"></i> Top Selling Products</h2>
+=======
+        <h2><i class="fas fa-fire"></i> {{ t('admin.overview.top_products') }}</h2>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
         <div class="products-table">
             <table>
                 <thead>
                     <tr>
+<<<<<<< HEAD
                         <th>Product</th>
                         <th>Sold</th>
                         <th>Revenue</th>
+=======
+                        <th>{{ t('admin.overview.table_product') }}</th>
+                        <th>{{ t('admin.overview.table_sold') }}</th>
+                        <th>{{ t('admin.overview.table_revenue') }}</th>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                     </tr>
                 </thead>
                 <tbody>
@@ -95,7 +145,11 @@
                     } @empty {
                     <tr>
                         <td colspan="3" style="text-align: center;">
+<<<<<<< HEAD
                             <i class="fas fa-inbox"></i> No data available
+=======
+                            <i class="fas fa-inbox"></i> {{ t('admin.overview.no_data') }}
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                         </td>
                     </tr>
                     }

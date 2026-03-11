@@ -2,15 +2,26 @@
     <div class="container track-container">
 
         <header class="track-header">
+<<<<<<< HEAD
             <h1 class="page-title">Track Your Order</h1>
             <p class="subtitle">Enter your order number to check the current status and estimated delivery.</p>
+=======
+            <h1 class="page-title">{{ t('track_order.title') }}</h1>
+            <p class="subtitle">{{ t('track_order.subtitle') }}</p>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
         </header>
 
         <div class="search-section">
             <div class="search-box">
+<<<<<<< HEAD
                 <input type="text" placeholder="Order Number (e.g. MH-XXXXXX)" [value]="orderIdInput()"
                     (input)="onInputChange($event)">
                 <button (click)="trackOrder()" class="btn-track-action">Track Now</button>
+=======
+                <input type="text" [placeholder]="t('track_order.placeholder')" [value]="orderIdInput()"
+                    (input)="onInputChange($event)">
+                <button (click)="trackOrder()" class="btn-track-action">{{ t('track_order.track_now') }}</button>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
             </div>
         </div>
 
@@ -19,11 +30,19 @@
             <div class="order-summary-card">
                 <div class="card-header">
                     <div class="info">
+<<<<<<< HEAD
                         <span class="label">Order ID</span>
                         <span class="value">{{ trackingData().id }}</span>
                     </div>
                     <div class="info">
                         <span class="label">Placed On</span>
+=======
+                        <span class="label">{{ t('track_order.order_id') }}</span>
+                        <span class="value">{{ trackingData().id }}</span>
+                    </div>
+                    <div class="info">
+                        <span class="label">{{ t('track_order.placed_on') }}</span>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                         <span class="value">{{ trackingData().date }}</span>
                     </div>
                 </div>
@@ -38,7 +57,11 @@
                                 <polyline points="17 11 19 13 23 9" />
                             </svg>
                         </div>
+<<<<<<< HEAD
                         <span class="step-label">Order Placed</span>
+=======
+                        <span class="step-label">{{ t('track_order.status_placed') }}</span>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                     </div>
 
                     <div class="timeline-line"></div>
@@ -50,7 +73,11 @@
                                 <polyline points="22 4 12 14.01 9 11.01" />
                             </svg>
                         </div>
+<<<<<<< HEAD
                         <span class="step-label">Confirmed</span>
+=======
+                        <span class="step-label">{{ t('track_order.status_confirmed') }}</span>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                     </div>
 
                     <div class="timeline-line"></div>
@@ -64,7 +91,11 @@
                                 <line x1="12" y1="22.08" x2="12" y2="12" />
                             </svg>
                         </div>
+<<<<<<< HEAD
                         <span class="step-label">Packing</span>
+=======
+                        <span class="step-label">{{ t('track_order.status_packing') }}</span>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                     </div>
 
                     <div class="timeline-line"></div>
@@ -78,7 +109,11 @@
                                 <circle cx="18.5" cy="18.5" r="2.5" />
                             </svg>
                         </div>
+<<<<<<< HEAD
                         <span class="step-label">Shipped</span>
+=======
+                        <span class="step-label">{{ t('track_order.status_shipped') }}</span>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                     </div>
 
                     <div class="timeline-line"></div>
@@ -90,12 +125,17 @@
                                 <polyline points="9 22 9 12 15 12 15 22" />
                             </svg>
                         </div>
+<<<<<<< HEAD
                         <span class="step-label">Delivered</span>
+=======
+                        <span class="step-label">{{ t('track_order.status_delivered') }}</span>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                     </div>
                 </div>
 
                 <div class="order-details-bar">
                     <div class="detail">
+<<<<<<< HEAD
                         <span class="label">Shipping To</span>
                         @if (isEditing()) {
                         <div class="edit-fields">
@@ -106,6 +146,20 @@
                             <div class="field-item">
                                 <label>Phone</label>
                                 <input type="text" [(ngModel)]="editableData().phone" placeholder="Phone Number">
+=======
+                        <span class="label">{{ t('track_order.shipping_to') }}</span>
+                        @if (isEditing()) {
+                        <div class="edit-fields">
+                            <div class="field-item">
+                                <label>{{ t('checkout.address') }}</label>
+                                <input type="text" [(ngModel)]="editableData().address"
+                                    [placeholder]="t('checkout.address')">
+                            </div>
+                            <div class="field-item">
+                                <label>{{ t('checkout.phone_number') }}</label>
+                                <input type="text" [(ngModel)]="editableData().phone"
+                                    [placeholder]="t('checkout.phone_number')">
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                             </div>
                         </div>
                         } @else {
@@ -119,7 +173,11 @@
 
                 @if (isEditing()) {
                 <div class="edit-items-section">
+<<<<<<< HEAD
                     <h4>Update Items</h4>
+=======
+                    <h4>{{ t('track_order.update_items') }}</h4>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                     <div class="items-list">
                         @for (item of editableData().items; track $index) {
                         <div class="edit-item-row">
@@ -147,9 +205,16 @@
                 <div class="card-actions">
                     @if (isEditing()) {
                     <button class="btn-save" (click)="saveOrder()" [disabled]="isUpdating()">
+<<<<<<< HEAD
                         {{ isUpdating() ? 'Saving...' : 'Save Changes' }}
                     </button>
                     <button class="btn-cancel" (click)="toggleEdit()" [disabled]="isUpdating()">Cancel</button>
+=======
+                        {{ isUpdating() ? t('track_order.saving') : t('track_order.save_changes') }}
+                    </button>
+                    <button class="btn-cancel" (click)="toggleEdit()" [disabled]="isUpdating()">{{
+                        t('track_order.cancel') }}</button>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                     } @else {
                     <button class="btn-edit-trigger" (click)="toggleEdit()">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16"
@@ -157,7 +222,11 @@
                             <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
                             <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
                         </svg>
+<<<<<<< HEAD
                         Edit Order
+=======
+                        {{ t('track_order.edit_order') }}
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                     </button>
                     }
                 </div>
@@ -170,7 +239,11 @@
                 <line x1="12" y1="8" x2="12" y2="12" />
                 <line x1="12" y1="16" x2="12.01" y2="16" />
             </svg>
+<<<<<<< HEAD
             <p>Order not found. Please double check the order number.</p>
+=======
+            <p>{{ t('track_order.not_found') }}</p>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
         </div>
         }
     </div>

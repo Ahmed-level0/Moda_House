@@ -5,6 +5,10 @@ import { RouterLink, ActivatedRoute } from '@angular/router';
 import { CartService } from '../../../core/services/cart.service';
 import { WishlistService } from '../../../core/services/wishlist.service';
 import { ProductService, Product } from '../../../core/services/product.service';
+<<<<<<< HEAD
+=======
+import { TranslationService } from '../../../core/services/translation.service';
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
 
 
 @Component({
@@ -19,6 +23,14 @@ export class ProductListComponent {
     private cartService = inject(CartService);
     private wishlistService = inject(WishlistService);
     private productService = inject(ProductService);
+<<<<<<< HEAD
+=======
+    private translationService = inject(TranslationService);
+
+    t(key: string, params: any = {}) {
+        return this.translationService.translate(key, params);
+    }
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
 
     addToBag(product: any, event?: Event) {
         if (event) {

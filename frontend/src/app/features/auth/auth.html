@@ -2,9 +2,14 @@
     <div class="auth-card">
         <header class="auth-header">
             <h1 class="logo" routerLink="/">MODA HOUSE</h1>
+<<<<<<< HEAD
             <h2 class="title">{{ isLoginMode() ? 'Sign In' : 'Create Account' }}</h2>
             <p class="subtitle">{{ isLoginMode() ? 'Enter your details to access your account.' : 'Join our world of
                 luxury and style.' }}</p>
+=======
+            <h2 class="title">{{ isLoginMode() ? t('auth.sign_in') : t('auth.create_account') }}</h2>
+            <p class="subtitle">{{ isLoginMode() ? t('auth.sign_in_desc') : t('auth.create_account_desc') }}</p>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
         </header>
 
         <div class="auth-alerts">
@@ -20,48 +25,84 @@
 
         <form (submit)="$event.preventDefault(); onSubmit()" class="auth-form">
             <div class="form-group">
+<<<<<<< HEAD
                 <label>Username</label>
                 <input type="text" placeholder="FashionLover99" [value]="username()"
+=======
+                <label>{{ t('auth.username') }}</label>
+                <input type="text" [placeholder]="t('auth.username_placeholder')" [value]="username()"
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                     (input)="updateField('username', $event)" required>
             </div>
 
             <div class="form-group">
+<<<<<<< HEAD
                 <label>Email Address</label>
                 <input type="email" placeholder="email@example.com" [value]="email()"
+=======
+                <label>{{ t('auth.email') }}</label>
+                <input type="email" [placeholder]="t('auth.email_placeholder')" [value]="email()"
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                     (input)="updateField('email', $event)" required>
             </div>
 
             <div class="form-group">
+<<<<<<< HEAD
                 <label>Password</label>
                 <input type="password" placeholder="••••••••" [value]="password()"
                     (input)="updateField('password', $event)" required>
                 <small class="field-hint" *ngIf="!isLoginMode()">
                     Must include uppercase, lowercase, and numbers.
+=======
+                <label>{{ t('auth.password') }}</label>
+                <input type="password" [placeholder]="t('auth.password_placeholder')" [value]="password()"
+                    (input)="updateField('password', $event)" required>
+                <small class="field-hint" *ngIf="!isLoginMode()">
+                    {{ t('auth.password_hint') }}
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                 </small>
             </div>
 
             <div class="form-group checkbox-group" *ngIf="!isLoginMode()">
                 <label>
                     <input type="checkbox" [checked]="isAdmin()" (change)="toggleAdmin($event)">
+<<<<<<< HEAD
                     Register as Admin (Demo Purpose)
+=======
+                    {{ t('auth.register_admin') }}
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                 </label>
             </div>
 
             <div class="form-footer">
                 @if (isLoginMode()) {
+<<<<<<< HEAD
                 <a href="#" class="forgot-link">Forgot Password?</a>
+=======
+                <a href="#" class="forgot-link">{{ t('auth.forgot_password') }}</a>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                 }
             </div>
 
             <button type="submit" class="btn-submit">
+<<<<<<< HEAD
                 {{ isLoginMode() ? 'Sign In' : 'Register' }}
+=======
+                {{ isLoginMode() ? t('auth.sign_in') : t('auth.register') }}
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
             </button>
         </form>
 
         <div class="auth-switch">
             <p>
+<<<<<<< HEAD
                 {{ isLoginMode() ? "Don't have an account?" : "Already have an account?" }}
                 <button (click)="toggleMode()">{{ isLoginMode() ? 'Register now' : 'Sign in' }}</button>
+=======
+                {{ isLoginMode() ? t('auth.no_account') : t('auth.have_account') }}
+                <button (click)="toggleMode()">{{ isLoginMode() ? t('auth.register_now') : t('auth.sign_in_now')
+                    }}</button>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
             </p>
         </div>
     </div>

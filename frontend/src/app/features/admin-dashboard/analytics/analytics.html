@@ -1,9 +1,17 @@
 <div class="analytics">
+<<<<<<< HEAD
     <h1>Analytics & Reports</h1>
 
     @if (loading()) {
     <div class="loading">
         <i class="fas fa-spinner fa-spin"></i> Loading analytics...
+=======
+    <h1>{{ t('admin.analytics.title') }}</h1>
+
+    @if (loading()) {
+    <div class="loading">
+        <i class="fas fa-spinner fa-spin"></i> {{ t('admin.analytics.loading') }}
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
     </div>
     } @else {
     <!-- Key Metrics -->
@@ -13,7 +21,11 @@
                 <i class="fas fa-dollar-sign"></i>
             </div>
             <div class="info">
+<<<<<<< HEAD
                 <h3>Total Revenue</h3>
+=======
+                <h3>{{ t('admin.analytics.revenue') }}</h3>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                 <p class="value">${{ stats().totalRevenue.toLocaleString('en-US', {minimumFractionDigits: 2}) }}</p>
                 <span class="change positive">
                     <i class="fas fa-arrow-up"></i> +18.2% from last month
@@ -26,7 +38,11 @@
                 <i class="fas fa-shopping-cart"></i>
             </div>
             <div class="info">
+<<<<<<< HEAD
                 <h3>Total Orders</h3>
+=======
+                <h3>{{ t('admin.analytics.orders') }}</h3>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                 <p class="value">{{ stats().totalOrders }}</p>
                 <span class="change positive">
                     <i class="fas fa-arrow-up"></i> +12.5% from last month
@@ -39,7 +55,11 @@
                 <i class="fas fa-users"></i>
             </div>
             <div class="info">
+<<<<<<< HEAD
                 <h3>Total Customers</h3>
+=======
+                <h3>{{ t('admin.analytics.customers') }}</h3>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                 <p class="value">{{ stats().totalCustomers }}</p>
                 <span class="change positive">
                     <i class="fas fa-arrow-up"></i> +23.1% from last month
@@ -52,7 +72,11 @@
                 <i class="fas fa-chart-line"></i>
             </div>
             <div class="info">
+<<<<<<< HEAD
                 <h3>Avg Order Value</h3>
+=======
+                <h3>{{ t('admin.analytics.avg_order') }}</h3>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                 <p class="value">${{ stats().avgOrderValue.toFixed(2) }}</p>
                 <span class="change positive">
                     <i class="fas fa-arrow-up"></i> +5.3% from last month
@@ -65,7 +89,11 @@
     <div class="charts-grid">
         <!-- Revenue Chart -->
         <div class="chart-card large">
+<<<<<<< HEAD
             <h2><i class="fas fa-chart-area"></i> Revenue Trend (Last 12 Months)</h2>
+=======
+            <h2><i class="fas fa-chart-area"></i> {{ t('admin.analytics.trend_title') }}</h2>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
             <div class="chart-container">
                 <canvas #revenueChart></canvas>
             </div>
@@ -73,7 +101,11 @@
 
         <!-- Category Distribution -->
         <div class="chart-card">
+<<<<<<< HEAD
             <h2><i class="fas fa-chart-pie"></i> Sales by Category</h2>
+=======
+            <h2><i class="fas fa-chart-pie"></i> {{ t('admin.analytics.sales_cat') }}</h2>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
             <div class="chart-container">
                 <canvas #categoryChart></canvas>
             </div>
@@ -81,7 +113,11 @@
 
         <!-- Customer Growth -->
         <div class="chart-card">
+<<<<<<< HEAD
             <h2><i class="fas fa-user-plus"></i> New Customers (This Month)</h2>
+=======
+            <h2><i class="fas fa-user-plus"></i> {{ t('admin.analytics.new_customers') }}</h2>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
             <div class="chart-container">
                 <canvas #customerChart></canvas>
             </div>
@@ -90,6 +126,7 @@
 
     <!-- Additional Insights -->
     <div class="insights-section">
+<<<<<<< HEAD
         <h2><i class="fas fa-lightbulb"></i> Key Insights</h2>
         <div class="insights-grid">
             <div class="insight-card">
@@ -111,6 +148,29 @@
                 <i class="fas fa-mobile-alt"></i>
                 <h3>Mobile Traffic</h3>
                 <p>45% of orders from mobile devices</p>
+=======
+        <h2><i class="fas fa-lightbulb"></i> {{ t('admin.analytics.insights_title') }}</h2>
+        <div class="insights-grid">
+            <div class="insight-card">
+                <i class="fas fa-trophy"></i>
+                <h3>{{ t('admin.analytics.best_selling') }}</h3>
+                <p>{{ t('admin.analytics.best_selling_desc') }}</p>
+            </div>
+            <div class="insight-card">
+                <i class="fas fa-clock"></i>
+                <h3>{{ t('admin.analytics.peak_time') }}</h3>
+                <p>{{ t('admin.analytics.peak_time_desc') }}</p>
+            </div>
+            <div class="insight-card">
+                <i class="fas fa-star"></i>
+                <h3>{{ t('admin.analytics.retention') }}</h3>
+                <p>{{ t('admin.analytics.retention_desc') }}</p>
+            </div>
+            <div class="insight-card">
+                <i class="fas fa-mobile-alt"></i>
+                <h3>{{ t('admin.analytics.mobile') }}</h3>
+                <p>{{ t('admin.analytics.mobile_desc') }}</p>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
             </div>
         </div>
     </div>

@@ -3,6 +3,10 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ProductService, Product } from '../../core/services/product.service';
+<<<<<<< HEAD
+=======
+import { TranslationService } from '../../core/services/translation.service';
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
 
 @Component({
     selector: 'app-home',
@@ -14,6 +18,15 @@ import { ProductService, Product } from '../../core/services/product.service';
 export class HomeComponent implements OnInit {
     private productService = inject(ProductService);
     private sanitizer = inject(DomSanitizer);
+<<<<<<< HEAD
+=======
+    private translationService = inject(TranslationService);
+    currentLang = this.translationService.currentLang;
+
+    t(key: string) {
+        return this.translationService.translate(key);
+    }
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
 
     categoryMapping: Record<string, number> = {
         'bags': 1,

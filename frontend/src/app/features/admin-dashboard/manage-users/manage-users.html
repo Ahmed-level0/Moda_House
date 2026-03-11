@@ -1,16 +1,27 @@
 <div class="manage-users">
     <header>
+<<<<<<< HEAD
         <h2>Manage Users</h2>
+=======
+        <h2>{{ t('admin.users.title') }}</h2>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
     </header>
 
     <div class="users-table">
         <table>
             <thead>
                 <tr>
+<<<<<<< HEAD
                     <th>Username</th>
                     <th>Email</th>
                     <th>Role</th>
                     <th>Actions</th>
+=======
+                    <th>{{ t('admin.users.username') }}</th>
+                    <th>{{ t('admin.users.email') }}</th>
+                    <th>{{ t('admin.users.role') }}</th>
+                    <th>{{ t('admin.users.actions') }}</th>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                 </tr>
             </thead>
             <tbody>
@@ -25,13 +36,21 @@
                     </td>
                     <td>
                         <button class="btn-toggle" (click)="toggleRole(user)" [class.demote]="user.role === 'admin'">
+<<<<<<< HEAD
                             {{ user.role === 'admin' ? 'Demote to User' : 'Promote to Admin' }}
+=======
+                            {{ user.role === 'admin' ? t('admin.users.demote') : t('admin.users.promote') }}
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                         </button>
                     </td>
                 </tr>
                 } @empty {
                 <tr>
+<<<<<<< HEAD
                     <td colspan="4" style="text-align: center;">No users found</td>
+=======
+                    <td colspan="4" style="text-align: center;">{{ t('admin.users.empty') }}</td>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                 </tr>
                 }
             </tbody>

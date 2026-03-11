@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+=======
+import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TranslationService } from '../../core/services/translation.service';
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
 
 @Component({
     selector: 'app-shipping-policy',
@@ -9,6 +15,7 @@ import { CommonModule } from '@angular/common';
     <div class="policy-page">
         <div class="container narrow">
             <header class="policy-header">
+<<<<<<< HEAD
                 <h1>Shipping Policy</h1>
                 <p>Last updated: February 2026</p>
             </header>
@@ -31,11 +38,36 @@ import { CommonModule } from '@angular/common';
                         <h3>Other Governorates</h3>
                         <p class="time">3-5 Business Days</p>
                         <p class="cost">80 EGP</p>
+=======
+                <h1>{{ t('policies.shipping.title') }}</h1>
+                <p>{{ t('policies.shipping.last_updated') }}</p>
+            </header>
+
+            <section class="policy-section">
+                <h2>{{ t('policies.shipping.domestic_title') }}</h2>
+                <p>{{ t('policies.shipping.domestic_desc') }}</p>
+                <div class="shipping-grid">
+                    <div class="ship-card">
+                        <h3>{{ t('policies.shipping.cairo_giza') }}</h3>
+                        <p class="time">{{ t('policies.shipping.days_1_2') }}</p>
+                        <p class="cost">{{ t('policies.shipping.cost_50') }}</p>
+                    </div>
+                    <div class="ship-card">
+                        <h3>{{ t('policies.shipping.alexandria') }}</h3>
+                        <p class="time">{{ t('policies.shipping.days_2_3') }}</p>
+                        <p class="cost">{{ t('policies.shipping.cost_65') }}</p>
+                    </div>
+                    <div class="ship-card">
+                        <h3>{{ t('policies.shipping.other_gov') }}</h3>
+                        <p class="time">{{ t('policies.shipping.days_3_5') }}</p>
+                        <p class="cost">{{ t('policies.shipping.cost_80') }}</p>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                     </div>
                 </div>
             </section>
 
             <section class="policy-section">
+<<<<<<< HEAD
                 <h2>Order Tracking</h2>
                 <p>Once your order is dispatched, you will receive a tracking number via email and SMS. You can also track your order directly through your <a href="/profile">account dashboard</a> or our <a href="/track-order">tracking page</a>.</p>
             </section>
@@ -43,6 +75,15 @@ import { CommonModule } from '@angular/common';
             <section class="policy-section">
                 <h2>International Shipping</h2>
                 <p>Currently, Moda House ships to select countries in the Middle East and Europe. International delivery typically takes 7-14 business days. Please note that customs duties and taxes may apply depending on your country's regulations.</p>
+=======
+                <h2>{{ t('policies.shipping.tracking_title') }}</h2>
+                <p>{{ t('policies.shipping.tracking_desc') }}</p>
+            </section>
+
+            <section class="policy-section">
+                <h2>{{ t('policies.shipping.intl_title') }}</h2>
+                <p>{{ t('policies.shipping.intl_desc') }}</p>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
             </section>
         </div>
     </div>
@@ -80,4 +121,14 @@ import { CommonModule } from '@angular/common';
     }
   `]
 })
+<<<<<<< HEAD
 export class ShippingPolicyComponent { }
+=======
+export class ShippingPolicyComponent {
+    private translationService = inject(TranslationService);
+
+    t(key: string, params: any = {}) {
+        return this.translationService.translate(key, params);
+    }
+}
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818

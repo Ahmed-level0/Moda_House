@@ -2,6 +2,10 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { CartService } from '../../../core/services/cart.service';
+<<<<<<< HEAD
+=======
+import { TranslationService } from '../../../core/services/translation.service';
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
 
 @Component({
     selector: 'app-cart-drawer',
@@ -12,6 +16,14 @@ import { CartService } from '../../../core/services/cart.service';
 })
 export class CartDrawer {
     cartService = inject(CartService);
+<<<<<<< HEAD
+=======
+    private translationService = inject(TranslationService);
+
+    t(key: string) {
+        return this.translationService.translate(key);
+    }
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
 
     // Expose signals to template
     cartItems = this.cartService.cartItems;

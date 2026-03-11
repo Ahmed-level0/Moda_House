@@ -1,8 +1,14 @@
 <div class="manage-products">
     <header>
+<<<<<<< HEAD
         <h2>Manage Products</h2>
         <button class="btn-primary" (click)="addProduct()">
             <i class="fas fa-plus"></i> Add Product
+=======
+        <h2>{{ t('admin.products.title') }}</h2>
+        <button class="btn-primary" (click)="addProduct()">
+            <i class="fas fa-plus"></i> {{ t('admin.products.add_product') }}
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
         </button>
     </header>
 
@@ -11,7 +17,11 @@
     <div class="modal-overlay" (click)="closeForm()">
         <div class="product-form" (click)="$event.stopPropagation()">
             <div class="form-header">
+<<<<<<< HEAD
                 <h3>{{ editingProduct() ? 'Edit Product' : 'Add New Product' }}</h3>
+=======
+                <h3>{{ editingProduct() ? t('admin.products.edit_product') : t('admin.products.add_new') }}</h3>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                 <button class="close-btn" (click)="closeForm()">
                     <i class="fas fa-times"></i>
                 </button>
@@ -20,12 +30,20 @@
             <div class="form-body">
                 <div class="form-row">
                     <div class="form-group">
+<<<<<<< HEAD
                         <label>Product Name *</label>
+=======
+                        <label>{{ t('admin.products.name') }}</label>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                         <input type="text" [(ngModel)]="formData.name" placeholder="Enter product name" required>
                     </div>
 
                     <div class="form-group">
+<<<<<<< HEAD
                         <label>Category *</label>
+=======
+                        <label>{{ t('admin.products.category') }}</label>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                         <select [(ngModel)]="formData.category">
                             <option value="Bags">Bags</option>
                             <option value="Perfumes">Perfumes</option>
@@ -36,7 +54,11 @@
                 </div>
 
                 <div class="form-group">
+<<<<<<< HEAD
                     <label>Image URL *</label>
+=======
+                    <label>{{ t('admin.products.image_url') }}</label>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                     <input type="url" [(ngModel)]="formData.image" placeholder="https://example.com/image.jpg" required>
                     @if (formData.image) {
                     <div class="image-preview">
@@ -46,25 +68,41 @@
                 </div>
 
                 <div class="form-group">
+<<<<<<< HEAD
                     <label>Description *</label>
+=======
+                    <label>{{ t('admin.products.desc') }}</label>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                     <textarea [(ngModel)]="formData.description" rows="4" placeholder="Enter product description"
                         required></textarea>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
+<<<<<<< HEAD
                         <label>Price ($) *</label>
+=======
+                        <label>{{ t('admin.products.price') }}</label>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                         <input type="number" [(ngModel)]="formData.price" min="0" step="0.01" placeholder="0.00"
                             required>
                     </div>
 
                     <div class="form-group">
+<<<<<<< HEAD
                         <label>Discount (%)</label>
+=======
+                        <label>{{ t('admin.products.discount') }}</label>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                         <input type="number" [(ngModel)]="formData.discount" min="0" max="100" placeholder="0">
                     </div>
 
                     <div class="form-group">
+<<<<<<< HEAD
                         <label>Stock *</label>
+=======
+                        <label>{{ t('admin.products.stock') }}</label>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                         <input type="number" [(ngModel)]="formData.stock" min="0" placeholder="0" required>
                     </div>
                 </div>
@@ -72,6 +110,7 @@
                 @if (formData.discount > 0) {
                 <div class="price-summary">
                     <div class="price-item">
+<<<<<<< HEAD
                         <span>Original Price:</span>
                         <strong>${{ formData.price.toFixed(2) }}</strong>
                     </div>
@@ -81,18 +120,38 @@
                     </div>
                     <div class="price-item final">
                         <span>Final Price:</span>
+=======
+                        <span>{{ t('admin.products.original_price') }}:</span>
+                        <strong>${{ formData.price.toFixed(2) }}</strong>
+                    </div>
+                    <div class="price-item discount">
+                        <span>{{ t('admin.products.discount') }}:</span>
+                        <strong>{{ formData.discount }}%</strong>
+                    </div>
+                    <div class="price-item final">
+                        <span>{{ t('admin.products.final_price') }}:</span>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                         <strong>${{ getFinalPrice().toFixed(2) }}</strong>
                     </div>
                 </div>
                 }
 
                 <div class="form-group">
+<<<<<<< HEAD
                     <label>Available Colors</label>
                     <div class="color-input-group">
                         <input type="text" [(ngModel)]="newColor" placeholder="Enter color (e.g., #FF5733 or Red)"
                             (keyup.enter)="addColor()">
                         <button type="button" class="btn-add-color" (click)="addColor()">
                             <i class="fas fa-plus"></i> Add
+=======
+                    <label>{{ t('admin.products.colors') }}</label>
+                    <div class="color-input-group">
+                        <input type="text" [(ngModel)]="newColor" [placeholder]="t('admin.products.enter_color')"
+                            (keyup.enter)="addColor()">
+                        <button type="button" class="btn-add-color" (click)="addColor()">
+                            <i class="fas fa-plus"></i> {{ t('admin.products.add') }}
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                         </button>
                     </div>
 
@@ -116,15 +175,25 @@
                 <div class="form-group checkbox-group">
                     <label class="checkbox-label">
                         <input type="checkbox" [(ngModel)]="formData.featured">
+<<<<<<< HEAD
                         <span>Featured Product</span>
+=======
+                        <span>{{ t('admin.products.featured') }}</span>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                     </label>
                 </div>
             </div>
 
             <div class="form-footer">
+<<<<<<< HEAD
                 <button class="btn-secondary" (click)="closeForm()">Cancel</button>
                 <button class="btn-primary" (click)="saveProduct()">
                     <i class="fas fa-save"></i> Save Product
+=======
+                <button class="btn-secondary" (click)="closeForm()">{{ t('admin.products.cancel') }}</button>
+                <button class="btn-primary" (click)="saveProduct()">
+                    <i class="fas fa-save"></i> {{ t('admin.products.save_product') }}
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                 </button>
             </div>
         </div>
@@ -136,6 +205,7 @@
         <table>
             <thead>
                 <tr>
+<<<<<<< HEAD
                     <th>Image</th>
                     <th>Name</th>
                     <th>Category</th>
@@ -143,6 +213,15 @@
                     <th>Stock</th>
                     <th>Featured</th>
                     <th>Actions</th>
+=======
+                    <th>{{ t('admin.products.table_image') }}</th>
+                    <th>{{ t('admin.products.table_name') }}</th>
+                    <th>{{ t('admin.products.table_category') }}</th>
+                    <th>{{ t('admin.products.table_price') }}</th>
+                    <th>{{ t('admin.products.table_stock') }}</th>
+                    <th>{{ t('admin.products.table_featured') }}</th>
+                    <th>{{ t('admin.products.table_actions') }}</th>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                 </tr>
             </thead>
             <tbody>
@@ -180,7 +259,11 @@
                     </td>
                     <td>
                         <span class="badge" [class.featured]="product.featured">
+<<<<<<< HEAD
                             {{ product.featured ? 'Yes' : 'No' }}
+=======
+                            {{ product.featured ? t('admin.products.yes') : t('admin.products.no') }}
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                         </span>
                     </td>
                     <td class="actions">
@@ -196,7 +279,11 @@
                 <tr>
                     <td colspan="7" style="text-align: center; padding: 2rem; color: var(--text-muted);">
                         <i class="fas fa-inbox fa-2x" style="display: block; margin-bottom: 1rem; opacity: 0.5;"></i>
+<<<<<<< HEAD
                         No products found
+=======
+                        {{ t('admin.products.empty') }}
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                     </td>
                 </tr>
                 }

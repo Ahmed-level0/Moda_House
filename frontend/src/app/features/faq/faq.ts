@@ -1,20 +1,40 @@
+<<<<<<< HEAD
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+=======
+import { Component, signal, inject, computed } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { TranslationService } from '../../core/services/translation.service';
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
 
 @Component({
     selector: 'app-faq',
     standalone: true,
+<<<<<<< HEAD
     imports: [CommonModule],
+=======
+    imports: [CommonModule, RouterLink],
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
     template: `
     <div class="faq-page">
         <div class="container narrow">
             <header class="faq-header">
+<<<<<<< HEAD
                 <h1>Frequently Asked Questions</h1>
                 <p>Finding answers to your common inquiries</p>
             </header>
 
             <div class="faq-sections">
                 @for (section of faqs; track section.title) {
+=======
+                <h1>{{ t('faq.title') }}</h1>
+                <p>{{ t('faq.subtitle') }}</p>
+            </header>
+
+            <div class="faq-sections">
+                @for (section of faqs(); track section.title) {
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                     <div class="faq-category">
                         <h2>{{ section.title }}</h2>
                         <div class="accordion">
@@ -37,8 +57,13 @@ import { CommonModule } from '@angular/common';
             </div>
             
             <div class="faq-footer">
+<<<<<<< HEAD
                 <p>Have more questions?</p>
                 <a href="/contact" class="btn-outline">Contact Support</a>
+=======
+                <p>{{ t('faq.footer_q') }}</p>
+                <a routerLink="/contact" class="btn-outline">{{ t('faq.contact_btn') }}</a>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
             </div>
         </div>
     </div>
@@ -76,6 +101,10 @@ import { CommonModule } from '@angular/common';
             transition: color 0.3s;
             
             &:hover { color: #d4af37; }
+<<<<<<< HEAD
+=======
+            [dir="rtl"] & { text-align: right; }
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
             .chevron { width: 18px; height: 18px; transition: transform 0.3s; color: #ccc; }
         }
 
@@ -88,7 +117,11 @@ import { CommonModule } from '@angular/common';
 
         &.active {
             .accordion-trigger { color: #d4af37; .chevron { transform: rotate(180deg); color: #d4af37; } }
+<<<<<<< HEAD
             .accordion-content { max-height: 200px; }
+=======
+            .accordion-content { max-height: 400px; }
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
         }
     }
     .faq-footer {
@@ -114,6 +147,7 @@ import { CommonModule } from '@angular/common';
   `]
 })
 export class FAQComponent {
+<<<<<<< HEAD
     activeQuestion = signal<string | null>(null);
 
     faqs = [
@@ -132,6 +166,31 @@ export class FAQComponent {
             ]
         }
     ];
+=======
+    private translationService = inject(TranslationService);
+    activeQuestion = signal<string | null>(null);
+
+    t(key: string) {
+        return this.translationService.translate(key);
+    }
+
+    faqs = computed(() => [
+        {
+            title: this.t('faq.section1_title'),
+            items: [
+                { q: this.t('faq.q1'), a: this.t('faq.a1') },
+                { q: this.t('faq.q2'), a: this.t('faq.a2') }
+            ]
+        },
+        {
+            title: this.t('faq.section2_title'),
+            items: [
+                { q: this.t('faq.q3'), a: this.t('faq.a3') },
+                { q: this.t('faq.q4'), a: this.t('faq.a4') }
+            ]
+        }
+    ]);
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
 
     toggle(q: string) {
         this.activeQuestion.update(v => v === q ? null : q);

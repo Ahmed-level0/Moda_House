@@ -2,9 +2,14 @@
     <div class="container footer-container">
         <div class="footer-section brand-info">
             <h3 class="logo" routerLink="/">MODA HOUSE</h3>
+<<<<<<< HEAD
             <p>Luxury accessories for those who appreciate the finer things in life. Exquisite collections curated for
                 you.</p>
             <a routerLink="/about-us" class="about-link">Our Story</a>
+=======
+            <p>{{ t('footer.brand_desc') }}</p>
+            <a routerLink="/contact" class="about-link">{{ t('footer.contact_us') }}</a>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
             <div class="social-links">
                 <!-- Icons placeholder -->
                 <a href="#">FB</a>
@@ -14,35 +19,63 @@
         </div>
 
         <div class="footer-section">
+<<<<<<< HEAD
             <h4>Shop</h4>
             <ul>
                 <li><a routerLink="/products">Products</a></li>
                 <li><a routerLink="/faq">FAQ</a></li>
                 <li><a routerLink="/contact">Contact Us</a></li>
+=======
+            <h4>{{ t('footer.shop') }}</h4>
+            <ul>
+                <li><a routerLink="/products">{{ t('footer.products') }}</a></li>
+                <li><a routerLink="/faq">{{ t('footer.faq') }}</a></li>
+                <li><a routerLink="/contact">{{ t('footer.contact_us') }}</a></li>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
             </ul>
         </div>
 
         <div class="footer-section">
+<<<<<<< HEAD
             <h4>Information</h4>
             <ul>
                 <li><a routerLink="/about-us">Our Story</a></li>
                 <li><a routerLink="/shipping-policy">Shipping Policy</a></li>
                 <li><a routerLink="/refund-policy">Returns & Exchanges</a></li>
+=======
+            <h4>{{ t('footer.information') }}</h4>
+            <ul>
+                <li><a routerLink="/contact">{{ t('footer.contact_us') }}</a></li>
+                <li><a routerLink="/shipping-policy">{{ t('footer.shipping') }}</a></li>
+                <li><a routerLink="/refund-policy">{{ t('footer.returns') }}</a></li>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
             </ul>
         </div>
 
         <div class="footer-section newsletter">
+<<<<<<< HEAD
             <h4>Join Our Newsletter</h4>
             <p>Be the first to know about new arrivals and exclusive offers.</p>
             <form class="newsletter-form">
                 <input type="email" placeholder="Your email address">
                 <button type="submit" class="btn-premium">Subscribe</button>
+=======
+            <h4>{{ t('footer.newsletter') }}</h4>
+            <p>{{ t('footer.newsletter_desc') }}</p>
+            <form class="newsletter-form" (submit)="onSubscribe($event)">
+                <input type="email" [placeholder]="t('footer.placeholder_email')" required>
+                <button type="submit" class="btn-premium">{{ t('footer.subscribe') }}</button>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
             </form>
         </div>
     </div>
     <div class="footer-bottom">
         <div class="container border-top">
+<<<<<<< HEAD
             <p>&copy; 2026 MODA HOUSE. All Rights Reserved. Built for Luxury.</p>
+=======
+            <p>&copy; 2026 MODA HOUSE. {{ t('footer.rights') }}</p>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
         </div>
     </div>
 </footer>

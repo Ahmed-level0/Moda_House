@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap');
+=======
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&family=Cairo:wght@400;600;700&display=swap');
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
 
 :root {
     --primary: #1a1a1a;
@@ -42,6 +46,13 @@ body {
     color: var(--text-main);
     background-color: var(--white);
     line-height: 1.6;
+<<<<<<< HEAD
+=======
+
+    &[dir="rtl"] {
+        font-family: 'Cairo', sans-serif;
+    }
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
 }
 
 h1,

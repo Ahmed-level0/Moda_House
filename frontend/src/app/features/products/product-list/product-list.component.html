@@ -3,8 +3,13 @@
     <!-- Page Header -->
     <header class="listing-header">
         <div class="container">
+<<<<<<< HEAD
             <h1 class="page-title">{{ activeCategory() === 'all' ? 'All Collections' : activeCategory() }}</h1>
             <p class="results-count">{{ filteredProducts().length }} Products Found</p>
+=======
+            <h1 class="page-title">{{ t('categories.' + activeCategory()) }}</h1>
+            <p class="results-count">{{ filteredProducts().length }} {{ t('products.found_suffix') }}</p>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
         </div>
     </header>
 
@@ -12,7 +17,11 @@
         <!-- Sidebar Filters (Desktop) -->
         <aside class="filters-sidebar" [class.open]="filtersOpen()">
             <div class="filters-header-mobile">
+<<<<<<< HEAD
                 <h3>Filters</h3>
+=======
+                <h3>{{ t('products.filters') }}</h3>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                 <button (click)="toggleFilters()">
                     <svg viewBox="0 0 24 24" fill="none" class="close-icon">
                         <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -22,6 +31,7 @@
             </div>
 
             <div class="filter-group">
+<<<<<<< HEAD
                 <h4>Category</h4>
                 <ul>
                     <li [class.active]="activeCategory() === 'all'" (click)="setCategory('all')">View All</li>
@@ -30,27 +40,59 @@
                     <li [class.active]="activeCategory() === 'scarfs'" (click)="setCategory('scarfs')">Scarfs</li>
                     <li [class.active]="activeCategory() === 'accessories'" (click)="setCategory('accessories')">
                         Accessories</li>
+=======
+                <h4>{{ t('products.filter_category') }}</h4>
+                <ul>
+                    <li [class.active]="activeCategory() === 'all'" (click)="setCategory('all')">{{
+                        t('products.view_all') }}</li>
+                    <li [class.active]="activeCategory() === 'bags'" (click)="setCategory('bags')">{{
+                        t('categories.bags') }}</li>
+                    <li [class.active]="activeCategory() === 'perfumes'" (click)="setCategory('perfumes')">{{
+                        t('categories.perfumes') }}</li>
+                    <li [class.active]="activeCategory() === 'scarfs'" (click)="setCategory('scarfs')">{{
+                        t('categories.scarfs') }}</li>
+                    <li [class.active]="activeCategory() === 'accessories'" (click)="setCategory('accessories')">{{
+                        t('categories.accessories') }}</li>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                 </ul>
             </div>
 
             <!-- Style Filter -->
             <div class="filter-group">
+<<<<<<< HEAD
                 <h4>Shop By Style</h4>
                 <ul>
                     <li [class.active]="activeStyle() === 'all'" (click)="setStyle('all')">All Styles</li>
                     @for(style of availableStyles; track style) {
                     <li [class.active]="activeStyle() === style" (click)="setStyle(style)">{{ style }}</li>
+=======
+                <h4>{{ t('products.filter_style') }}</h4>
+                <ul>
+                    <li [class.active]="activeStyle() === 'all'" (click)="setStyle('all')">{{ t('products.all_styles')
+                        }}</li>
+                    @for(style of availableStyles; track style) {
+                    <li [class.active]="activeStyle() === style" (click)="setStyle(style)">{{ t('styles.' + style) }}
+                    </li>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                     }
                 </ul>
             </div>
 
             <!-- Color Filter -->
             <div class="filter-group">
+<<<<<<< HEAD
                 <h4>Filter By Color</h4>
                 <div class="color-filter-grid">
                     @for(color of availableColors; track color.name) {
                     <div class="color-item" [class.active]="activeColor() === color.hex" (click)="setColor(color.hex)"
                         title="{{ color.name }}">
+=======
+                <h4>{{ t('products.filter_color') }}</h4>
+                <div class="color-filter-grid">
+                    @for(color of availableColors; track color.name) {
+                    <div class="color-item" [class.active]="activeColor() === color.hex" (click)="setColor(color.hex)"
+                        [title]="color.name">
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                         <span class="color-circle" [style.background-color]="color.hex"
                             [class.white-border]="color.hex === '#FFFFFF'"></span>
                     </div>
@@ -59,11 +101,19 @@
             </div>
 
             <div class="filter-group">
+<<<<<<< HEAD
                 <h4>Sort By</h4>
                 <select #sortSelect (change)="setSort(sortSelect.value)" class="sort-select">
                     <option value="newest">Newest Arrivals</option>
                     <option value="price-low">Price: Low to High</option>
                     <option value="price-high">Price: High to Low</option>
+=======
+                <h4>{{ t('products.sort_by') }}</h4>
+                <select #sortSelect (change)="setSort(sortSelect.value)" class="sort-select">
+                    <option value="newest">{{ t('products.sort_newest') }}</option>
+                    <option value="price-low">{{ t('products.sort_price_low') }}</option>
+                    <option value="price-high">{{ t('products.sort_price_high') }}</option>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                 </select>
             </div>
         </aside>
@@ -79,6 +129,7 @@
                         <path d="M4 21v-7m0-4V3m8 18v-9m0-4V3m8 18v-5m0-4V3M1 14h6m2-6h6m2 8h6" stroke-linecap="round"
                             stroke-linejoin="round" />
                     </svg>
+<<<<<<< HEAD
                     Filters
                 </button>
                 <div class="mobile-sort">
@@ -86,6 +137,15 @@
                         <option value="newest">Newest</option>
                         <option value="price-low">Low - High</option>
                         <option value="price-high">High - Low</option>
+=======
+                    {{ t('products.filters') }}
+                </button>
+                <div class="mobile-sort">
+                    <select #sortSelectMobile (change)="setSort(sortSelectMobile.value)">
+                        <option value="newest">{{ t('products.sort_newest_short') }}</option>
+                        <option value="price-low">{{ t('products.sort_price_low_short') }}</option>
+                        <option value="price-high">{{ t('products.sort_price_high_short') }}</option>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                     </select>
                 </div>
             </div>
@@ -98,14 +158,23 @@
                         <img [src]="product.images[0].image" class="img-front" [alt]="product.name">
                         <!-- <img [src]="product.images[1].image" class="img-back" [alt]="product.name"> -->
                         <button class="btn-wishlist" [class.active]="isInWishlist(product.id)"
+<<<<<<< HEAD
                             (click)="toggleWishlist(product, $event)" title="Add to Wishlist">
+=======
+                            (click)="toggleWishlist(product, $event)" [title]="t('products.add_to_wishlist')">
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                                 <path
                                     d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
                                 </path>
                             </svg>
                         </button>
+<<<<<<< HEAD
                         <button class="btn-quick-view" title="Quick View" (click)="openQuickView(product, $event)">
+=======
+                        <button class="btn-quick-view" [title]="t('products.quick_view')"
+                            (click)="openQuickView(product, $event)">
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                                 <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                                 <circle cx="12" cy="12" r="3"></circle>
@@ -113,16 +182,30 @@
                         </button>
 
                         <div class="badges-container">
+<<<<<<< HEAD
                             @if(product.isNew) { <span class="badge new">New</span> }
                             @if(product.onSale) { <span class="badge sale">Sale</span> }
                             @if(product.isBestSeller) { <span class="badge best-seller">Best Seller</span> }
                             @if(product.stock <= 0) { <span class="badge out-of-stock">Out of Stock</span> }
+=======
+                            @if(product.isNew) { <span class="badge new">{{ t('products.badge_new') }}</span> }
+                            @if(product.onSale) { <span class="badge sale">{{ t('products.badge_sale') }}</span> }
+                            @if(product.isBestSeller) { <span class="badge best-seller">{{
+                                t('products.badge_best_seller') }}</span> }
+                            @if(product.stock <= 0) { <span class="badge out-of-stock">{{
+                                t('products.badge_out_of_stock') }}</span> }
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                                 @if(product.style) { <span class="badge style">{{ product.style }}</span> }
                         </div>
 
                         <button class="btn-add-cart" [disabled]="product.stock <= 0"
                             (click)="addToBag(product, $event)">
+<<<<<<< HEAD
                             {{ product.stock <= 0 ? 'Out of Stock' : 'Add to Bag' }} </button>
+=======
+                            {{ product.stock <= 0 ? t('products.badge_out_of_stock') : t('products.add_to_bag') }}
+                                </button>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                     </div>
                     <div class="product-info">
                         <div class="info-top">
@@ -148,7 +231,11 @@
                                 }
                             </div>
                             @if(product.size) {
+<<<<<<< HEAD
                             <span class="size-label">Size: {{ product.size }}</span>
+=======
+                            <span class="size-label">{{ t('products.size_label') }}: {{ product.size }}</span>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                             }
                         </div>
                     </div>
@@ -158,8 +245,13 @@
 
             <ng-template #noItems>
                 <div class="no-results">
+<<<<<<< HEAD
                     <p>No products found in this category.</p>
                     <button (click)="setCategory('all')" class="btn-underline">View All Products</button>
+=======
+                    <p>{{ t('products.no_results') }}</p>
+                    <button (click)="setCategory('all')" class="btn-underline">{{ t('products.view_all') }}</button>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                 </div>
             </ng-template>
 
@@ -190,6 +282,7 @@
                         <span class="price">{{ qp.price | currency }}</span>
                         }
                     </div>
+<<<<<<< HEAD
                     <p class="description">Experience unparalleled luxury with this exquisite piece from {{ qp.brand }}.
                         Crafted with premium materials and timeless design.</p>
                     <div class="qv-actions">
@@ -198,6 +291,14 @@
                                 <a [routerLink]="['/product', qp.id]" class="btn-view-details"
                                     (click)="closeQuickView()">View
                                     Details</a>
+=======
+                    <p class="description">{{ t('products.quick_view_desc', { brand: qp.brand }) }}</p>
+                    <div class="qv-actions">
+                        <button class="btn-add-bag" [disabled]="qp.stock <= 0" (click)="addToBag(qp)">
+                            {{ qp.stock <= 0 ? t('products.badge_out_of_stock') : t('products.add_to_bag') }} </button>
+                                <a [routerLink]="['/product', qp.id]" class="btn-view-details"
+                                    (click)="closeQuickView()">{{ t('products.view_details') }}</a>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                     </div>
                 </div>
             </div>

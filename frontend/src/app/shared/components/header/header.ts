@@ -4,6 +4,10 @@ import { RouterLink } from '@angular/router';
 import { CartService } from '../../../core/services/cart.service';
 import { WishlistService } from '../../../core/services/wishlist.service';
 import { AuthService } from '../../../core/services/auth.service';
+<<<<<<< HEAD
+=======
+import { TranslationService } from '../../../core/services/translation.service';
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
 
 @Component({
   selector: 'app-header',
@@ -16,11 +20,27 @@ export class HeaderComponent {
   private cartService = inject(CartService);
   private wishlistService = inject(WishlistService);
   private authService = inject(AuthService);
+<<<<<<< HEAD
+=======
+  protected translationService = inject(TranslationService);
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
 
   cartCount = this.cartService.totalCount;
   wishlistCount = this.wishlistService.totalCount;
   isLoggedIn = this.authService.isLoggedIn;
   user = this.authService.user;
+<<<<<<< HEAD
+=======
+  currentLang = this.translationService.currentLang;
+
+  toggleLang() {
+    this.translationService.toggleLang();
+  }
+
+  t(key: string) {
+    return this.translationService.translate(key);
+  }
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
 
   isSearchOpen = signal(false);
   isMenuOpen = signal(false);

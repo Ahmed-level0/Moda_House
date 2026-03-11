@@ -6,6 +6,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../../core/services/auth.service';
 import { OrderService } from '../../core/services/order.service';
 import { environment } from '../../../environments/environment';
+<<<<<<< HEAD
+=======
+import { TranslationService } from '../../core/services/translation.service';
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
 
 @Component({
     selector: 'app-track-order',
@@ -18,6 +22,14 @@ export class TrackOrderComponent implements OnInit {
     private route = inject(ActivatedRoute);
     private authService = inject(AuthService);
     private orderService = inject(OrderService);
+<<<<<<< HEAD
+=======
+    private translationService = inject(TranslationService);
+
+    t(key: string, params: any = {}) {
+        return this.translationService.translate(key, params);
+    }
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
 
     orderIdInput = signal('');
     trackingData = signal<any>(null);
@@ -74,7 +86,11 @@ export class TrackOrderComponent implements OnInit {
 
                 this.trackingData.set({
                     id: order.id,
+<<<<<<< HEAD
                     date: order.created_at ? new Date(order.created_at).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' }) : 'Date unknown',
+=======
+                    date: order.created_at ? new Date(order.created_at).toLocaleDateString(this.translationService.currentLang() === 'ar' ? 'ar-EG' : 'en-US', { day: 'numeric', month: 'long', year: 'numeric' }) : this.t('track_order.unknown_date'),
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                     status: uiStatus,
                     address: order.address || 'Address not available',
                     phone: order.phone || '',
@@ -163,7 +179,11 @@ export class TrackOrderComponent implements OnInit {
             error: (err) => {
                 console.error('Update failed:', err);
                 this.isUpdating.set(false);
+<<<<<<< HEAD
                 alert('Failed to update order. Please try again.');
+=======
+                alert(this.t('track_order.update_failed'));
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
             }
         });
     }

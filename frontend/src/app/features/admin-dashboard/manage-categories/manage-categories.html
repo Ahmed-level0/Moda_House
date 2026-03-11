@@ -1,8 +1,14 @@
 <div class="manage-categories">
     <header>
+<<<<<<< HEAD
         <h2>Manage Categories</h2>
         <button class="btn-primary" (click)="addCategory()">
             <i class="fas fa-plus"></i> Add Category
+=======
+        <h2>{{ t('admin.categories.title') }}</h2>
+        <button class="btn-primary" (click)="addCategory()">
+            <i class="fas fa-plus"></i> {{ t('admin.categories.add') }}
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
         </button>
     </header>
 
@@ -11,7 +17,11 @@
     <div class="modal-overlay" (click)="closeForm()">
         <div class="category-form" (click)="$event.stopPropagation()">
             <div class="form-header">
+<<<<<<< HEAD
                 <h3>{{ editingCategory() ? 'Edit Category' : 'Add New Category' }}</h3>
+=======
+                <h3>{{ editingCategory() ? t('admin.categories.edit_cat') : t('admin.categories.add_new') }}</h3>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                 <button class="close-btn" (click)="closeForm()">
                     <i class="fas fa-times"></i>
                 </button>
@@ -19,12 +29,20 @@
 
             <div class="form-body">
                 <div class="form-group">
+<<<<<<< HEAD
                     <label>Category Name *</label>
+=======
+                    <label>{{ t('admin.categories.name') }}</label>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                     <input type="text" [(ngModel)]="formData.name" placeholder="Enter category name" required>
                 </div>
 
                 <div class="form-group">
+<<<<<<< HEAD
                     <label>Image URL *</label>
+=======
+                    <label>{{ t('admin.categories.image') }}</label>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                     <input type="url" [(ngModel)]="formData.image" placeholder="https://example.com/image.jpg" required>
                     @if (formData.image) {
                     <div class="image-preview">
@@ -34,7 +52,11 @@
                 </div>
 
                 <div class="form-group">
+<<<<<<< HEAD
                     <label>Description *</label>
+=======
+                    <label>{{ t('admin.categories.desc') }}</label>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                     <textarea [(ngModel)]="formData.description" rows="4" placeholder="Enter category description"
                         required></textarea>
                 </div>
@@ -42,15 +64,25 @@
                 <div class="form-group checkbox-group">
                     <label class="checkbox-label">
                         <input type="checkbox" [(ngModel)]="formData.featured">
+<<<<<<< HEAD
                         <span>Featured Category</span>
+=======
+                        <span>{{ t('admin.categories.featured_cat') }}</span>
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                     </label>
                 </div>
             </div>
 
             <div class="form-footer">
+<<<<<<< HEAD
                 <button class="btn-secondary" (click)="closeForm()">Cancel</button>
                 <button class="btn-primary" (click)="saveCategory()">
                     <i class="fas fa-save"></i> Save Category
+=======
+                <button class="btn-secondary" (click)="closeForm()">{{ t('admin.categories.cancel') }}</button>
+                <button class="btn-primary" (click)="saveCategory()">
+                    <i class="fas fa-save"></i> {{ t('admin.categories.save') }}
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                 </button>
             </div>
         </div>
@@ -90,10 +122,17 @@
         } @empty {
         <div class="empty-state">
             <i class="fas fa-folder-open fa-3x"></i>
+<<<<<<< HEAD
             <h3>No Categories Found</h3>
             <p>Start by adding your first category</p>
             <button class="btn-primary" (click)="addCategory()">
                 <i class="fas fa-plus"></i> Add Category
+=======
+            <h3>{{ t('admin.categories.empty_title') }}</h3>
+            <p>{{ t('admin.categories.empty_desc') }}</p>
+            <button class="btn-primary" (click)="addCategory()">
+                <i class="fas fa-plus"></i> {{ t('admin.categories.add') }}
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
             </button>
         </div>
         }

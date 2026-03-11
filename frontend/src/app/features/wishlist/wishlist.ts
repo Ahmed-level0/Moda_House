@@ -2,6 +2,10 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { WishlistService, WishlistItem } from '../../core/services/wishlist.service';
+<<<<<<< HEAD
+=======
+import { TranslationService } from '../../core/services/translation.service';
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
 
 @Component({
     selector: 'app-wishlist',
@@ -12,6 +16,14 @@ import { WishlistService, WishlistItem } from '../../core/services/wishlist.serv
 })
 export class WishlistComponent {
     wishlistService = inject(WishlistService);
+<<<<<<< HEAD
+=======
+    private translationService = inject(TranslationService);
+
+    t(key: string, params: any = {}) {
+        return this.translationService.translate(key, params);
+    }
+>>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
 
     wishlistItems = this.wishlistService.wishlistItems;
     totalCount = this.wishlistService.totalCount;

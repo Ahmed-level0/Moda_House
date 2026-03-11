@@ -121,19 +121,11 @@
 
                 <div class="stats-grid">
                     <div class="stat-card">
-<<<<<<< HEAD
-                        <span class="label">Orders</span>
-                        <span class="value">{{ orders().length }}</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="label">Primary Address</span>
-=======
                         <span class="label">{{ t('profile.order_count_label') }}</span>
                         <span class="value">{{ orders().length }}</span>
                     </div>
                     <div class="stat-card">
                         <span class="label">{{ t('profile.primary_address_label') }}</span>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                         @if (primaryAddress()) {
                         <p class="address-preview">{{ primaryAddress()?.content }}</p>
                         } @else {
@@ -141,44 +133,26 @@
                         }
                     </div>
                     <div class="stat-card highlight">
-<<<<<<< HEAD
-                        <span class="label">Items waiting</span>
-                        <p>Items in your bag are not reserved.</p>
-                        <a routerLink="/cart" class="link">View Bag</a>
-=======
                         <span class="label">{{ t('profile.items_waiting') }}</span>
                         <p>{{ t('profile.items_not_reserved') }}</p>
                         <a routerLink="/cart" class="link">{{ t('profile.view_bag') }}</a>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                     </div>
                 </div>
 
                 <div class="recent-activity">
-<<<<<<< HEAD
-                    <h3>Recent Activity</h3>
-=======
                     <h3>{{ t('profile.recent_activity') }}</h3>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                     <div class="activity-card">
                         @if (u.orders && u.orders.length > 0) {
                         <div class="activity-item">
                             <div class="dot active"></div>
                             <div class="text">
-<<<<<<< HEAD
-                                <p>Order #{{ u.orders[0].id }} status: {{ u.orders[0].status }}.</p>
-=======
                                 <p>{{ t('profile.order_status_msg', { id: u.orders[0].id.toString(), status:
                                     t('profile.status_' + u.orders[0].status.toLowerCase()) }) }}</p>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                                 <span>{{ u.orders[0].created | date }}</span>
                             </div>
                         </div>
                         } @else {
-<<<<<<< HEAD
-                        <p class="no-data">No recent activity found.</p>
-=======
                         <p class="no-data">{{ t('profile.no_activity') }}</p>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                         }
                     </div>
                 </div>
@@ -195,29 +169,17 @@
                             <line x1="12" y1="16" x2="12" y2="12" />
                             <line x1="12" y1="8" x2="12.01" y2="8" />
                         </svg>
-<<<<<<< HEAD
-                        Order Cancellation Policy
-                    </a>
-                </div>
-                <header class="pane-header">
-                    <h2>Order History</h2>
-=======
                         {{ t('profile.order_cancellation_policy') }}
                     </a>
                 </div>
                 <header class="pane-header">
                     <h2>{{ t('profile.order_history') }}</h2>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                 </header>
 
                 <div class="orders-interactive">
                     <div class="filter-actions">
                         <div class="date-filter">
-<<<<<<< HEAD
-                            <label for="order-date">Filter by Date:</label>
-=======
                             <label for="order-date">{{ t('profile.filter_by_date') }}:</label>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                             <input type="date" id="order-date" [value]="filterDate()"
                                 (change)="filterDate.set($any($event.target).value)">
                         </div>
@@ -225,42 +187,20 @@
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M18 6L6 18M6 6l12 12" />
                             </svg>
-<<<<<<< HEAD
-                            Clear Filter
-=======
                             {{ t('profile.clear_filter') }}
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                         </button>
                     </div>
 
                     @if (!u.orders || u.orders.length === 0) {
-<<<<<<< HEAD
-                    <p class="no-data">You haven't placed any orders yet.</p>
-                    }
-                    @else if (filteredOrders().length === 0) {
-                    <p class="no-data">No orders found for the selected date.</p>
-=======
-                    <p class="no-data">{{ t('profile.no_orders') }}</p>
-                    }
-                    @else if (filteredOrders().length === 0) {
-                    <p class="no-data">{{ t('profile.no_orders_filtered') }}</p>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-                    }
 
                     @for (order of filteredOrders(); track order.id) {
-                    <div class="order-expandable" [class.expanded]="expandedOrderId() === order.id">
                         <div class="order-header" (click)="toggleOrder(order.id)">
                             <div class="main-info">
-                                <span class="id">#{{ order.id }}</span>
                                 <span class="date">{{ order.created | date }}</span>
                             </div>
                             <div class="status-group">
                                 <span class="status-badge" [attr.data-status]="order.status">{{
-<<<<<<< HEAD
-                                    order.status }}</span>
-=======
                                     t('profile.status_' + order.status.toLowerCase()) }}</span>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                                 <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2">
                                     <polyline points="6 9 12 15 18 9" />
@@ -269,24 +209,13 @@
                         </div>
                         <div class="order-details-content">
                             <div class="order-actions">
-                                <div class="total-bar">
-<<<<<<< HEAD
-                                    <span>Total: {{ order.total | currency }}</span>
+                                <div class="total-bar">                                    <span>Total: {{ order.total | currency }}</span>
                                 </div>
                                 <div class="btn-group">
-                                    <button class="btn-track-sub" [routerLink]="['/track-order']"
-                                        [queryParams]="{ id: order.id }">Track</button>
-=======
-                                    <span>{{ t('profile.total') }}: {{ order.total | currency }}</span>
-                                </div>
-                                <div class="btn-group">
-                                    <button class="btn-track-sub" [routerLink]="['/track-order']"
                                         [queryParams]="{ id: order.id }">{{ t('profile.track') }}</button>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                                 </div>
                             </div>
                         </div>
-                    </div>
                     }
                 </div>
             </section>

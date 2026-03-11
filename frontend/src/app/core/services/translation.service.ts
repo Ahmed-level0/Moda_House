@@ -36,10 +36,15 @@ export class TranslationService {
 
     translate(key: string, params: any = {}): string {
         const keys = key.split('.');
-        let value = this.translations()[this.currentLang()];
+        const translations = this.translations();
+        const currentLang = this.currentLang();
+        
+        let value = translations && translations[currentLang] ? translations[currentLang] : null;
+
+        if (!value) return key;
 
         for (const k of keys) {
-            if (value && value[k]) {
+            if (value && typeof value === 'object' && k in value) {
                 value = value[k];
             } else {
                 return key; // Return key if not found
@@ -48,11 +53,12 @@ export class TranslationService {
 
         if (typeof value === 'string') {
             Object.keys(params).forEach(param => {
-                value = (value as string).replace(`{{${param}}}`, params[param]);
+                const regex = new RegExp(`{{\\s*${param}\\s*}}`, 'g');
+                value = (value as string).replace(regex, params[param]);
             });
         }
 
-        return value;
+        return typeof value === 'string' ? value : key;
     }
 
     toggleLang() {

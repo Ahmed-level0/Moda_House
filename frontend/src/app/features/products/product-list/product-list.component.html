@@ -44,7 +44,7 @@
                     <li [class.active]="activeStyle() === 'all'" (click)="setStyle('all')">{{ t('products.all_styles')
                         }}</li>
                     @for(style of availableStyles; track style) {
-                    <li [class.active]="activeStyle() === style" (click)="setStyle(style)">{{ t('styles.' + style) }}
+                    <li [class.active]="activeStyle() === style" (click)="setStyle(style)">{{ t('styles.' + style.toLowerCase().split(' ').join('_')) }}
                     </li>
                     }
                 </ul>
@@ -126,7 +126,7 @@
                                 t('products.badge_best_seller') }}</span> }
                             @if(product.stock <= 0) { <span class="badge out-of-stock">{{
                                 t('products.badge_out_of_stock') }}</span> }
-                                @if(product.style) { <span class="badge style">{{ product.style }}</span> }
+                                 @if(product.style) { <span class="badge style">{{ t('styles.' + product.style.toLowerCase().split(' ').join('_')) }}</span> }
                         </div>
 
                         <button class="btn-add-cart" [disabled]="product.stock <= 0"

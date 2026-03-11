@@ -17,7 +17,7 @@
                 <div class="user-text">
                     <h3>{{ u.name }}</h3>
                     <p>{{ u.email }}</p>
-                    <small class="user-id">{{ t('header.id') }}: #{{ u.id }}</small>
+                    <small class="user-id">{{ t('profile.id') }}: #{{ u.id }}</small>
                 </div>
             </div>
 
@@ -106,8 +106,8 @@
                         <div class="activity-item">
                             <div class="dot active"></div>
                             <div class="text">
-                                <p>{{ t('profile.order_status_msg', { id: u.orders[0].id.toString(), status:
-                                    t('profile.status_' + u.orders[0].status.toLowerCase()) }) }}</p>
+                                 <p>{{ t('profile.order_status_msg', { id: u.orders[0].id.toString(), status:
+                                    t('profile.status_' + u.orders[0].status.toLowerCase().split(' ').join('_')) }) }}</p>
                                 <span>{{ u.orders[0].created | date }}</span>
                             </div>
                         </div>
@@ -166,8 +166,8 @@
                                 <span class="date">{{ order.created | date }}</span>
                             </div>
                             <div class="status-group">
-                                <span class="status-badge" [attr.data-status]="order.status">{{
-                                    t('profile.status_' + order.status.toLowerCase()) }}</span>
+                                 <span class="status-badge" [attr.data-status]="order.status">{{
+                                    t('profile.status_' + order.status.toLowerCase().split(' ').join('_')) }}</span>
                                 <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2">
                                     <polyline points="6 9 12 15 18 9" />

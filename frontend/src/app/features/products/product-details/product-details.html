@@ -46,8 +46,7 @@
                         @if(p.discount > 0) {
                         <span class="price current">{{ p.final_price | currency }}</span>
                         <span class="price old">{{ p.price | currency }}</span>
-                        <span class="discount-tag">{{ p.discount | number:'1.0-0' }}% {{ t('product_details.off')
-                            }}</span>
+                        <span class="discount-tag">{{ t('product_details.off', { discount: p.discount.toString() }) }}</span>
                         } @else {
                         <span class="price">{{ p.price | currency }}</span>
                         }
@@ -56,7 +55,7 @@
                         @if(p.stock <= 0) { <span class="out-of-stock-status">{{ t('products.badge_out_of_stock')
                             }}</span>
                             } @else if(p.stock <= 3) { <span class="stock-hint">{{
-                                t('product_details.only_left').replace('{{ count }}', p.stock.toString()) }}</span>
+                                t('product_details.only_left', { count: p.stock }) }}</span>
                                 }
                     </div>
                 </div>
@@ -127,12 +126,11 @@
                         <button [disabled]="p.stock <= 0" (click)="incrementQty()">+</button>
                     </div>
                     <button class="btn-add-bag" [disabled]="p.stock <= 0" (click)="addToBag()">
-                        {{ p.stock <= 0 ? t('products.badge_out_of_stock') :
-                            t('product_details.add_to_bag_with_price').replace('{{ price }}', ((p.final_price ||
-                            p.price) * quantity() | currency) || '' ) }} </button>
-                            <button class="btn-wishlist-large" [class.active]="isInWishlist()"
-                                (click)="toggleWishlist()"
-                                [title]="isInWishlist() ? t('product_details.remove_from_wishlist') : t('products.add_to_wishlist')">
+                        {{ p.stock <= 0 ? t('products.badge_out_of_stock') : t('product_details.add_to_bag_with_price',
+                            { price: (p.final_price || p.price) * quantity() | currency }) }} </button>
+                             <button class="btn-wishlist-large" [class.active]="isInWishlist()"
+                                 (click)="toggleWishlist()"
+                                 [title]="isInWishlist() ? t('product_details.remove_from_wishlist') : t('product_details.add_to_wishlist')">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                                     <path
                                         d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
@@ -147,7 +145,7 @@
                     <div class="specs-grid">
                         <div class="spec-item" *ngIf="p.style">
                             <span class="label">{{ t('product_details.spec_style') }}</span>
-                            <span class="value">{{ t('styles.' + p.style) }}</span>
+                            <span class="value">{{ t('styles.' + p.style.toLowerCase().split(' ').join('_')) }}</span>
                         </div>
                         <div class="spec-item" *ngIf="p.material">
                             <span class="label">{{ t('product_details.spec_material') }}</span>

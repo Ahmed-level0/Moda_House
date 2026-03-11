@@ -17,38 +17,19 @@
                 <div class="user-text">
                     <h3>{{ u.name }}</h3>
                     <p>{{ u.email }}</p>
-<<<<<<< HEAD
-                    <small class="user-id">ID: #{{ u.id }}</small>
-=======
-                    <small class="user-id">{{ t('header.id') }}: #{{ u.id }}</small>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
+                    <small class="user-id">{{ t('profile.id') }}: #{{ u.id }}</small>
                 </div>
             </div>
 
             <nav class="side-nav">
-<<<<<<< HEAD
-                <button [class.active]="activeTab() === 'overview'" (click)="setTab('overview')" title="Dashboard">
-=======
                 <button [class.active]="activeTab() === 'overview'" (click)="setTab('overview')"
                     [title]="t('profile.dashboard')">
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <rect x="3" y="3" width="7" height="7" />
                         <rect x="14" y="3" width="7" height="7" />
                         <rect x="14" y="14" width="7" height="7" />
                         <rect x="3" y="14" width="7" height="7" />
                     </svg>
-<<<<<<< HEAD
-                    <span>Dashboard</span>
-                </button>
-                <button [class.active]="activeTab() === 'orders'" (click)="setTab('orders')" title="My Orders">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4H6zM3 6h18M16 10a4 4 0 0 1-8 0" />
-                    </svg>
-                    <span>My Orders</span>
-                </button>
-                <button [class.active]="activeTab() === 'settings'" (click)="setTab('settings')" title="Settings">
-=======
                     <span>{{ t('profile.dashboard') }}</span>
                 </button>
                 <button [class.active]="activeTab() === 'orders'" (click)="setTab('orders')"
@@ -60,21 +41,10 @@
                 </button>
                 <button [class.active]="activeTab() === 'settings'" (click)="setTab('settings')"
                     [title]="t('profile.settings')">
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                         <circle cx="12" cy="7" r="4" />
                     </svg>
-<<<<<<< HEAD
-                    <span>Settings</span>
-                </button>
-                <div class="nav-divider"></div>
-                <button class="btn-logout" (click)="logout()" title="Sign Out">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" />
-                    </svg>
-                    <span>Sign Out</span>
-=======
                     <span>{{ t('profile.settings') }}</span>
                 </button>
                 <div class="nav-divider"></div>
@@ -83,7 +53,6 @@
                         <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" />
                     </svg>
                     <span>{{ t('profile.sign_out') }}</span>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                 </button>
             </nav>
         </aside>
@@ -94,11 +63,7 @@
             <!-- Global Profile Progress Bar -->
             <div class="global-progress" *ngIf="profileCompletion() < 100">
                 <div class="progress-info">
-<<<<<<< HEAD
-                    <span>Profile Completion</span>
-=======
                     <span>{{ t('profile.profile_completion') }}</span>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                     <span>{{ profileCompletion() }}%</span>
                 </div>
                 <div class="progress-track">
@@ -110,13 +75,8 @@
             @if (activeTab() === 'overview') {
             <section class="tab-pane">
                 <header class="pane-header">
-<<<<<<< HEAD
-                    <h2>Hello, {{ (u?.name || u?.username || 'User').split(' ')[0] }}</h2>
-                    <p>Welcome to your Moda House dashboard.</p>
-=======
                     <h2>{{ t('profile.hello') }}, {{ (u?.name || u?.username || 'User').split(' ')[0] }}</h2>
                     <p>{{ t('profile.welcome_msg') }}</p>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                 </header>
 
                 <div class="stats-grid">
@@ -146,8 +106,8 @@
                         <div class="activity-item">
                             <div class="dot active"></div>
                             <div class="text">
-                                <p>{{ t('profile.order_status_msg', { id: u.orders[0].id.toString(), status:
-                                    t('profile.status_' + u.orders[0].status.toLowerCase()) }) }}</p>
+                                 <p>{{ t('profile.order_status_msg', { id: u.orders[0].id.toString(), status:
+                                    t('profile.status_' + u.orders[0].status.toLowerCase().split(' ').join('_')) }) }}</p>
                                 <span>{{ u.orders[0].created | date }}</span>
                             </div>
                         </div>
@@ -199,8 +159,8 @@
                                 <span class="date">{{ order.created | date }}</span>
                             </div>
                             <div class="status-group">
-                                <span class="status-badge" [attr.data-status]="order.status">{{
-                                    t('profile.status_' + order.status.toLowerCase()) }}</span>
+                                 <span class="status-badge" [attr.data-status]="order.status">{{
+                                    t('profile.status_' + order.status.toLowerCase().split(' ').join('_')) }}</span>
                                 <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2">
                                     <polyline points="6 9 12 15 18 9" />
@@ -225,24 +185,11 @@
             @if (activeTab() === 'settings') {
             <section class="tab-pane">
                 <header class="pane-header">
-<<<<<<< HEAD
-                    <h2>Account Settings</h2>
-=======
                     <h2>{{ t('profile.account_settings') }}</h2>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                 </header>
 
                 <div class="settings-grid">
                     <div class="settings-column">
-<<<<<<< HEAD
-                        <h3>Personal Information</h3>
-                        <div class="input-group">
-                            <label>Full Name</label>
-                            <input type="text" #nameInput [value]="u.name">
-                        </div>
-                        <div class="input-group">
-                            <label>Phone Number</label>
-=======
                         <h3>{{ t('profile.personal_info') }}</h3>
                         <div class="input-group">
                             <label>{{ t('profile.full_name') }}</label>
@@ -250,20 +197,10 @@
                         </div>
                         <div class="input-group">
                             <label>{{ t('profile.phone_number') }}</label>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                             <input type="tel" #phoneInput [value]="u.profile?.phone || ''"
                                 placeholder="+20 XXX XXX XXXX">
                         </div>
                         <button class="btn-save-black"
-<<<<<<< HEAD
-                            (click)="updatePersonalInfo(nameInput.value, phoneInput.value)">Save Personal Info</button>
-
-                        <div class="divider-space"></div>
-
-                        <h3>Security</h3>
-                        <div class="input-group password-group">
-                            <label>Current Password</label>
-=======
                             (click)="updatePersonalInfo(nameInput.value, phoneInput.value)">{{
                             t('profile.save_personal_info') }}</button>
 
@@ -272,7 +209,6 @@
                         <h3>{{ t('profile.security') }}</h3>
                         <div class="input-group password-group">
                             <label>{{ t('profile.current_pass') }}</label>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                             <div class="password-wrapper">
                                 <input [type]="showOldPassword() ? 'text' : 'password'" #oldPass placeholder="••••••••">
                                 <button type="button" class="btn-toggle-visibility" (click)="toggleVisibility('old')">
@@ -281,11 +217,7 @@
                             </div>
                         </div>
                         <div class="input-group password-group">
-<<<<<<< HEAD
-                            <label>New Password</label>
-=======
                             <label>{{ t('profile.new_pass') }}</label>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                             <div class="password-wrapper">
                                 <input [type]="showNewPassword() ? 'text' : 'password'" #newPass placeholder="••••••••">
                                 <button type="button" class="btn-toggle-visibility" (click)="toggleVisibility('new')">
@@ -294,11 +226,7 @@
                             </div>
                         </div>
                         <div class="input-group password-group">
-<<<<<<< HEAD
-                            <label>Confirm New Password</label>
-=======
                             <label>{{ t('profile.confirm_pass') }}</label>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                             <div class="password-wrapper">
                                 <input [type]="showConfirmPassword() ? 'text' : 'password'" #confirmPass
                                     placeholder="••••••••">
@@ -308,30 +236,17 @@
                                 </button>
                             </div>
                         </div>
-<<<<<<< HEAD
-                        <button class="btn-save-black" (click)="updatePassword(newPass.value, confirmPass.value)">Update
-                            Password</button>
-                    </div>
-
-                    <div class="settings-column">
-                        <h3>Address Book</h3>
-=======
                         <button class="btn-save-black" (click)="updatePassword(newPass.value, confirmPass.value)">{{
                             t('profile.update_pass') }}</button>
                     </div>
 
                     <div class="settings-column">
                         <h3>{{ t('profile.address_book') }}</h3>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                         <div class="address-list">
                             @for (addr of u.addresses; track addr.id) {
                             <div class="address-item">
                                 <div class="address-header">
-<<<<<<< HEAD
-                                    <span class="type">{{ addr.address_type }}</span>
-=======
                                     <span class="type">{{ t('profile.type_' + addr.address_type.toLowerCase()) }}</span>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                                     <button class="btn-icon-small" (click)="deleteAddress(addr.id)">
                                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                             <path
@@ -346,17 +261,6 @@
                                 @if (showAddAddressForm()) {
                                 <div class="add-address-form">
                                     <div class="input-group">
-<<<<<<< HEAD
-                                        <label>Address Type</label>
-                                        <select (change)="newAddress.address_type = $any($event.target).value">
-                                            <option value="Home">Home</option>
-                                            <option value="Work">Work</option>
-                                            <option value="Other">Other</option>
-                                        </select>
-                                    </div>
-                                    <div class="input-group">
-                                        <label>Detailed Address</label>
-=======
                                         <label>{{ t('profile.address_type') }}</label>
                                         <select (change)="newAddress.address_type = $any($event.target).value">
                                             <option value="Home">{{ t('profile.type_home') }}</option>
@@ -366,21 +270,10 @@
                                     </div>
                                     <div class="input-group">
                                         <label>{{ t('profile.detailed_address') }}</label>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                                         <textarea placeholder="City, Area, Street, Building..."
                                             (input)="newAddress.content = $any($event.target).value"></textarea>
                                     </div>
                                     <div class="form-actions">
-<<<<<<< HEAD
-                                        <button class="btn-save-address" (click)="saveAddress()">Save</button>
-                                        <button class="btn-cancel-address"
-                                            (click)="showAddAddressForm.set(false)">Cancel</button>
-                                    </div>
-                                </div>
-                                } @else {
-                                <button class="btn-add-address" (click)="showAddAddressForm.set(true)">+ Add New
-                                    Address</button>
-=======
                                         <button class="btn-save-address" (click)="saveAddress()">{{ t('profile.save')
                                             }}</button>
                                         <button class="btn-cancel-address" (click)="showAddAddressForm.set(false)">{{
@@ -390,7 +283,6 @@
                                 } @else {
                                 <button class="btn-add-address" (click)="showAddAddressForm.set(true)">+ {{
                                     t('profile.add_new_address') }}</button>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                                 }
                             </div>
                         </div>
@@ -399,17 +291,10 @@
 
                 <div class="danger-zone">
                     <div class="zone-header">
-<<<<<<< HEAD
-                        <h3>Danger Zone</h3>
-                        <p>Irreversible actions for your account.</p>
-                    </div>
-                    <button class="btn-delete">Delete My Account</button>
-=======
                         <h3>{{ t('profile.danger_zone') }}</h3>
                         <p>{{ t('profile.danger_desc') }}</p>
                     </div>
                     <button class="btn-delete">{{ t('profile.delete_account') }}</button>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                 </div>
             </section>
             }

@@ -1,17 +1,10 @@
 <div class="announcement-bar" [class.hidden]="isScrolled()">
     <div class="ticker-wrapper">
         <div class="ticker-content">
-            @if (currentLang() === 'en') {
-            <span>Download the Moda House App to get 15% off your first order!</span>
-            <span>Free Express Shipping on orders over $500</span>
-            <span>Limited Time: 20% Discount on selected Accessories</span>
-            <span>Global Luxury Delivered to your doorstep</span>
-            } @else {
-            <span>حمل تطبيق مودا هاوس واحصل على خصم 15% على أول طلب!</span>
-            <span>شحن سريع مجاني للطلبات التي تزيد عن 500$</span>
-            <span>لفترة محدودة: خصم 20% على إكسسوارات مختارة</span>
-            <span>فخامة عالمية تصل إلى عتبة دارك</span>
-            }
+            <span>{{ t('header.announcement_1') }}</span>
+            <span>{{ t('header.announcement_2') }}</span>
+            <span>{{ t('header.announcement_3') }}</span>
+            <span>{{ t('header.announcement_4') }}</span>
         </div>
     </div>
 </div>
@@ -31,15 +24,9 @@
 
         <nav class="nav-links">
             <ul>
-<<<<<<< HEAD
-                <li><a routerLink="/products">Products</a></li>
-                <li><a routerLink="/faq">FAQ</a></li>
-                <li><a routerLink="/contact">Contact</a></li>
-=======
                 <li><a routerLink="/products">{{ t('nav.products') }}</a></li>
                 <li><a routerLink="/faq">{{ t('nav.faq') }}</a></li>
                 <li><a routerLink="/contact">{{ t('nav.contact') }}</a></li>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
             </ul>
         </nav>
 
@@ -50,11 +37,7 @@
                     <path
                         d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
                 </svg>
-<<<<<<< HEAD
-                <input type="text" placeholder="What are you looking for?" (focus)="toggleSearch(true)"
-=======
                 <input type="text" [placeholder]="t('nav.search_placeholder')" (focus)="toggleSearch(true)"
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                     (mouseenter)="toggleSearch(true)">
                 <button *ngIf="isSearchOpen()" class="close-search" (click)="toggleSearch(false)">
                     <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20">
@@ -66,8 +49,6 @@
         </div>
 
         <div class="header-actions">
-<<<<<<< HEAD
-=======
             <button class="lang-toggle-btn" (click)="toggleLang()" aria-label="Toggle Language">
                 <svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 -960 960 960" width="18">
                     <path
@@ -75,7 +56,6 @@
                 </svg>
                 <span>{{ currentLang() === 'en' ? 'العربية' : 'English' }}</span>
             </button>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
             <button class="icon-btn cart-btn" aria-label="Cart" (click)="openCart()">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
                     <path
@@ -103,18 +83,6 @@
     <div class="search-overlay" [class.open]="isSearchOpen()" (mouseleave)="toggleSearch(false)">
         <div class="container overlay-content">
             <div class="overlay-nav">
-<<<<<<< HEAD
-                <button [class.active]="activeCategory() === 'womenswear'"
-                    (click)="setCategory('womenswear')">Womenswear</button>
-                <button [class.active]="activeCategory() === 'menswear'"
-                    (click)="setCategory('menswear')">Menswear</button>
-                <button [class.active]="activeCategory() === 'kidswear'"
-                    (click)="setCategory('kidswear')">Kidswear</button>
-            </div>
-
-            <div class="trending-section">
-                <h4 class="section-label">Trending</h4>
-=======
                 <button [class.active]="activeCategory() === 'womenswear'" (click)="setCategory('womenswear')">{{
                     t('header.womenswear') }}</button>
                 <button [class.active]="activeCategory() === 'menswear'" (click)="setCategory('menswear')">{{
@@ -125,7 +93,6 @@
 
             <div class="trending-section">
                 <h4 class="section-label">{{ t('header.trending') }}</h4>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                 <div class="trending-slider-wrapper">
                     <button class="slider-nav prev" (click)="scrollTrending('left')" aria-label="Previous">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -170,16 +137,6 @@
     </div>
     <nav class="mobile-nav">
         <ul>
-<<<<<<< HEAD
-            <li><a routerLink="/products" (click)="toggleMenu(false)">Products</a></li>
-            <li><a routerLink="/faq" (click)="toggleMenu(false)">FAQ</a></li>
-            <li><a routerLink="/contact" (click)="toggleMenu(false)">Contact</a></li>
-        </ul>
-    </nav>
-    <div class="drawer-footer">
-        <a routerLink="/" class="btn-premium" (click)="toggleMenu(false)"
-            style="width: 100%; text-align: center;">Account</a>
-=======
             <li><a routerLink="/products" (click)="toggleMenu(false)">{{ t('nav.products') }}</a></li>
             <li><a routerLink="/faq" (click)="toggleMenu(false)">{{ t('nav.faq') }}</a></li>
             <li><a routerLink="/contact" (click)="toggleMenu(false)">{{ t('nav.contact_us') }}</a></li>
@@ -188,7 +145,6 @@
     <div class="drawer-footer">
         <a routerLink="/" class="btn-premium" (click)="toggleMenu(false)" style="width: 100%; text-align: center;">{{
             t('header.account') }}</a>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
     </div>
 </div>
 <div class="drawer-overlay" *ngIf="isMenuOpen()" (click)="toggleMenu(false)"></div>

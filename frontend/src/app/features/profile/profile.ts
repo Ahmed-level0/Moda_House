@@ -5,10 +5,7 @@ import { AuthService } from '../../core/services/auth.service';
 import { CartService } from '../../core/services/cart.service';
 import { ProfileService } from '../../core/services/profile.service';
 import { HttpClient } from '@angular/common/http';
-<<<<<<< HEAD
-=======
 import { TranslationService } from '../../core/services/translation.service';
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
 
 @Component({
     selector: 'app-profile',
@@ -23,14 +20,11 @@ export class ProfileComponent implements OnInit {
     private profileService = inject(ProfileService);
     private http = inject(HttpClient);
     private router = inject(Router);
-<<<<<<< HEAD
-=======
     private translationService = inject(TranslationService);
 
     t(key: string, params: any = {}) {
         return this.translationService.translate(key, params);
     }
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
 
     user = this.authService.user;
     orders = signal<any[]>([]);
@@ -116,15 +110,6 @@ export class ProfileComponent implements OnInit {
         if (type === 'confirm') this.showConfirmPassword.update(v => !v);
     }
 
-    reorder(order: any) {
-        order.items.forEach((item: any) => {
-            // Need to fetch full product details if item doesn't have them
-            // For now assume item has enough info or user will fix in cart
-            this.cartService.addToCart(item);
-        });
-        this.router.navigate(['/cart']);
-    }
-
     logout() {
         this.authService.logout();
         this.router.navigate(['/']);
@@ -138,12 +123,6 @@ export class ProfileComponent implements OnInit {
     };
 
     updatePersonalInfo(name: string, phone: string) {
-<<<<<<< HEAD
-        console.log('Update personal info called with:', name, phone);
-        // ProfileService.updateProfile was specific to Node.js backend
-        // Update this once Django equivalent is known
-        alert('Update functionality is being aligned with the new backend.');
-=======
         if (!name) {
             alert(this.t('profile.alert_name_required'));
             return;
@@ -157,57 +136,31 @@ export class ProfileComponent implements OnInit {
                 alert(this.t('profile.alert_profile_failed'));
             }
         });
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
     }
 
     updatePassword(pass1: string, pass2: string) {
         if (!pass1 || !pass2) {
-<<<<<<< HEAD
-            alert('Please fill in both password fields.');
-            return;
-        }
-        if (pass1 !== pass2) {
-            alert('Passwords do not match.');
-=======
             alert(this.t('profile.alert_pass_required'));
             return;
         }
         if (pass1 !== pass2) {
             alert(this.t('profile.alert_pass_mismatch'));
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
             return;
         }
 
         this.authService.changePassword(pass1, pass2).subscribe({
             next: () => {
-<<<<<<< HEAD
-                alert('Password updated successfully!');
-            },
-            error: (err) => {
-                console.error('Password update failed', err);
-                const errorMsg = err.error?.detail || 'Failed to update password. Please check your current authentication.';
-=======
                 alert(this.t('profile.alert_pass_updated'));
             },
             error: (err) => {
                 console.error('Password update failed', err);
                 const errorMsg = err.error?.detail || this.t('profile.alert_profile_failed');
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                 alert(errorMsg);
             }
         });
     }
 
     saveAddress() {
-<<<<<<< HEAD
-        console.log('Save address called');
-        // Update this once Django equivalent is known
-    }
-
-    deleteAddress(id: number) {
-        console.log('Delete address called for id:', id);
-        // Update this once Django equivalent is known
-=======
         if (!this.newAddress.content) {
             alert(this.t('profile.alert_address_details'));
             return;
@@ -237,6 +190,5 @@ export class ProfileComponent implements OnInit {
                 }
             });
         }
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
     }
 }

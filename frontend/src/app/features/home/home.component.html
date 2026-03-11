@@ -7,20 +7,11 @@
     </video>
     <div class="hero-overlay"></div>
     <div class="container hero-content">
-<<<<<<< HEAD
-        <h1 class="fade-in">Experience Luxury</h1>
-        <p class="fade-in-delay">Discover our curated collection of premium bags, perfumes, and silk scarfs.</p>
-        <div class="hero-btns fade-in-delay-2">
-            <a routerLink="/products" class="btn-premium">Shop Now</a>
-            <a routerLink="/about" class="btn-outline">Our Story</a>
-=======
         <h1 class="fade-in">{{ t('home.hero_title') }}</h1>
         <p class="fade-in-delay">{{ t('home.hero_subtitle') }}</p>
         <div class="hero-btns fade-in-delay-2">
             <a routerLink="/products" class="btn-premium">{{ t('home.hero_shop_now') }}</a>
-            <a routerLink="/contact" class="btn-outline">{{ t('home.hero_contact_us') }}</a>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-        </div>
+            <a routerLink="/contact" class="btn-outline">{{ t('home.hero_contact_us') }}</a>        </div>
     </div>
 </section>
 
@@ -28,14 +19,8 @@
 <section class="trendy-section container section-padding" *ngIf="trendyProducts.length > 0">
     <div class="trendy-header">
         <div class="header-text">
-<<<<<<< HEAD
-            <h2>New in: handpicked daily</h2>
-            <p>From the world’s best luxury brands and boutiques</p>
-=======
             <h2>{{ t('home.trendy_title') }}</h2>
-            <p>{{ t('home.trendy_subtitle') }}</p>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-        </div>
+            <p>{{ t('home.trendy_subtitle') }}</p>        </div>
         <div class="header-nav-actions">
             <div class="carousel-arrows">
                 <button class="nav-arrow prev" (click)="prevTrendy()" aria-label="Previous">
@@ -49,12 +34,7 @@
                     </svg>
                 </button>
             </div>
-<<<<<<< HEAD
-            <a routerLink="/products" class="btn-minimal-v2">View All</a>
-=======
-            <a routerLink="/products" class="btn-minimal-v2">{{ t('home.view_all') }}</a>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-        </div>
+            <a routerLink="/products" class="btn-minimal-v2">{{ t('home.view_all') }}</a>        </div>
     </div>
 
     <div class="carousel-viewport">
@@ -68,12 +48,7 @@
                                 d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Zm0-108q96-86 158-147.5t98-107q36-45.5 50-81t14-70.5q0-60-40-100t-100-40q-47 0-87 26.5T518-680h-76q-15-41-55-67.5T300-774q-60 0-100 40t-40 100q0 35 14 70.5t50 81q36 45.5 98 107T480-228Zm0-273Z" />
                         </svg>
                     </div>
-<<<<<<< HEAD
-                    <button class="quick-add-btn">View Details</button>
-=======
-                    <button class="quick-add-btn">{{ t('home.view_details') }}</button>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-                </div>
+                    <button class="quick-add-btn">{{ t('home.view_details') }}</button>                </div>
                 <div class="card-info">
                     <span class="product-tag" *ngIf="product.discount > 0">-{{product.discount}}%</span>
                     <h3 class="product-brand">{{product.brand}}</h3>
@@ -100,21 +75,11 @@
         <!-- Left Part (6/10 approximately) -->
         <div class="logic-left">
             <div class="section-title text-left">
-<<<<<<< HEAD
-                <span class="editorial-label">Collections</span>
-                <h2>Shop By Category</h2>
-                <div class="title-line left"></div>
-                <p class="description">
-                    Discover our meticulously curated selections, from statement handbags to signature fragrances.
-                    Every piece is chosen to celebrate the art of modern luxury.
-=======
                 <span class="editorial-label">{{ t('home.collections_label') }}</span>
                 <h2>{{ t('home.cat_title') }}</h2>
                 <div class="title-line left"></div>
                 <p class="description">
-                    {{ t('home.cat_desc') }}
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-                </p>
+                    {{ t('home.cat_desc') }}                </p>
             </div>
 
             <div class="category-grid-mini">
@@ -122,60 +87,36 @@
                     <div class="card-img bg-bags"></div>
                     <div class="category-overlay">
                         <div class="overlay-inner">
-<<<<<<< HEAD
-                            <h3>Bags</h3>
-                            <a [routerLink]="['/products', 'bags']" class="btn-minimal-light">Explore</a>
-=======
                             <h3>{{ t('home.bags') }}</h3>
                             <a [routerLink]="['/products', 'bags']" class="btn-minimal-light">{{ t('home.explore')
-                                }}</a>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-                        </div>
+                                }}</a>                        </div>
                     </div>
                 </div>
                 <div class="category-card">
                     <div class="card-img bg-perfumes"></div>
                     <div class="category-overlay">
                         <div class="overlay-inner">
-<<<<<<< HEAD
-                            <h3>Perfumes</h3>
-                            <a [routerLink]="['/products', 'perfumes']" class="btn-minimal-light">Explore</a>
-=======
                             <h3>{{ t('home.perfumes') }}</h3>
                             <a [routerLink]="['/products', 'perfumes']" class="btn-minimal-light">{{ t('home.explore')
-                                }}</a>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-                        </div>
+                                }}</a>                        </div>
                     </div>
                 </div>
                 <div class="category-card">
                     <div class="card-img bg-scarfs"></div>
                     <div class="category-overlay">
                         <div class="overlay-inner">
-<<<<<<< HEAD
-                            <h3>Scarfs</h3>
-                            <a [routerLink]="['/products', 'scarfs']" class="btn-minimal-light">Explore</a>
-=======
                             <h3>{{ t('home.scarfs') }}</h3>
                             <a [routerLink]="['/products', 'scarfs']" class="btn-minimal-light">{{ t('home.explore')
-                                }}</a>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-                        </div>
+                                }}</a>                        </div>
                     </div>
                 </div>
                 <div class="category-card">
                     <div class="card-img bg-accessories"></div>
                     <div class="category-overlay">
                         <div class="overlay-inner">
-<<<<<<< HEAD
-                            <h3>Accessories</h3>
-                            <a [routerLink]="['/products', 'accessories']" class="btn-minimal-light">Explore</a>
-=======
                             <h3>{{ t('home.accessories') }}</h3>
                             <a [routerLink]="['/products', 'accessories']" class="btn-minimal-light">{{
-                                t('home.explore') }}</a>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-                        </div>
+                                t('home.explore') }}</a>                        </div>
                     </div>
                 </div>
             </div>
@@ -186,18 +127,10 @@
             <div class="featured-editorial-card">
                 <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1000" alt="Editorial">
                 <div class="editorial-content">
-<<<<<<< HEAD
-                    <span class="tag">Editorial</span>
-                    <h3>The Art of Living</h3>
-                    <p>Sophistication in every detail.</p>
-                    <a routerLink="/editorial" class="btn-premium">View Lookbook</a>
-=======
                     <span class="tag">{{ t('home.editorial_tag') }}</span>
                     <h3>{{ t('home.editorial_title') }}</h3>
                     <p>{{ t('home.editorial_desc') }}</p>
-                    <a routerLink="/editorial" class="btn-premium">{{ t('home.editorial_btn') }}</a>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-                </div>
+                    <a routerLink="/editorial" class="btn-premium">{{ t('home.editorial_btn') }}</a>                </div>
             </div>
         </div>
 
@@ -207,29 +140,16 @@
 <!-- 🥇 Shop By Style -->
 <section class="shop-by-style container section-padding">
     <div class="section-title">
-<<<<<<< HEAD
-        <h2>Shop By Style</h2>
-        <p class="sub-title">Wear your personality</p>
-=======
         <h2>{{ t('home.style_title') }}</h2>
-        <p class="sub-title">{{ t('home.style_subtitle') }}</p>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-        <div class="title-line"></div>
+        <p class="sub-title">{{ t('home.style_subtitle') }}</p>        <div class="title-line"></div>
     </div>
     <div class="style-cards-container">
         @for (style of styles; track style.name) {
         <div class="style-card" [ngClass]="style.class">
             <div class="style-icon" [innerHTML]="style.safeSvg"></div>
-<<<<<<< HEAD
-            <h3>{{style.name}}</h3>
-            <a [routerLink]="['/products/style', style.name.toLowerCase().split(' ')[0]]"
-                class="btn-minimal">Discover</a>
-=======
             <h3>{{ t('home.' + style.name.toLowerCase().replace(' ', '_')) }}</h3>
             <a [routerLink]="['/products/style', style.name.toLowerCase().split(' ')[0]]" class="btn-minimal">{{
-                t('home.discover') }}</a>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-        </div>
+                t('home.discover') }}</a>        </div>
         }
     </div>
 </section>
@@ -241,19 +161,11 @@
             <img [src]="highlightPerfume.image" alt="{{highlightPerfume.name}}">
         </div>
         <div class="highlight-info">
-<<<<<<< HEAD
-            <span class="label">Scent of the season</span>
-            <h2>{{highlightPerfume.name}}</h2>
-            <p>{{highlightPerfume.description | slice:0:150}}...</p>
-            <a [routerLink]="['/product', highlightPerfume.id]" class="btn-premium">Discover Fragrance</a>
-=======
             <span class="label">{{ t('home.scent_label') }}</span>
             <h2>{{highlightPerfume.name}}</h2>
             <p>{{highlightPerfume.description | slice:0:150}}...</p>
             <a [routerLink]="['/product', highlightPerfume.id]" class="btn-premium">{{ t('home.discover_fragrance')
-                }}</a>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-        </div>
+                }}</a>        </div>
     </div>
 </section>
 
@@ -261,14 +173,8 @@
 <section class="trendy-section container section-padding" *ngIf="specialOffers.length > 0">
     <div class="trendy-header">
         <div class="header-text">
-<<<<<<< HEAD
-            <h2>Luxury on Sale</h2>
-            <p>Exclusive deals on our most-coveted pieces</p>
-=======
             <h2>{{ t('home.sale_title') }}</h2>
-            <p>{{ t('home.sale_subtitle') }}</p>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-        </div>
+            <p>{{ t('home.sale_subtitle') }}</p>        </div>
         <div class="header-nav-actions">
             <div class="carousel-arrows">
                 <button class="nav-arrow prev" (click)="prevOffers()" aria-label="Previous">
@@ -282,12 +188,7 @@
                     </svg>
                 </button>
             </div>
-<<<<<<< HEAD
-            <a routerLink="/products/on-sale" class="btn-minimal-v2">View All Sales</a>
-=======
-            <a routerLink="/products/on-sale" class="btn-minimal-v2">{{ t('home.view_all_sales') }}</a>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-        </div>
+            <a routerLink="/products/on-sale" class="btn-minimal-v2">{{ t('home.view_all_sales') }}</a>        </div>
     </div>
 
     <div class="carousel-viewport">
@@ -301,12 +202,7 @@
                                 d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Zm0-108q96-86 158-147.5t98-107q36-45.5 50-81t14-70.5q0-60-40-100t-100-40q-47 0-87 26.5T518-680h-76q-15-41-55-67.5T300-774q-60 0-100 40t-40 100q0 35 14 70.5t50 81q36 45.5 98 107T480-228Zm0-273Z" />
                         </svg>
                     </div>
-<<<<<<< HEAD
-                    <button class="quick-add-btn">View Details</button>
-=======
-                    <button class="quick-add-btn">{{ t('home.view_details') }}</button>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-                    <span class="sale-badge" *ngIf="product.discount > 0">-{{product.discount}}%</span>
+                    <button class="quick-add-btn">{{ t('home.view_details') }}</button>                    <span class="sale-badge" *ngIf="product.discount > 0">-{{product.discount}}%</span>
                 </div>
                 <div class="card-info">
                     <h3 class="product-brand">{{product.brand}}</h3>
@@ -333,14 +229,8 @@
     <div class="overlay"></div>
     <div class="container relative-z">
         <div class="section-title white-text">
-<<<<<<< HEAD
-            <h2>Need Assistance?</h2>
-            <p class="sub-title">We're here to help you with your luxury experience</p>
-=======
             <h2>{{ t('home.help_title') }}</h2>
-            <p class="sub-title">{{ t('home.help_subtitle') }}</p>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-            <div class="title-line"></div>
+            <p class="sub-title">{{ t('home.help_subtitle') }}</p>            <div class="title-line"></div>
         </div>
         <div class="help-grid">
             <a routerLink="/faq" class="help-card">
@@ -351,32 +241,18 @@
                         <line x1="12" y1="17" x2="12.01" y2="17" />
                     </svg>
                 </div>
-<<<<<<< HEAD
-                <h3>FAQ</h3>
-                <p>Find quick answers to your questions about shipping, returns, and more.</p>
-                <span class="btn-minimal-light">View All</span>
-=======
                 <h3>{{ t('nav.faq') }}</h3>
                 <p>{{ t('home.help_faq_desc') }}</p>
-                <span class="btn-minimal-light">{{ t('home.view_all') }}</span>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-            </a>
+                <span class="btn-minimal-light">{{ t('home.view_all') }}</span>            </a>
             <a routerLink="/contact" class="help-card">
                 <div class="help-icon">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
                     </svg>
                 </div>
-<<<<<<< HEAD
-                <h3>Need Help?</h3>
-                <p>Our concierge team is available to assist you with any personalized requests.</p>
-                <span class="btn-minimal-light">Contact Us</span>
-=======
                 <h3>{{ t('home.hero_contact_us') }}</h3>
                 <p>{{ t('home.help_contact_desc') }}</p>
-                <span class="btn-minimal-light">{{ t('home.hero_contact_us') }}</span>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-            </a>
+                <span class="btn-minimal-light">{{ t('home.hero_contact_us') }}</span>            </a>
             <a routerLink="/order-cancellation-policy" class="help-card">
                 <div class="help-icon">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -385,16 +261,9 @@
                         <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                     </svg>
                 </div>
-<<<<<<< HEAD
-                <h3>Cancellations & Refunds</h3>
-                <p>Review our policies on order cancellations, refunds, and cashback procedures.</p>
-                <span class="btn-minimal-light">Learn More</span>
-=======
                 <h3>{{ t('home.help_policy_title') }}</h3>
                 <p>{{ t('home.help_policy_desc') }}</p>
-                <span class="btn-minimal-light">{{ t('home.learn_more') }}</span>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-            </a>
+                <span class="btn-minimal-light">{{ t('home.learn_more') }}</span>            </a>
         </div>
     </div>
 </section>

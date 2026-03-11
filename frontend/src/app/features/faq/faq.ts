@@ -1,41 +1,20 @@
-<<<<<<< HEAD
-import { Component, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
-=======
 import { Component, signal, inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { TranslationService } from '../../core/services/translation.service';
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-
 @Component({
     selector: 'app-faq',
     standalone: true,
-<<<<<<< HEAD
-    imports: [CommonModule],
-=======
-    imports: [CommonModule, RouterLink],
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-    template: `
+    imports: [CommonModule, RouterLink],    template: `
     <div class="faq-page">
         <div class="container narrow">
             <header class="faq-header">
-<<<<<<< HEAD
-                <h1>Frequently Asked Questions</h1>
-                <p>Finding answers to your common inquiries</p>
-            </header>
-
-            <div class="faq-sections">
-                @for (section of faqs; track section.title) {
-=======
                 <h1>{{ t('faq.title') }}</h1>
                 <p>{{ t('faq.subtitle') }}</p>
             </header>
 
             <div class="faq-sections">
-                @for (section of faqs(); track section.title) {
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-                    <div class="faq-category">
+                @for (section of faqs(); track section.title) {                    <div class="faq-category">
                         <h2>{{ section.title }}</h2>
                         <div class="accordion">
                             @for (item of section.items; track item.q) {
@@ -57,14 +36,8 @@ import { TranslationService } from '../../core/services/translation.service';
             </div>
             
             <div class="faq-footer">
-<<<<<<< HEAD
-                <p>Have more questions?</p>
-                <a href="/contact" class="btn-outline">Contact Support</a>
-=======
                 <p>{{ t('faq.footer_q') }}</p>
-                <a routerLink="/contact" class="btn-outline">{{ t('faq.contact_btn') }}</a>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-            </div>
+                <a routerLink="/contact" class="btn-outline">{{ t('faq.contact_btn') }}</a>            </div>
         </div>
     </div>
   `,
@@ -101,11 +74,7 @@ import { TranslationService } from '../../core/services/translation.service';
             transition: color 0.3s;
             
             &:hover { color: #d4af37; }
-<<<<<<< HEAD
-=======
-            [dir="rtl"] & { text-align: right; }
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-            .chevron { width: 18px; height: 18px; transition: transform 0.3s; color: #ccc; }
+            [dir="rtl"] & { text-align: right; }            .chevron { width: 18px; height: 18px; transition: transform 0.3s; color: #ccc; }
         }
 
         .accordion-content {
@@ -117,12 +86,7 @@ import { TranslationService } from '../../core/services/translation.service';
 
         &.active {
             .accordion-trigger { color: #d4af37; .chevron { transform: rotate(180deg); color: #d4af37; } }
-<<<<<<< HEAD
-            .accordion-content { max-height: 200px; }
-=======
-            .accordion-content { max-height: 400px; }
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-        }
+            .accordion-content { max-height: 400px; }        }
     }
     .faq-footer {
         margin-top: 100px;
@@ -147,26 +111,6 @@ import { TranslationService } from '../../core/services/translation.service';
   `]
 })
 export class FAQComponent {
-<<<<<<< HEAD
-    activeQuestion = signal<string | null>(null);
-
-    faqs = [
-        {
-            title: 'Products & Collections',
-            items: [
-                { q: 'Are your items authentic?', a: 'Every item at Moda House is guaranteed to be 100% authentic. We source directly from authorized distributors and artisans.' },
-                { q: 'Can I request a custom perfume?', a: 'Currently, we do not offer custom blending services, but we do curate limited edition collections periodically.' }
-            ]
-        },
-        {
-            title: 'Orders & Payments',
-            items: [
-                { q: 'What payment methods do you accept?', a: 'We accept Cash on Delivery (COD), Instapay, and all major Credit/Debit cards.' },
-                { q: 'Can I cancel my order?', a: 'Orders can be cancelled within 2 hours of placement. Please contact our support team immediately for assistance.' }
-            ]
-        }
-    ];
-=======
     private translationService = inject(TranslationService);
     activeQuestion = signal<string | null>(null);
 
@@ -190,8 +134,6 @@ export class FAQComponent {
             ]
         }
     ]);
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-
     toggle(q: string) {
         this.activeQuestion.update(v => v === q ? null : q);
     }

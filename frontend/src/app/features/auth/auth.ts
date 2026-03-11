@@ -2,11 +2,7 @@ import { Component, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
-<<<<<<< HEAD
-=======
 import { TranslationService } from '../../core/services/translation.service';
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-
 @Component({
     selector: 'app-auth',
     standalone: true,
@@ -17,15 +13,11 @@ import { TranslationService } from '../../core/services/translation.service';
 export class AuthComponent {
     private authService = inject(AuthService);
     private router = inject(Router);
-<<<<<<< HEAD
-=======
     private translationService = inject(TranslationService);
 
     t(key: string, params: any = {}) {
         return this.translationService.translate(key, params);
     }
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-
     isLoginMode = signal(true);
 
     // Form Signals
@@ -70,12 +62,7 @@ export class AuthComponent {
                 },
                 error: (err) => {
                     console.error('Login failed', err);
-<<<<<<< HEAD
-                    this.errorMessage.set(err.error?.detail || 'Invalid email or password.');
-=======
-                    this.errorMessage.set(err.error?.detail || this.t('auth.alert_login_failed'));
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-                }
+                    this.errorMessage.set(err.error?.detail || this.t('auth.alert_login_failed'));                }
             });
         } else {
             const data = {
@@ -85,21 +72,11 @@ export class AuthComponent {
             };
             this.authService.register(data).subscribe({
                 next: () => {
-<<<<<<< HEAD
-                    this.successMessage.set('Registration successful! Please login.');
-=======
-                    this.successMessage.set(this.t('auth.alert_register_success'));
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-                    this.isLoginMode.set(true);
+                    this.successMessage.set(this.t('auth.alert_register_success'));                    this.isLoginMode.set(true);
                 },
                 error: (err) => {
                     console.error('Registration failed', err);
-<<<<<<< HEAD
-                    this.errorMessage.set(err.error?.message || 'Registration failed. Please try again.');
-=======
-                    this.errorMessage.set(err.error?.message || this.t('auth.alert_register_failed'));
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-                }
+                    this.errorMessage.set(err.error?.message || this.t('auth.alert_register_failed'));                }
             });
         }
     }

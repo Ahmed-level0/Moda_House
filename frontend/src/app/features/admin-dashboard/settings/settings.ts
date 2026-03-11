@@ -3,11 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../core/services/auth.service';
-<<<<<<< HEAD
-=======
 import { TranslationService } from '../../../core/services/translation.service';
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-
 @Component({
     selector: 'app-admin-settings',
     standalone: true,
@@ -18,12 +14,8 @@ import { TranslationService } from '../../../core/services/translation.service';
 export class SettingsComponent implements OnInit {
     private http = inject(HttpClient);
     private authService = inject(AuthService);
-<<<<<<< HEAD
-=======
     public translationService = inject(TranslationService);
     t = this.translationService.translate.bind(this.translationService);
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-
     activeSection = signal<'profile' | 'password' | 'store'>('profile');
 
     // Profile Data

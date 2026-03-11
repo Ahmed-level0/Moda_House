@@ -2,43 +2,11 @@
     <!-- Sidebar -->
     <aside class="sidebar">
         <div class="logo">
-<<<<<<< HEAD
-            <h2>MODA ADMIN</h2>
-=======
-            <h2>{{ t('admin.sidebar.title') }}</h2>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-        </div>
+            <h2>{{ t('admin.sidebar.title') }}</h2>        </div>
 
         <nav class="nav-menu">
             <a [class.active]="activeTab() === 'dashboard'" (click)="activeTab.set('dashboard')">
                 <i class="fas fa-chart-line"></i>
-<<<<<<< HEAD
-                <span>Dashboard</span>
-            </a>
-            <a [class.active]="activeTab() === 'products'" (click)="activeTab.set('products')">
-                <i class="fas fa-box"></i>
-                <span>Products</span>
-            </a>
-            <a [class.active]="activeTab() === 'orders'" (click)="activeTab.set('orders')">
-                <i class="fas fa-shopping-cart"></i>
-                <span>Orders</span>
-            </a>
-            <a [class.active]="activeTab() === 'customers'" (click)="activeTab.set('customers')">
-                <i class="fas fa-users"></i>
-                <span>Customers</span>
-            </a>
-            <a [class.active]="activeTab() === 'categories'" (click)="activeTab.set('categories')">
-                <i class="fas fa-tags"></i>
-                <span>Categories</span>
-            </a>
-            <a [class.active]="activeTab() === 'analytics'" (click)="activeTab.set('analytics')">
-                <i class="fas fa-chart-bar"></i>
-                <span>Analytics</span>
-            </a>
-            <a [class.active]="activeTab() === 'settings'" (click)="activeTab.set('settings')">
-                <i class="fas fa-cog"></i>
-                <span>Settings</span>
-=======
                 <span>{{ t('admin.sidebar.dashboard') }}</span>
             </a>
             <a [class.active]="activeTab() === 'products'" (click)="activeTab.set('products')">
@@ -63,19 +31,12 @@
             </a>
             <a [class.active]="activeTab() === 'settings'" (click)="activeTab.set('settings')">
                 <i class="fas fa-cog"></i>
-                <span>{{ t('admin.sidebar.settings') }}</span>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-            </a>
+                <span>{{ t('admin.sidebar.settings') }}</span>            </a>
         </nav>
 
         <button class="logout-btn" (click)="logout()">
             <i class="fas fa-sign-out-alt"></i>
-<<<<<<< HEAD
-            <span>Logout</span>
-=======
-            <span>{{ t('admin.sidebar.logout') }}</span>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-        </button>
+            <span>{{ t('admin.sidebar.logout') }}</span>        </button>
     </aside>
 
     <!-- Main Content -->
@@ -84,12 +45,7 @@
         <header class="top-navbar">
             <div class="search-bar">
                 <i class="fas fa-search"></i>
-<<<<<<< HEAD
-                <input type="text" placeholder="Search...">
-=======
-                <input type="text" [placeholder]="t('admin.topbar.search')">
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-            </div>
+                <input type="text" [placeholder]="t('admin.topbar.search')">            </div>
 
             <div class="navbar-actions">
                 <button class="icon-btn">
@@ -97,12 +53,7 @@
                     <i class="fas fa-bell"></i>
                 </button>
                 <div class="admin-profile">
-<<<<<<< HEAD
-                    <span>{{ adminName() }}</span>
-=======
-                    <span>{{ t('admin.topbar.admin') }}</span>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-                    <div class="avatar">
+                    <span>{{ t('admin.topbar.admin') }}</span>                    <div class="avatar">
                         <i class="fas fa-user"></i>
                     </div>
                 </div>

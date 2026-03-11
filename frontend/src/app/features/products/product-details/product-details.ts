@@ -4,11 +4,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CartService } from '../../../core/services/cart.service';
 import { WishlistService } from '../../../core/services/wishlist.service';
 import { ProductService, Product } from '../../../core/services/product.service';
-<<<<<<< HEAD
-=======
 import { TranslationService } from '../../../core/services/translation.service';
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-
 
 @Component({
   selector: 'app-product-details',
@@ -23,15 +19,11 @@ export class ProductDetails implements OnInit {
   private cartService = inject(CartService);
   private wishlistService = inject(WishlistService);
   private productService = inject(ProductService);
-<<<<<<< HEAD
-=======
   private translationService = inject(TranslationService);
 
   t(key: string, params: any = {}) {
     return this.translationService.translate(key, params);
   }
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-
   product = signal<Product | null>(null);
   relatedProducts = signal<Product[]>([]);
 
@@ -120,21 +112,11 @@ export class ProductDetails implements OnInit {
 
     // Smart Validation
     if (p.sizes?.length && !this.selectedSize()) {
-<<<<<<< HEAD
-      this.errorMessage.set('Please select a size');
-=======
-      this.errorMessage.set(this.t('product_details.alert_select_size'));
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-      setTimeout(() => this.errorMessage.set(''), 3000); // Clear after 3 seconds
+      this.errorMessage.set(this.t('product_details.alert_select_size'));      setTimeout(() => this.errorMessage.set(''), 3000); // Clear after 3 seconds
       return;
     }
     if (p.colors?.length && !this.selectedColor()) {
-<<<<<<< HEAD
-      this.errorMessage.set('Please select a color');
-=======
-      this.errorMessage.set(this.t('product_details.alert_select_color'));
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-      setTimeout(() => this.errorMessage.set(''), 3000); // Clear after 3 seconds
+      this.errorMessage.set(this.t('product_details.alert_select_color'));      setTimeout(() => this.errorMessage.set(''), 3000); // Clear after 3 seconds
       return;
     }
 

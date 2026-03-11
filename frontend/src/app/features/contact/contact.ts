@@ -2,11 +2,7 @@ import { Component, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-<<<<<<< HEAD
-=======
 import { TranslationService } from '../../core/services/translation.service';
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-
 @Component({
     selector: 'app-contact',
     standalone: true,
@@ -16,11 +12,6 @@ import { TranslationService } from '../../core/services/translation.service';
 })
 export class ContactComponent {
     private http = inject(HttpClient);
-<<<<<<< HEAD
-    isSubmitted = signal(false);
-    isLoading = signal(false);
-
-=======
     private translationService = inject(TranslationService);
     currentLang = this.translationService.currentLang;
     isSubmitted = signal(false);
@@ -29,8 +20,6 @@ export class ContactComponent {
     t(key: string, params: any = {}) {
         return this.translationService.translate(key, params);
     }
-
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
     onSubmit(event: Event) {
         event.preventDefault();
         const form = event.target as HTMLFormElement;
@@ -63,12 +52,7 @@ export class ContactComponent {
                 error: (err) => {
                     console.error('Contact error:', err);
                     this.isLoading.set(false);
-<<<<<<< HEAD
-                    alert('There was an error sending your message. Please try again later.');
-=======
-                    alert(this.t('contact.error'));
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-                }
+                    alert(this.t('contact.error'));                }
             });
     }
 }

@@ -1,28 +1,12 @@
 <div class="settings-page">
     <header>
-<<<<<<< HEAD
-        <h2>Admin Settings</h2>
-=======
-        <h2>{{ t('admin.settings.title') }}</h2>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-    </header>
+        <h2>{{ t('admin.settings.title') }}</h2>    </header>
 
     <div class="settings-container">
         <!-- Sidebar Navigation -->
         <aside class="settings-nav">
             <button [class.active]="activeSection() === 'profile'" (click)="activeSection.set('profile')">
                 <i class="fas fa-user-circle"></i>
-<<<<<<< HEAD
-                <span>Profile Information</span>
-            </button>
-            <button [class.active]="activeSection() === 'password'" (click)="activeSection.set('password')">
-                <i class="fas fa-key"></i>
-                <span>Change Password</span>
-            </button>
-            <button [class.active]="activeSection() === 'store'" (click)="activeSection.set('store')">
-                <i class="fas fa-store"></i>
-                <span>Store Settings</span>
-=======
                 <span>{{ t('admin.settings.profile_info') }}</span>
             </button>
             <button [class.active]="activeSection() === 'password'" (click)="activeSection.set('password')">
@@ -31,9 +15,7 @@
             </button>
             <button [class.active]="activeSection() === 'store'" (click)="activeSection.set('store')">
                 <i class="fas fa-store"></i>
-                <span>{{ t('admin.settings.store_settings') }}</span>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-            </button>
+                <span>{{ t('admin.settings.store_settings') }}</span>            </button>
         </aside>
 
         <!-- Content Area -->
@@ -48,60 +30,24 @@
 
             @if (activeSection() === 'profile') {
             <section class="settings-section">
-<<<<<<< HEAD
-                <h3>Profile Information</h3>
-                <p class="section-desc">Update your admin account details and email address.</p>
-                <form (submit)="updateProfile()">
-                    <div class="form-group">
-                        <label>Username</label>
-=======
                 <h3>{{ t('admin.settings.profile_info') }}</h3>
                 <p class="section-desc">{{ t('admin.settings.profile_desc') }}</p>
                 <form (submit)="updateProfile()">
                     <div class="form-group">
-                        <label>{{ t('admin.settings.username') }}</label>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-                        <input type="text" [value]="profileData.username()"
+                        <label>{{ t('admin.settings.username') }}</label>                        <input type="text" [value]="profileData.username()"
                             (input)="profileData.username.set($any($event.target).value)">
                     </div>
                     <div class="form-group">
-<<<<<<< HEAD
-                        <label>Email Address</label>
-                        <input type="email" [value]="profileData.email()"
-                            (input)="profileData.email.set($any($event.target).value)">
-                    </div>
-                    <button type="submit" class="btn-save">Save Changes</button>
-=======
                         <label>{{ t('admin.settings.email') }}</label>
                         <input type="email" [value]="profileData.email()"
                             (input)="profileData.email.set($any($event.target).value)">
                     </div>
-                    <button type="submit" class="btn-save">{{ t('admin.settings.save_changes') }}</button>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-                </form>
+                    <button type="submit" class="btn-save">{{ t('admin.settings.save_changes') }}</button>                </form>
             </section>
             }
 
             @if (activeSection() === 'password') {
             <section class="settings-section">
-<<<<<<< HEAD
-                <h3>Change Password</h3>
-                <p class="section-desc">Ensure your account is using a long, random password to stay secure.</p>
-                <form (submit)="changePassword()">
-                    <div class="form-group">
-                        <label>Current Password</label>
-                        <input type="password" [(ngModel)]="passwordData.currentPassword" name="currentPassword">
-                    </div>
-                    <div class="form-group">
-                        <label>New Password</label>
-                        <input type="password" [(ngModel)]="passwordData.newPassword" name="newPassword">
-                    </div>
-                    <div class="form-group">
-                        <label>Confirm New Password</label>
-                        <input type="password" [(ngModel)]="passwordData.confirmPassword" name="confirmPassword">
-                    </div>
-                    <button type="submit" class="btn-save">Update Password</button>
-=======
                 <h3>{{ t('admin.settings.change_password') }}</h3>
                 <p class="section-desc">{{ t('admin.settings.password_desc') }}</p>
                 <form (submit)="changePassword()">
@@ -117,47 +63,26 @@
                         <label>{{ t('admin.settings.confirm_pass') }}</label>
                         <input type="password" [(ngModel)]="passwordData.confirmPassword" name="confirmPassword">
                     </div>
-                    <button type="submit" class="btn-save">{{ t('admin.settings.update_pass') }}</button>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-                </form>
+                    <button type="submit" class="btn-save">{{ t('admin.settings.update_pass') }}</button>                </form>
             </section>
             }
 
             @if (activeSection() === 'store') {
             <section class="settings-section">
-<<<<<<< HEAD
-                <h3>Store Settings</h3>
-                <p class="section-desc">Configure your online store's public identity and tax settings.</p>
-                <form (submit)="saveStoreSettings()">
-                    <div class="form-group">
-                        <label>Store Name</label>
-=======
                 <h3>{{ t('admin.settings.store_settings') }}</h3>
                 <p class="section-desc">{{ t('admin.settings.store_desc') }}</p>
                 <form (submit)="saveStoreSettings()">
                     <div class="form-group">
-                        <label>{{ t('admin.settings.store_name') }}</label>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-                        <input type="text" [value]="storeSettings.storeName()"
+                        <label>{{ t('admin.settings.store_name') }}</label>                        <input type="text" [value]="storeSettings.storeName()"
                             (input)="storeSettings.storeName.set($any($event.target).value)">
                     </div>
                     <div class="form-group">
-<<<<<<< HEAD
-                        <label>Support Email</label>
-=======
-                        <label>{{ t('admin.settings.support_email') }}</label>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-                        <input type="email" [value]="storeSettings.storeEmail()"
+                        <label>{{ t('admin.settings.support_email') }}</label>                        <input type="email" [value]="storeSettings.storeEmail()"
                             (input)="storeSettings.storeEmail.set($any($event.target).value)">
                     </div>
                     <div class="form-row">
                         <div class="form-group">
-<<<<<<< HEAD
-                            <label>Default Currency</label>
-=======
-                            <label>{{ t('admin.settings.currency') }}</label>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-                            <select [value]="storeSettings.currency()"
+                            <label>{{ t('admin.settings.currency') }}</label>                            <select [value]="storeSettings.currency()"
                                 (change)="storeSettings.currency.set($any($event.target).value)">
                                 <option value="USD">USD ($)</option>
                                 <option value="EGP">EGP (LE)</option>
@@ -165,21 +90,11 @@
                             </select>
                         </div>
                         <div class="form-group">
-<<<<<<< HEAD
-                            <label>Tax Rate (%)</label>
-=======
-                            <label>{{ t('admin.settings.tax_rate') }}</label>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-                            <input type="number" [value]="storeSettings.taxRate()"
+                            <label>{{ t('admin.settings.tax_rate') }}</label>                            <input type="number" [value]="storeSettings.taxRate()"
                                 (input)="storeSettings.taxRate.set($any($event.target).value)">
                         </div>
                     </div>
-<<<<<<< HEAD
-                    <button type="submit" class="btn-save">Save Store Settings</button>
-=======
-                    <button type="submit" class="btn-save">{{ t('admin.settings.save_store') }}</button>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-                </form>
+                    <button type="submit" class="btn-save">{{ t('admin.settings.save_store') }}</button>                </form>
             </section>
             }
         </main>

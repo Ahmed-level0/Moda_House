@@ -4,6 +4,7 @@ import { Router, RouterLink } from '@angular/router';
 import { CartService } from '../../core/services/cart.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../../core/services/auth.service';
+import { TranslationService } from '../../core/services/translation.service';
 
 @Component({
     selector: 'app-checkout',
@@ -17,6 +18,11 @@ export class CheckoutComponent {
     private router = inject(Router);
     private http = inject(HttpClient);
     public authService = inject(AuthService);
+    private translationService = inject(TranslationService);
+
+    t(key: string, params: any = {}) {
+        return this.translationService.translate(key, params);
+    }
 
     cartItems = this.cartService.cartItems;
     subtotal = this.cartService.subtotal;

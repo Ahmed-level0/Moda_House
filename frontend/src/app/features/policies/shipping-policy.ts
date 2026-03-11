@@ -1,12 +1,6 @@
-<<<<<<< HEAD
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-=======
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslationService } from '../../core/services/translation.service';
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-
 @Component({
     selector: 'app-shipping-policy',
     standalone: true,
@@ -15,30 +9,6 @@ import { TranslationService } from '../../core/services/translation.service';
     <div class="policy-page">
         <div class="container narrow">
             <header class="policy-header">
-<<<<<<< HEAD
-                <h1>Shipping Policy</h1>
-                <p>Last updated: February 2026</p>
-            </header>
-
-            <section class="policy-section">
-                <h2>Domestic Delivery</h2>
-                <p>We provide premium delivery services across all governorates in Egypt. Our logistics partners are selected for their reliability and care in handling luxury goods.</p>
-                <div class="shipping-grid">
-                    <div class="ship-card">
-                        <h3>Cairo & Giza</h3>
-                        <p class="time">1-2 Business Days</p>
-                        <p class="cost">50 EGP</p>
-                    </div>
-                    <div class="ship-card">
-                        <h3>Alexandria</h3>
-                        <p class="time">2-3 Business Days</p>
-                        <p class="cost">65 EGP</p>
-                    </div>
-                    <div class="ship-card">
-                        <h3>Other Governorates</h3>
-                        <p class="time">3-5 Business Days</p>
-                        <p class="cost">80 EGP</p>
-=======
                 <h1>{{ t('policies.shipping.title') }}</h1>
                 <p>{{ t('policies.shipping.last_updated') }}</p>
             </header>
@@ -60,31 +30,18 @@ import { TranslationService } from '../../core/services/translation.service';
                     <div class="ship-card">
                         <h3>{{ t('policies.shipping.other_gov') }}</h3>
                         <p class="time">{{ t('policies.shipping.days_3_5') }}</p>
-                        <p class="cost">{{ t('policies.shipping.cost_80') }}</p>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-                    </div>
+                        <p class="cost">{{ t('policies.shipping.cost_80') }}</p>                    </div>
                 </div>
             </section>
 
             <section class="policy-section">
-<<<<<<< HEAD
-                <h2>Order Tracking</h2>
-                <p>Once your order is dispatched, you will receive a tracking number via email and SMS. You can also track your order directly through your <a href="/profile">account dashboard</a> or our <a href="/track-order">tracking page</a>.</p>
-            </section>
-
-            <section class="policy-section">
-                <h2>International Shipping</h2>
-                <p>Currently, Moda House ships to select countries in the Middle East and Europe. International delivery typically takes 7-14 business days. Please note that customs duties and taxes may apply depending on your country's regulations.</p>
-=======
                 <h2>{{ t('policies.shipping.tracking_title') }}</h2>
                 <p>{{ t('policies.shipping.tracking_desc') }}</p>
             </section>
 
             <section class="policy-section">
                 <h2>{{ t('policies.shipping.intl_title') }}</h2>
-                <p>{{ t('policies.shipping.intl_desc') }}</p>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-            </section>
+                <p>{{ t('policies.shipping.intl_desc') }}</p>            </section>
         </div>
     </div>
   `,
@@ -121,9 +78,6 @@ import { TranslationService } from '../../core/services/translation.service';
     }
   `]
 })
-<<<<<<< HEAD
-export class ShippingPolicyComponent { }
-=======
 export class ShippingPolicyComponent {
     private translationService = inject(TranslationService);
 
@@ -131,4 +85,3 @@ export class ShippingPolicyComponent {
         return this.translationService.translate(key, params);
     }
 }
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818

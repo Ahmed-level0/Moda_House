@@ -2,14 +2,9 @@
     <div class="container">
         <!-- Header -->
         <header class="wishlist-header">
-<<<<<<< HEAD
-            <h1 class="page-title">My Wishlist</h1>
-            <p class="items-count" *ngIf="totalCount() > 0">{{ totalCount() }} items saved</p>
-=======
             <h1 class="page-title">{{ t('wishlist.title') }}</h1>
             <p class="items-count" *ngIf="totalCount() > 0">{{ t('wishlist.items_saved', { count:
                 totalCount().toString() }) }}</p>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
         </header>
 
         <!-- Empty State -->
@@ -21,15 +16,9 @@
                         d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
                 </svg>
             </div>
-<<<<<<< HEAD
-            <h2 class="empty-title">You haven’t fallen in love yet.</h2>
-            <p class="empty-text">Explore our collections and save your favorite pieces to find them easily later.</p>
-            <button routerLink="/products/bags" class="btn-primary">Continue Shopping</button>
-=======
             <h2 class="empty-title">{{ t('wishlist.empty_title') }}</h2>
             <p class="empty-text">{{ t('wishlist.empty_text') }}</p>
             <button routerLink="/products/bags" class="btn-primary">{{ t('wishlist.continue_shopping') }}</button>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
         </div>
         } @else {
         <!-- Wishlist Grid -->
@@ -44,11 +33,7 @@
                         </svg>
                     </button>
                     @if (item.inStock === false) {
-<<<<<<< HEAD
-                    <div class="stock-badge">No longer available</div>
-=======
                     <div class="stock-badge">{{ t('wishlist.no_longer_available') }}</div>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                     }
                 </div>
                 <div class="item-details">
@@ -64,17 +49,10 @@
                                 <path
                                     d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4H6zM3 6h18M16 10a4 4 0 0 1-8 0" />
                             </svg>
-<<<<<<< HEAD
-                            <span>Move to Bag</span>
-                        </button>
-                        } @else {
-                        <button class="btn-disabled" disabled>Unavailable</button>
-=======
                             <span>{{ t('wishlist.move_to_bag') }}</span>
                         </button>
                         } @else {
                         <button class="btn-disabled" disabled>{{ t('wishlist.unavailable') }}</button>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                         }
                     </div>
                 </div>

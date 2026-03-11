@@ -152,30 +152,48 @@
                     </div>
 
                     @if (!u.orders || u.orders.length === 0) {
-
-                    @for (order of filteredOrders(); track order.id) {
-                        <div class="order-header" (click)="toggleOrder(order.id)">
-                            <div class="main-info">
-                                <span class="date">{{ order.created | date }}</span>
-                            </div>
-                            <div class="status-group">
-                                 <span class="status-badge" [attr.data-status]="order.status">{{
-                                    t('profile.status_' + order.status.toLowerCase().split(' ').join('_')) }}</span>
-                                <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2">
-                                    <polyline points="6 9 12 15 18 9" />
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="order-details-content">
-                            <div class="order-actions">
-                                <div class="total-bar">                                    <span>Total: {{ order.total | currency }}</span>
+                        <p class="no-data">{{ t('profile.no_orders') }}</p>
+                    } @else {
+                        @for (order of filteredOrders(); track order.id) {
+                        <div class="order-expandable" [class.expanded]="expandedOrderId() === order.id">
+                            <div class="order-header" (click)="toggleOrder(order.id)">
+                                <div class="main-info">
+                                    <span class="id">#{{ order.id }}</span>
+                                    <span class="date">{{ order.created | date }}</span>
                                 </div>
-                                <div class="btn-group">
-                                        [queryParams]="{ id: order.id }">{{ t('profile.track') }}</button>
+                                <div class="status-group">
+                                    <span class="status-badge" [attr.data-status]="order.status">{{
+                                        t('profile.status_' + order.status.toLowerCase().split(' ').join('_')) }}</span>
+                                    <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <polyline points="6 9 12 15 18 9" />
+                                    </svg>
                                 </div>
                             </div>
+                            <div class="order-details-content">
+                                <div class="items-preview">
+                                    @for (item of order.items; track item.id) {
+                                    <div class="mini-item">
+                                        <div class="item-info">
+                                            <span class="qty">{{ item.quantity }}x</span>
+                                            <span class="name">{{ item.product_name || item.name }}</span>
+                                        </div>
+                                        <span class="price">{{ item.price | currency }}</span>
+                                    </div>
+                                    }
+                                </div>
+                                <div class="order-actions">
+                                    <div class="total-bar">
+                                        <span>{{ t('profile.total') }}: {{ order.total | currency }}</span>
+                                    </div>
+                                    <div class="btn-group">
+                                        <button class="btn-track-sub" routerLink="/track-order"
+                                            [queryParams]="{ id: order.id }">{{ t('profile.track') }}</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                        }
                     }
                 </div>
             </section>

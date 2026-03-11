@@ -6,13 +6,8 @@
             <header class="checkout-header">
                 <a routerLink="/" class="logo">MODA HOUSE</a>
                 <nav class="breadcrumb">
-<<<<<<< HEAD
-                    <a routerLink="/cart">Bag</a>
-                    <span>Information</span>
-=======
                     <a routerLink="/cart">{{ t('checkout.bag') }}</a>
                     <span>{{ t('checkout.information') }}</span>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                 </nav>
             </header>
 
@@ -22,50 +17,25 @@
                     <line x1="12" y1="8" x2="12" y2="12" />
                     <line x1="12" y1="16" x2="12.01" y2="16" />
                 </svg>
-<<<<<<< HEAD
-                <span>Items in your bag are not reserved. Complete your order now to secure them.</span>
-=======
                 <span>{{ t('checkout.urgency_hint') }}</span>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
             </div>
 
             <section class="checkout-section">
-                <div class="section-header" *ngIf="!authService.isLoggedIn()">
-<<<<<<< HEAD
-                    <h2>Contact Information</h2>
-                    <p>Already have an account? <a href="#">Log in</a> for faster checkout.</p>
-                </div>
-                <div class="form-group" [class.error]="showErrors() && !email()">
-                    <input type="email" placeholder="Email address" [value]="email()"
-=======
-                    <h2>{{ t('checkout.contact_info') }}</h2>
-                    <p>{{ t('checkout.login_prompt_part1') }} <a routerLink="/auth">{{ t('auth.sign_in_now') }}</a> {{
-                        t('checkout.login_prompt_part2') }}</p>
-                </div>
+                @if (!authService.isLoggedIn()) {
+                    <div class="section-header">
+                        <h2>{{ t('checkout.contact_info') }}</h2>
+                        <p>{{ t('checkout.login_prompt_part1') }} <a routerLink="/auth">{{ t('auth.sign_in_now') }}</a> {{
+                            t('checkout.login_prompt_part2') }}</p>
+                    </div>
+                }
                 <div class="form-group" [class.error]="showErrors() && !email()">
                     <input type="email" [placeholder]="t('checkout.email_placeholder')" [value]="email()"
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                         (input)="updateField('email', $event)" autocomplete="email" required>
                 </div>
             </section>
 
             <section class="checkout-section">
                 <div class="section-header">
-<<<<<<< HEAD
-                    <h2>Shipping Address</h2>
-                </div>
-                <div class="form-grid">
-                    <div class="form-group" [class.error]="showErrors() && !firstName()">
-                        <input type="text" placeholder="First name" [value]="firstName()"
-                            (input)="updateField('firstName', $event)" autocomplete="given-name" required>
-                    </div>
-                    <div class="form-group" [class.error]="showErrors() && !lastName()">
-                        <input type="text" placeholder="Last name" [value]="lastName()"
-                            (input)="updateField('lastName', $event)" autocomplete="family-name" required>
-                    </div>
-                    <div class="form-group full-width" [class.error]="showErrors() && !address()">
-                        <input type="text" placeholder="Address" [value]="address()"
-=======
                     <h2>{{ t('checkout.shipping_address') }}</h2>
                 </div>
                 <div class="form-grid">
@@ -79,24 +49,10 @@
                     </div>
                     <div class="form-group full-width" [class.error]="showErrors() && !address()">
                         <input type="text" [placeholder]="t('checkout.address')" [value]="address()"
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                             (input)="updateField('address', $event)" autocomplete="street-address" required>
                     </div>
                     <div class="form-group" [class.error]="showErrors() && !city()">
                         <select (change)="onCityChange($event)" required>
-<<<<<<< HEAD
-                            <option value="">Select City</option>
-                            <option value="Damanhour">Damanhour</option>
-                            <option value="Cairo">Cairo</option>
-                            <option value="Giza">Giza</option>
-                            <option value="Alexandria">Alexandria</option>
-                            <option value="Mansoura">Mansoura</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
-                    <div class="form-group" [class.error]="showErrors() && !phone()">
-                        <input type="tel" placeholder="Phone number" [value]="phone()"
-=======
                             <option value="">{{ t('checkout.select_city') }}</option>
                             <option value="Damanhour">{{ t('cities.damanhour') }}</option>
                             <option value="Cairo">{{ t('cities.cairo') }}</option>
@@ -108,7 +64,6 @@
                     </div>
                     <div class="form-group" [class.error]="showErrors() && !phone()">
                         <input type="tel" [placeholder]="t('checkout.phone_number')" [value]="phone()"
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                             (input)="updateField('phone', $event)" autocomplete="tel" required>
                     </div>
                 </div>
@@ -116,26 +71,16 @@
 
             <section class="checkout-section">
                 <div class="section-header">
-<<<<<<< HEAD
-                    <h2>Payment Method</h2>
-                    <p>Transactions are secure and encrypted.</p>
-=======
                     <h2>{{ t('checkout.payment_method') }}</h2>
                     <p>{{ t('checkout.secure_encrypted') }}</p>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                 </div>
                 <div class="payment-options">
                     <label class="payment-card" [class.active]="paymentMethod() === 'cod'">
                         <input type="radio" name="payment" value="cod" [checked]="paymentMethod() === 'cod'"
                             (change)="paymentMethod.set('cod')">
                         <div class="payment-info">
-<<<<<<< HEAD
-                            <span class="title">Cash on Delivery (COD)</span>
-                            <span class="desc">Pay when you receive your order (+100 EGP fee)</span>
-=======
                             <span class="title">{{ t('checkout.cod') }}</span>
                             <span class="desc">{{ t('checkout.cod_desc') }}</span>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                         </div>
                         <div class="payment-icon">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -149,13 +94,8 @@
                         <input type="radio" name="payment" value="online" [checked]="paymentMethod() === 'online'"
                             (change)="paymentMethod.set('online')">
                         <div class="payment-info">
-<<<<<<< HEAD
-                            <span class="title">Online Payment</span>
-                            <span class="desc">Encrypted & Secure</span>
-=======
                             <span class="title">{{ t('checkout.online_payment') }}</span>
                             <span class="desc">{{ t('checkout.online_desc') }}</span>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                         </div>
                         <div class="payment-icon">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -169,24 +109,18 @@
 
             <footer class="checkout-footer">
                 <button class="btn-submit" [class.loading]="isPlacingOrder()" (click)="completeOrder()">
-<<<<<<< HEAD
-                    <span *ngIf="!isPlacingOrder()">Complete Secure Order - {{ orderTotal() | currency }}</span>
-=======
-                    <span *ngIf="!isPlacingOrder()">{{ t('checkout.complete_order', { total: orderTotal() | currency })
-                        }}</span>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-                    <span *ngIf="isPlacingOrder()" class="loader"></span>
+                    @if (!isPlacingOrder()) {
+                        <span>{{ t('checkout.complete_order', { total: orderTotal() | currency }) }}</span>
+                    } @else {
+                        <span class="loader"></span>
+                    }
                 </button>
                 <p class="security-note">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
                         <path d="M7 11V7a5 5 0 0110 0v4" />
                     </svg>
-<<<<<<< HEAD
-                    Fully Encrypted & Secure Checkout
-=======
                     {{ t('checkout.security_note') }}
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                 </p>
             </footer>
         </div>
@@ -198,11 +132,7 @@
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4H6zM3 6h18M16 10a4 4 0 0 1-8 0" />
                     </svg>
-<<<<<<< HEAD
-                    <span>{{ isSummaryCollapsed() ? 'Show' : 'Hide' }} Order Summary</span>
-=======
                     <span>{{ isSummaryCollapsed() ? t('checkout.show_summary') : t('checkout.hide_summary') }}</span>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                     <svg class="chevron" [class.open]="!isSummaryCollapsed()" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2">
                         <polyline points="6 9 12 15 18 9" />
@@ -224,8 +154,9 @@
                             <p class="brand">{{ item.brand }}</p>
                         </div>
                         <div class="price-box">
-                            <span class="price current" *ngIf="(item.discount ?? 0) > 0">{{ item.price * item.quantity |
-                                currency }}</span>
+                            @if ((item.discount ?? 0) > 0) {
+                                <span class="price current">{{ item.price * item.quantity | currency }}</span>
+                            }
                             <span class="price" [class.old]="(item.discount ?? 0) > 0">{{ (item.original_price ??
                                 item.price) * item.quantity | currency }}</span>
                         </div>
@@ -235,83 +166,57 @@
 
                 <div class="coupon-section">
                     <div class="form-group coupon-input">
-<<<<<<< HEAD
-                        <input type="text" placeholder="Discount code" [value]="couponCodeInput()"
-                            (input)="updateField('couponCodeInput', $event)">
-                        <button class="btn-apply" (click)="applyCoupon()" [disabled]="!couponCodeInput()">Apply</button>
-=======
                         <input type="text" [placeholder]="t('checkout.discount_code')" [value]="couponCodeInput()"
                             (input)="updateField('couponCodeInput', $event)">
                         <button class="btn-apply" (click)="applyCoupon()" [disabled]="!couponCodeInput()">{{
                             t('checkout.apply') }}</button>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                     </div>
-                    <div class="applied-coupon" *ngIf="currentCoupon()">
-                        <span class="tag">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path
-                                    d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" />
-                                <line x1="7" y1="7" x2="7.01" y2="7" />
-                            </svg>
-                            {{ currentCoupon() }}
-<<<<<<< HEAD
-                            <button class="btn-remove-coupon" (click)="removeCoupon()" title="Remove Coupon">
-=======
-                            <button class="btn-remove-coupon" (click)="removeCoupon()"
-                                [title]="t('checkout.remove_coupon')">
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
+                    @if (currentCoupon()) {
+                        <div class="applied-coupon">
+                            <span class="tag">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <line x1="18" y1="6" x2="6" y2="18" />
-                                    <line x1="6" y1="6" x2="18" y2="18" />
+                                    <path
+                                        d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" />
+                                    <line x1="7" y1="7" x2="7.01" y2="7" />
                                 </svg>
-                            </button>
-                        </span>
-                    </div>
+                                {{ currentCoupon() }}
+                                <button class="btn-remove-coupon" (click)="removeCoupon()"
+                                    [title]="t('checkout.remove_coupon')">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <line x1="18" y1="6" x2="6" y2="18" />
+                                        <line x1="6" y1="6" x2="18" y2="18" />
+                                    </svg>
+                                </button>
+                            </span>
+                        </div>
+                    }
                 </div>
 
                 <div class="costs-summary">
                     <div class="cost-row">
-<<<<<<< HEAD
-                        <span>Subtotal</span>
-                        <span>{{ subtotal() | currency }}</span>
-                    </div>
-                    <div class="cost-row discount-row" *ngIf="discount() > 0">
-                        <span>Discount</span>
-                        <span>-{{ discount() | currency }}</span>
-                    </div>
-                    <div class="cost-row">
-                        <span>Shipping</span>
-                        <span>{{ city() ? (shippingCost() | currency) : 'Calculated at next step' }}</span>
-                    </div>
-                    <div class="cost-row" *ngIf="codFee() > 0">
-                        <span>COD Fee</span>
-                        <span>{{ codFee() | currency }}</span>
-                    </div>
-                    <div class="cost-row total-row">
-                        <span>Total</span>
-                        <div class="total-amount">
-                            <span class="currency">EGP</span>
-=======
                         <span>{{ t('checkout.subtotal') }}</span>
                         <span>{{ subtotal() | currency }}</span>
                     </div>
-                    <div class="cost-row discount-row" *ngIf="discount() > 0">
-                        <span>{{ t('checkout.discount') }}</span>
-                        <span>-{{ discount() | currency }}</span>
-                    </div>
+                    @if (discount() > 0) {
+                        <div class="cost-row discount-row">
+                            <span>{{ t('checkout.discount') }}</span>
+                            <span>-{{ discount() | currency }}</span>
+                        </div>
+                    }
                     <div class="cost-row">
                         <span>{{ t('checkout.shipping') }}</span>
                         <span>{{ city() ? (shippingCost() | currency) : t('checkout.shipping_calc') }}</span>
                     </div>
-                    <div class="cost-row" *ngIf="codFee() > 0">
-                        <span>{{ t('checkout.cod_fee') }}</span>
-                        <span>{{ codFee() | currency }}</span>
-                    </div>
+                    @if (codFee() > 0) {
+                        <div class="cost-row">
+                            <span>{{ t('checkout.cod_fee') }}</span>
+                            <span>{{ codFee() | currency }}</span>
+                        </div>
+                    }
                     <div class="cost-row total-row">
                         <span>{{ t('checkout.total') }}</span>
                         <div class="total-amount">
                             <span class="currency">{{ t('checkout.currency') }}</span>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
                             <span class="value">{{ orderTotal() | currency }}</span>
                         </div>
                     </div>
@@ -319,4 +224,4 @@
             </div>
         </aside>
     </div>
-</div>
+</div>

@@ -2,11 +2,7 @@ import { Component, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../core/services/auth.service';
 import { Router } from '@angular/router';
-<<<<<<< HEAD
-=======
-import { TranslationService } from '../../core/services/translation.service';
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-import { DashboardOverviewComponent } from './dashboard-overview/dashboard-overview';
+import { TranslationService } from '../../core/services/translation.service';import { DashboardOverviewComponent } from './dashboard-overview/dashboard-overview';
 import { ManageProductsComponent } from './manage-products/manage-products';
 import { ManageUsersComponent } from './manage-users/manage-users';
 import { AnalyticsComponent } from './analytics/analytics';
@@ -33,13 +29,9 @@ import { SettingsComponent } from './settings/settings';
 export class AdminDashboardComponent {
     private authService = inject(AuthService);
     private router = inject(Router);
-<<<<<<< HEAD
-=======
     public translationService = inject(TranslationService);
 
     t = this.translationService.translate.bind(this.translationService);
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-
     activeTab = signal<'dashboard' | 'products' | 'orders' | 'customers' | 'categories' | 'analytics' | 'settings'>('dashboard');
     adminName = signal(this.authService.user()?.username || 'Admin');
 

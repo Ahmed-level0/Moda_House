@@ -8,19 +8,6 @@
                 </svg>
             </div>
 
-<<<<<<< HEAD
-            <h1 class="title">Thank you for choosing Moda House</h1>
-            <p class="subtitle">Your order has been placed successfully and we're getting it ready for shipment.</p>
-            <p class="subtitle">Screenshot this page to use in case of refund or cancellation.</p>
-
-            <div class="order-box">
-                <div class="box-row">
-                    <span class="label">Order Number</span>
-                    <span class="value">#{{ orderNumber() }}</span>
-                </div>
-                <div class="box-row">
-                    <span class="label">Estimated Delivery</span>
-=======
             <h1 class="title">{{ t('order_success.title') }}</h1>
             <p class="subtitle">{{ t('order_success.subtitle') }}</p>
             <p class="subtitle">{{ t('order_success.screenshot_hint') }}</p>
@@ -31,24 +18,11 @@
                     <span class="value">#{{ orderNumber() }}</span>
                 </div>
                 <div class="box-row">
-                    <span class="label">{{ t('order_success.estimated_delivery') }}</span>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-                    <span class="value">{{ deliveryDate() }}</span>
+                    <span class="label">{{ t('order_success.estimated_delivery') }}</span>                    <span class="value">{{ deliveryDate() }}</span>
                 </div>
             </div>
 
             <div class="next-steps">
-<<<<<<< HEAD
-                <h3>What happens next?</h3>
-                <div class="steps-grid">
-                    <div class="step-item">
-                        <div class="step-num">1</div>
-                        <p>Confirmation email sent to your inbox.</p>
-                    </div>
-                    <div class="step-item">
-                        <div class="step-num">2</div>
-                        <p>Our team will verify and pack your items.</p>
-=======
                 <h3>{{ t('order_success.next_steps_title') }}</h3>
                 <div class="steps-grid">
                     <div class="step-item">
@@ -57,24 +31,15 @@
                     </div>
                     <div class="step-item">
                         <div class="step-num">2</div>
-                        <p>{{ t('order_success.step2') }}</p>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-                    </div>
+                        <p>{{ t('order_success.step2') }}</p>                    </div>
                 </div>
             </div>
 
             <div class="actions">
-<<<<<<< HEAD
-                <button class="btn-track" [routerLink]="['/track-order']" [queryParams]="{ id: orderNumber() }">Track
-                    Your Order</button>
-                <button routerLink="/" class="btn-outline">Continue Shopping</button>
-=======
                 <button class="btn-track" [routerLink]="['/track-order']" [queryParams]="{ id: orderNumber() }">
                     {{ t('order_success.track_order') }}
                 </button>
-                <button routerLink="/" class="btn-outline">{{ t('order_success.continue_shopping') }}</button>
->>>>>>> 13ea9d4e313b079d8240cd666d6ac666b2615818
-            </div>
+                <button routerLink="/" class="btn-outline">{{ t('order_success.continue_shopping') }}</button>            </div>
         </div>
 
         <div class="confetti-container" aria-hidden="true">

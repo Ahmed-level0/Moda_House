@@ -110,6 +110,20 @@ export class ProfileComponent implements OnInit {
         if (type === 'confirm') this.showConfirmPassword.update(v => !v);
     }
 
+    payOrder(orderId: number) {
+        this.cartService.getPaymentUrl(orderId).subscribe({
+            next: (res: any) => {
+                if (res.payment_url) {
+                    window.location.href = res.payment_url;
+                }
+            },
+            error: (err) => {
+                console.error('Failed to get payment URL:', err);
+                alert(this.t('profile.alert_payment_failed'));
+            }
+        });
+    }
+
     logout() {
         this.authService.logout();
         this.router.navigate(['/']);

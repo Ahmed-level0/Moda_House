@@ -333,6 +333,8 @@
         "status": "Status",
         "total": "Total",
         "track": "Track",
+        "pay_now": "Pay Now",
+        "alert_payment_failed": "Failed to initiate payment. Please try again.",
         "status_pending": "Pending",
         "status_confirmed": "Confirmed",
         "status_processing": "Processing",

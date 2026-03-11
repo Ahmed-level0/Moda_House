@@ -187,6 +187,9 @@
                                         <span>{{ t('profile.total') }}: {{ order.total | currency }}</span>
                                     </div>
                                     <div class="btn-group">
+                                        @if (order.status.toLowerCase() === 'pending') {
+                                            <button class="btn-pay" (click)="payOrder(order.id)">{{ t('profile.pay_now') }}</button>
+                                        }
                                         <button class="btn-track-sub" routerLink="/track-order"
                                             [queryParams]="{ id: order.id }">{{ t('profile.track') }}</button>
                                     </div>

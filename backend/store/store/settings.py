@@ -79,18 +79,19 @@ ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 LOGIN_ON_EMAIL_CONFIRMATION = True
 # EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend" # Development
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+
+EMAIL_BACKEND = "orders.backends.email_backends.EmailBackend"
+EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
 DEFAULT_FROM_EMAIL= os.getenv("ADMIN_EMAIL")
-
-EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_HOST = 'smtp.sendgrid.net' # For production (SendGrid)
-
 EMAIL_HOST_USER = DEFAULT_FROM_EMAIL
-# EMAIL_HOST_USER = "apikey" # For production (SendGrid)
-
 EMAIL_HOST_PASSWORD = os.getenv("APP_PASSWORD")
+
+# EMAIL_HOST = 'smtp.sendgrid.net' # For production (SendGrid)
+# EMAIL_HOST_USER = "apikey" # For production (SendGrid)
 # EMAIL_HOST_PASSWORD = os.getenv("SENDGRID_API_KEY") # For production (SendGrid)
 
 EMAIL_TIMEOUT = 20

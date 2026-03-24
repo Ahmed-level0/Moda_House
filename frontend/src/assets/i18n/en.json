@@ -418,7 +418,7 @@
         "payment_method": "Payment Method",
         "secure_encrypted": "Transactions are secure and encrypted.",
         "cod": "Cash on Delivery (COD)",
-        "cod_desc": "Pay when you receive your order (+100 EGP fee)",
+        "cod_desc": "Pay when you receive your order (+ 10% of the order price)",
         "online_payment": "Online Payment",
         "online_desc": "Encrypted & Secure",
         "complete_order": "Complete Secure Order - {{ total }}",

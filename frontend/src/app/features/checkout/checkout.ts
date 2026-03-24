@@ -41,13 +41,19 @@ export class CheckoutComponent {
     paymentMethod = signal('cod');
 
     // Dynamic Shipping Logic
+    readonly COD_FEE_PERCENTAGE = 0.10; // 10%
+
     shippingCost = computed(() => {
         const selectedCity = this.city().toLowerCase();
         if (!selectedCity) return 0;
         return (selectedCity === 'cairo' || selectedCity === 'giza') ? 50 : 80;
     });
 
-    codFee = computed(() => this.paymentMethod() === 'cod' ? 100 : 0);
+    codFee = computed(() => {
+        if (this.paymentMethod() !== 'cod') return 0;
+        const cartPrice = this.subtotal() - this.discount();
+        return cartPrice * this.COD_FEE_PERCENTAGE;
+    });
 
     orderTotal = computed(() => (this.subtotal() - this.discount()) + this.shippingCost() + this.codFee());
 

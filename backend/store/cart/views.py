@@ -121,7 +121,8 @@ class CartViewSet(viewsets.ViewSet):
         else:
             shipping_fee = 50 if city in ['cairo', 'giza'] else 80
             
-        cod_fee = 100 if payment_method == 'cod' else 0
+        COD_FEE_PERCENTAGE = 0.10 # 10%
+        cod_fee = float(cart.total_price) * COD_FEE_PERCENTAGE if payment_method == 'cod' else 0
 
         if not phone or not address:
             return Response({"error": "Phone and address required"}, status=400)

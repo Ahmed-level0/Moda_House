@@ -1,9 +1,12 @@
 <div class="auth-page">
     <div class="auth-card">
         <header class="auth-header">
-            <h1 class="logo" routerLink="/">MODA HOUSE</h1>
+            <a routerLink="/" class="logo-link">
+                <img src="/logo.jpg" alt="Moda House" class="logo-img">
+            </a>
             <h2 class="title">{{ isLoginMode() ? t('auth.sign_in') : t('auth.create_account') }}</h2>
-            <p class="subtitle">{{ isLoginMode() ? t('auth.sign_in_desc') : t('auth.create_account_desc') }}</p>        </header>
+            <p class="subtitle">{{ isLoginMode() ? t('auth.sign_in_desc') : t('auth.create_account_desc') }}</p>
+        </header>
 
         <div class="auth-alerts">
             <div class="alert alert-error" *ngIf="errorMessage()">
@@ -19,12 +22,14 @@
         <form (submit)="$event.preventDefault(); onSubmit()" class="auth-form">
             <div class="form-group">
                 <label>{{ t('auth.username') }}</label>
-                <input type="text" [placeholder]="t('auth.username_placeholder')" [value]="username()"                    (input)="updateField('username', $event)" required>
+                <input type="text" [placeholder]="t('auth.username_placeholder')" [value]="username()"
+                    (input)="updateField('username', $event)" required>
             </div>
 
             <div class="form-group">
                 <label>{{ t('auth.email') }}</label>
-                <input type="email" [placeholder]="t('auth.email_placeholder')" [value]="email()"                    (input)="updateField('email', $event)" required>
+                <input type="email" [placeholder]="t('auth.email_placeholder')" [value]="email()"
+                    (input)="updateField('email', $event)" required>
             </div>
 
             <div class="form-group">
@@ -32,29 +37,24 @@
                 <input type="password" [placeholder]="t('auth.password_placeholder')" [value]="password()"
                     (input)="updateField('password', $event)" required>
                 <small class="field-hint" *ngIf="!isLoginMode()">
-                    {{ t('auth.password_hint') }}                </small>
-            </div>
-
-            <div class="form-group checkbox-group" *ngIf="!isLoginMode()">
-                <label>
-                    <input type="checkbox" [checked]="isAdmin()" (change)="toggleAdmin($event)">
-                    {{ t('auth.register_admin') }}                </label>
+                    {{ t('auth.password_hint') }} </small>
             </div>
 
             <div class="form-footer">
                 @if (isLoginMode()) {
-                <a href="/accounts/password/reset/" class="forgot-link">{{ t('auth.forgot_password') }}</a>                }
+                <a href="/accounts/password/reset/" class="forgot-link">{{ t('auth.forgot_password') }}</a> }
             </div>
 
             <button type="submit" class="btn-submit">
-                {{ isLoginMode() ? t('auth.sign_in') : t('auth.register') }}            </button>
+                {{ isLoginMode() ? t('auth.sign_in') : t('auth.register') }} </button>
         </form>
 
         <div class="auth-switch">
             <p>
                 {{ isLoginMode() ? t('auth.no_account') : t('auth.have_account') }}
                 <button (click)="toggleMode()">{{ isLoginMode() ? t('auth.register_now') : t('auth.sign_in_now')
-                    }}</button>            </p>
+                    }}</button>
+            </p>
         </div>
     </div>
 </div>

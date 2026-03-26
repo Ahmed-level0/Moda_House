@@ -8,12 +8,13 @@ export class TranslationService {
     private platformId = inject(PLATFORM_ID);
 
     // Current language signal
-    currentLang = signal<'ar' | 'en'>('en');
+    currentLang = signal<'ar' | 'en' | 'it'>('en');
 
     // Translations data
     private translations = signal<any>({
         en: {},
-        ar: {}
+        ar: {},
+        it: {}
     });
 
     constructor() {
@@ -30,7 +31,7 @@ export class TranslationService {
         });
     }
 
-    setTranslations(lang: 'ar' | 'en', data: any) {
+    setTranslations(lang: 'ar' | 'en' | 'it', data: any) {
         this.translations.update(t => ({ ...t, [lang]: data }));
     }
 
@@ -62,12 +63,16 @@ export class TranslationService {
     }
 
     toggleLang() {
-        this.currentLang.update(lang => lang === 'en' ? 'ar' : 'en');
+        this.currentLang.update(lang => {
+            if (lang === 'en') return 'ar';
+            if (lang === 'ar') return 'it';
+            return 'en';
+        });
     }
 
     private loadLang() {
         if (isPlatformBrowser(this.platformId)) {
-            const saved = localStorage.getItem('lang') as 'ar' | 'en';
+            const saved = localStorage.getItem('lang') as 'ar' | 'en' | 'it';
             if (saved) {
                 this.currentLang.set(saved);
             }

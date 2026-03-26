@@ -28,8 +28,10 @@
                         t('products.view_all') }}</li>
                     <li [class.active]="activeCategory() === 'bags'" (click)="setCategory('bags')">{{
                         t('categories.bags') }}</li>
-                    <li [class.active]="activeCategory() === 'perfumes'" (click)="setCategory('perfumes')">{{
-                        t('categories.perfumes') }}</li>
+                    <li [class.active]="activeCategory() === 'clothes'" (click)="setCategory('clothes')">{{
+                        t('categories.clothes') }}</li>
+                    <li [class.active]="activeCategory() === 'shoes'" (click)="setCategory('shoes')">{{
+                        t('categories.shoes') }}</li>
                     <li [class.active]="activeCategory() === 'scarfs'" (click)="setCategory('scarfs')">{{
                         t('categories.scarfs') }}</li>
                     <li [class.active]="activeCategory() === 'accessories'" (click)="setCategory('accessories')">{{
@@ -44,7 +46,8 @@
                     <li [class.active]="activeStyle() === 'all'" (click)="setStyle('all')">{{ t('products.all_styles')
                         }}</li>
                     @for(style of availableStyles; track style) {
-                    <li [class.active]="activeStyle() === style" (click)="setStyle(style)">{{ t('styles.' + style.toLowerCase().split(' ').join('_')) }}
+                    <li [class.active]="activeStyle() === style" (click)="setStyle(style)">{{ t('styles.' +
+                        style.toLowerCase().split(' ').join('_')) }}
                     </li>
                     }
                 </ul>
@@ -126,13 +129,14 @@
                                 t('products.badge_best_seller') }}</span> }
                             @if(product.stock <= 0) { <span class="badge out-of-stock">{{
                                 t('products.badge_out_of_stock') }}</span> }
-                            @if(product.style) { <span class="badge style">{{ t('styles.' + product.style.toLowerCase().split(' ').join('_')) }}</span> }
+                                @if(product.style) { <span class="badge style">{{ t('styles.' +
+                                    product.style.toLowerCase().split(' ').join('_')) }}</span> }
                         </div>
 
                         <button class="btn-add-cart" [disabled]="product.stock <= 0"
                             (click)="addToBag(product, $event)">
                             {{ product.stock <= 0 ? t('products.badge_out_of_stock') : t('products.add_to_bag') }}
-                        </button>
+                                </button>
                     </div>
                     <div class="product-info">
                         <div class="info-top">

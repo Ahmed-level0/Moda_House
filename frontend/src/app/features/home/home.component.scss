@@ -9,14 +9,21 @@
     background: #000; // Fallback
     overflow: hidden;
 
-    .hero-video {
+    .hero-bg {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        object-fit: cover;
+        background-size: cover;
+        background-position: center;
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
         z-index: 0;
+        
+        &.active {
+            opacity: 1;
+        }
     }
 
     .hero-overlay {
@@ -39,8 +46,8 @@
             margin-bottom: 25px;
             letter-spacing: 8px;
             text-transform: uppercase;
-            font-family: 'Playfair Display', serif;
-            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
             line-height: 1.1;
 
             animation: cinematicFadeUp 1.2s cubic-bezier(0.19, 1, 0.22, 1) forwards;

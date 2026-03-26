@@ -24,4 +24,7 @@ export class App {
     this.http.get('/assets/i18n/ar.json').subscribe(data => {
       this.translationService.setTranslations('ar', data);
     });
+    this.http.get('/assets/i18n/it.json').subscribe(data => {
+      this.translationService.setTranslations('it', data);
+    });
   }}

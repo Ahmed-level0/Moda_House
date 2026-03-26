@@ -75,8 +75,9 @@ export class ProductListComponent {
     categoryMapping: Record<string, number> = {
         'bags': 1,
         'scarfs': 2,
-        'perfumes': 3,
-        'accessories': 4
+        'clothes': 3,
+        'shoes': 4,
+        'accessories': 5
     };
 
     // Computed filtered products

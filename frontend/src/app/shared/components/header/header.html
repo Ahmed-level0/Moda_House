@@ -18,7 +18,10 @@
                 </svg>
             </button>
             <div class="logo">
-                <a routerLink="/">MODA HOUSE</a>
+                <a routerLink="/">
+                    <img src="assets/images/moda_house_hero.png" alt="Moda House" class="logo-img"
+                        style="max-height: 40px;">
+                </a>
             </div>
         </div>
 
@@ -40,12 +43,12 @@
                 <input type="text" [placeholder]="t('nav.search_placeholder')" (focus)="toggleSearch(true)"
                     (mouseenter)="toggleSearch(true)">
                 @if (isSearchOpen()) {
-                    <button class="close-search" (click)="toggleSearch(false)">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20">
-                            <path
-                                d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
-                        </svg>
-                    </button>
+                <button class="close-search" (click)="toggleSearch(false)">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20">
+                        <path
+                            d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+                    </svg>
+                </button>
                 }
             </div>
         </div>
@@ -56,7 +59,15 @@
                     <path
                         d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm-40-82v-78q-33 0-56.5-23.5T360-320v-40L168-552q-3 17-5.5 35T160-480q0 133 93.5 226.5T480-160h-40Zm320-120q17-34 26-72t9-78q0-122-80-213l-117 117q-14 14-35 15.5T567-532l-47-48H440v-80h80v-80h-80q-33 0-56.5 23.5T360-660v40L236-744q49-43 113.5-68.5T480-838q144 0 248.5 98.5T840-480h-40l-80-80v160h40Z" />
                 </svg>
-                <span>{{ currentLang() === 'en' ? 'العربية' : 'English' }}</span>
+                <span>
+                    @if(currentLang() === 'en') {
+                        العربية
+                    } @else if (currentLang() === 'ar') {
+                        Italiano
+                    } @else {
+                        English
+                    }
+                </span>
             </button>
             <button class="icon-btn cart-btn" aria-label="Cart" (click)="openCart()">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
@@ -64,7 +75,7 @@
                         d="M280-80q-33 0-56.5-23.5T200-160q0-33 23.5-56.5T280-240q33 0 56.5 23.5T360-160q0 33-23.5 56.5T280-80Zm400 0q-33 0-56.5-23.5T600-160q0-33 23.5-56.5T680-240q33 0 56.5 23.5T760-160q0 33-23.5 56.5T680-80ZM246-720l66 280h380l92-280H246Zm-40-80h630q18 0 29 14.5t5 32.5l-110 338q-8 26-29.5 40.5T682-360H322q-26 0-48-15.5T241-416L120-920H40v-80h130l36 160Zm106 360h380-380Z" />
                 </svg>
                 @if (cartCount() > 0) {
-                    <span class="cart-badge">{{ cartCount() }}</span>
+                <span class="cart-badge">{{ cartCount() }}</span>
                 }
             </button>
             <button class="icon-btn wishlist-btn" aria-label="Wishlist" routerLink="/wishlist">
@@ -73,7 +84,7 @@
                         d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Zm0-108q96-86 158-147.5t98-107q36-45.5 50-81t14-70.5q0-60-40-100t-100-40q-47 0-87 26.5T518-680h-76q-15-41-55-67.5T300-774q-60 0-100 40t-40 100q0 35 14 70.5t50 81q36 45.5 98 107t158 147.5Zm0-311Z" />
                 </svg>
                 @if (wishlistCount() > 0) {
-                    <span class="wishlist-badge">{{ wishlistCount() }}</span>
+                <span class="wishlist-badge">{{ wishlistCount() }}</span>
                 }
             </button>
             <button class="icon-btn" aria-label="Profile" [routerLink]="isLoggedIn() ? '/profile' : '/auth'">
@@ -111,15 +122,15 @@
 
                     <div class="trending-grid" #trendingScroll>
                         @for (product of trendingProducts(); track product.id) {
-                            <a [routerLink]="['/product', product.id]" class="trending-item" (click)="toggleSearch(false)">
-                                <div class="item-img">
-                                    <img [src]="product.image" [alt]="product.name">
-                                </div>
-                                <div class="item-info">
-                                    <span class="item-brand">{{ product.brand }}</span>
-                                    <p class="item-name">{{ product.name }}</p>
-                                </div>
-                            </a>
+                        <a [routerLink]="['/product', product.id]" class="trending-item" (click)="toggleSearch(false)">
+                            <div class="item-img">
+                                <img [src]="product.image" [alt]="product.name">
+                            </div>
+                            <div class="item-info">
+                                <span class="item-brand">{{ product.brand }}</span>
+                                <p class="item-name">{{ product.name }}</p>
+                            </div>
+                        </a>
                         }
                     </div>
 
@@ -137,7 +148,11 @@
 <!-- Mobile Menu Drawer -->
 <div class="mobile-menu-drawer" [class.open]="isMenuOpen()">
     <div class="drawer-header">
-        <div class="logo">MODA HOUSE</div>
+        <div class="logo">
+            <a routerLink="/">
+                <img src="/logo.jpg" alt="Moda House" class="logo-img" style="max-height: 40px;">
+            </a>
+        </div>
         <button class="close-btn" (click)="toggleMenu(false)">
             <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
                 <path
@@ -159,5 +174,5 @@
     </div>
 </div>
 @if (isMenuOpen()) {
-    <div class="drawer-overlay" (click)="toggleMenu(false)"></div>
+<div class="drawer-overlay" (click)="toggleMenu(false)"></div>
 }

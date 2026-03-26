@@ -41,8 +41,9 @@ export class ProductService {
     private categoryMapping: Record<number, string> = {
         1: 'Bags',
         2: 'Scarfs',
-        3: 'Perfumes',
-        4: 'Accessories'
+        3: 'Clothes',
+        4: 'Shoes',
+        5: 'Accessories',
     };
 
     getProducts(categoryId?: number | string, discounted?: boolean, color?: string, style?: string): Observable<Product[]> {

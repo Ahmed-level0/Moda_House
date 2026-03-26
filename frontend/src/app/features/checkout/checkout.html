@@ -4,7 +4,10 @@
         <!-- Left Side: Form -->
         <div class="checkout-main">
             <header class="checkout-header">
-                <a routerLink="/" class="logo">MODA HOUSE</a>
+                <a routerLink="/" class="logo-link">
+                    <img src="/logo.jpg" alt="Moda House" class="logo-img"
+                        style="max-height: 40px;">
+                </a>
                 <nav class="breadcrumb">
                     <a routerLink="/cart">{{ t('checkout.bag') }}</a>
                     <span>{{ t('checkout.information') }}</span>
@@ -21,32 +24,10 @@
             </div>
 
             <section class="checkout-section">
-                @if (!authService.isLoggedIn()) {
-                    <div class="section-header">
-                        <h2>{{ t('checkout.contact_info') }}</h2>
-                        <p>{{ t('checkout.login_prompt_part1') }} <a routerLink="/auth">{{ t('auth.sign_in_now') }}</a> {{
-                            t('checkout.login_prompt_part2') }}</p>
-                    </div>
-                }
-                <div class="form-group" [class.error]="showErrors() && !email()">
-                    <input type="email" [placeholder]="t('checkout.email_placeholder')" [value]="email()"
-                        (input)="updateField('email', $event)" autocomplete="email" required>
-                </div>
-            </section>
-
-            <section class="checkout-section">
                 <div class="section-header">
                     <h2>{{ t('checkout.shipping_address') }}</h2>
                 </div>
                 <div class="form-grid">
-                    <div class="form-group" [class.error]="showErrors() && !firstName()">
-                        <input type="text" [placeholder]="t('checkout.first_name')" [value]="firstName()"
-                            (input)="updateField('firstName', $event)" autocomplete="given-name" required>
-                    </div>
-                    <div class="form-group" [class.error]="showErrors() && !lastName()">
-                        <input type="text" [placeholder]="t('checkout.last_name')" [value]="lastName()"
-                            (input)="updateField('lastName', $event)" autocomplete="family-name" required>
-                    </div>
                     <div class="form-group full-width" [class.error]="showErrors() && !address()">
                         <input type="text" [placeholder]="t('checkout.address')" [value]="address()"
                             (input)="updateField('address', $event)" autocomplete="street-address" required>
@@ -110,9 +91,9 @@
             <footer class="checkout-footer">
                 <button class="btn-submit" [class.loading]="isPlacingOrder()" (click)="completeOrder()">
                     @if (!isPlacingOrder()) {
-                        <span>{{ t('checkout.complete_order', { total: orderTotal() | currency }) }}</span>
+                    <span>{{ t('checkout.complete_order', { total: orderTotal() | currency }) }}</span>
                     } @else {
-                        <span class="loader"></span>
+                    <span class="loader"></span>
                     }
                 </button>
                 <p class="security-note">
@@ -155,7 +136,7 @@
                         </div>
                         <div class="price-box">
                             @if ((item.discount ?? 0) > 0) {
-                                <span class="price current">{{ item.price * item.quantity | currency }}</span>
+                            <span class="price current">{{ item.price * item.quantity | currency }}</span>
                             }
                             <span class="price" [class.old]="(item.discount ?? 0) > 0">{{ (item.original_price ??
                                 item.price) * item.quantity | currency }}</span>
@@ -172,23 +153,23 @@
                             t('checkout.apply') }}</button>
                     </div>
                     @if (currentCoupon()) {
-                        <div class="applied-coupon">
-                            <span class="tag">
+                    <div class="applied-coupon">
+                        <span class="tag">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path
+                                    d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" />
+                                <line x1="7" y1="7" x2="7.01" y2="7" />
+                            </svg>
+                            {{ currentCoupon() }}
+                            <button class="btn-remove-coupon" (click)="removeCoupon()"
+                                [title]="t('checkout.remove_coupon')">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path
-                                        d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" />
-                                    <line x1="7" y1="7" x2="7.01" y2="7" />
+                                    <line x1="18" y1="6" x2="6" y2="18" />
+                                    <line x1="6" y1="6" x2="18" y2="18" />
                                 </svg>
-                                {{ currentCoupon() }}
-                                <button class="btn-remove-coupon" (click)="removeCoupon()"
-                                    [title]="t('checkout.remove_coupon')">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <line x1="18" y1="6" x2="6" y2="18" />
-                                        <line x1="6" y1="6" x2="18" y2="18" />
-                                    </svg>
-                                </button>
-                            </span>
-                        </div>
+                            </button>
+                        </span>
+                    </div>
                     }
                 </div>
 
@@ -198,20 +179,20 @@
                         <span>{{ subtotal() | currency }}</span>
                     </div>
                     @if (discount() > 0) {
-                        <div class="cost-row discount-row">
-                            <span>{{ t('checkout.discount') }}</span>
-                            <span>-{{ discount() | currency }}</span>
-                        </div>
+                    <div class="cost-row discount-row">
+                        <span>{{ t('checkout.discount') }}</span>
+                        <span>-{{ discount() | currency }}</span>
+                    </div>
                     }
                     <div class="cost-row">
                         <span>{{ t('checkout.shipping') }}</span>
                         <span>{{ city() ? (shippingCost() | currency) : t('checkout.shipping_calc') }}</span>
                     </div>
                     @if (codFee() > 0) {
-                        <div class="cost-row">
-                            <span>{{ t('checkout.cod_fee') }}</span>
-                            <span>{{ codFee() | currency }}</span>
-                        </div>
+                    <div class="cost-row">
+                        <span>{{ t('checkout.cod_fee') }}</span>
+                        <span>{{ codFee() | currency }}</span>
+                    </div>
                     }
                     <div class="cost-row total-row">
                         <span>{{ t('checkout.total') }}</span>
@@ -224,4 +205,4 @@
             </div>
         </aside>
     </div>
-</div>
+</div>

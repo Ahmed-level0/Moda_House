@@ -23,9 +23,17 @@ export class HomeComponent implements OnInit {
     categoryMapping: Record<string, number> = {
         'bags': 1,
         'scarfs': 2,
-        'perfumes': 3,
-        'accessories': 4
+        'clothes': 3,
+        'shoes': 4,
+        'accessories': 5
     };
+
+    heroImages: string[] = [
+        'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2000', // Fashion focus
+        'https://images.unsplash.com/photo-1445205170230-053b83016050?q=80&w=2000', // Winter/Coats
+        'https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=2000'  // Editorial fashion
+    ];
+    currentHeroIndex = 0;
 
     styles: any[] = [
         {
@@ -75,6 +83,10 @@ export class HomeComponent implements OnInit {
         }));
         this.calculateItemsPerSlide();
         this.loadProducts();
+
+        setInterval(() => {
+            this.currentHeroIndex = (this.currentHeroIndex + 1) % this.heroImages.length;
+        }, 5000);
     }
 
     private loadProducts() {

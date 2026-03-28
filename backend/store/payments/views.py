@@ -15,6 +15,7 @@ from orders.models import Order
 
 from django.db import transaction
 from django.db.models import F
+from django.http import HttpResponseRedirect
 class PayOrderView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -286,7 +287,7 @@ def paymob_callback(request):
                             # Mark order paid
                             order.status = "paid"
                             order.save()
-                    return Response({"message": "Payment Successful", "order_id": order.id})
+                    return HttpResponseRedirect(f"http://localhost/checkout/success?id={order.id}")
                 except Order.DoesNotExist:
                      return Response({"error": "Order not found"}, status=404)
         
@@ -307,7 +308,7 @@ def paymob_callback(request):
                         # Mark order paid
                         order.status = "paid"
                         order.save()
-                return Response({"message": "Payment Successful", "order_id": order.id})
+                return HttpResponseRedirect(f"http://localhost/checkout/success?id={order.id}")
              except Order.DoesNotExist:
                  return Response({"error": "Order not found"}, status=404)
 

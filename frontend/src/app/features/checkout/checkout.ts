@@ -107,7 +107,7 @@ export class CheckoutComponent {
     }
 
     validateForm() {
-        return !!(this.email() && this.firstName() && this.lastName() && this.address() && this.city() && this.phone());
+        return !!(this.address() && this.city() && this.phone());
     }
 
     completeOrder() {
@@ -121,7 +121,7 @@ export class CheckoutComponent {
 
         const checkoutData = {
             phone: this.phone(),
-            address: this.address(), // Just the address, city is separate
+            address: ` ${this.city()}, ${this.address()}`,
             city: this.city(),
             payment_method: this.paymentMethod(),
             card_data: null

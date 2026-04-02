@@ -19,10 +19,12 @@ def send_order_email(subject, message, to_email):
 @receiver(post_init, sender=Order)
 def order_post_init(sender, instance, **kwargs):
     """
-    Store the original status of the order when it is initialized.
-    This allows us to track status changes in post_save.
+    Store the original status and shipping details of the order when it is initialized.
+    This allows us to track changes in post_save.
     """
     instance._original_status = instance.status
+    instance._original_address = instance.address
+    instance._original_phone = instance.phone
 
 @receiver(post_save, sender=Order)
 def order_status_changed(sender, instance, created, **kwargs):
@@ -111,7 +113,47 @@ def order_status_changed(sender, instance, created, **kwargs):
         if message:
             send_order_email(subject, message, user_email)
 
-    # Admin Notification Logic
+    # Address or Phone Number Change Logic
+    original_address = getattr(instance, '_original_address', None)
+    original_phone = getattr(instance, '_original_phone', None)
+
+    if not created:
+        details_changed = False
+        change_message = ""
+        
+        if instance.address != original_address:
+            details_changed = True
+            change_message += f"\n- Address updated from '{original_address}' to '{instance.address}'"
+        
+        if instance.phone != original_phone:
+            details_changed = True
+            change_message += f"\n- Phone number updated from '{original_phone}' to '{instance.phone}'"
+        
+        if details_changed:
+            subject = f"Order #{instance.id} Details Updated"
+            user_message = f"""
+    Hello {instance.user.username},
+
+    The shipping details for your order #{instance.id} have been updated:
+    {change_message}
+
+    If you did not authorize this change, please contact us immediately.
+
+    Thank you,
+    Moda House.
+            """
+            send_order_email(subject, user_message, user_email)
+
+            # Also notify admin
+            admin_subject = f"Order #{instance.id} Shipping Details Updated"
+            admin_message = f"""
+Order ID: {instance.id}
+Customer: {instance.user.username}
+Updates: {change_message}
+            """
+            send_order_email(admin_subject, admin_message, settings.DEFAULT_FROM_EMAIL)
+
+    # Admin Notification Logic (Status Change)
     if not created and current_status != original_status:
         subject = f"Order #{instance.id} Status Updated"
         message = f"""
@@ -124,5 +166,7 @@ Total: {instance.total_price} EGP
         admin_email = settings.DEFAULT_FROM_EMAIL
         send_order_email(subject, message, admin_email)
     
-    # Update _original_status for subsequent saves on the same instance
+    # Update original values for subsequent saves on the same instance
     instance._original_status = current_status
+    instance._original_address = instance.address
+    instance._original_phone = instance.phone

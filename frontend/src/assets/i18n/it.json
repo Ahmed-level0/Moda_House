@@ -470,7 +470,8 @@
         "save_changes": "Salva Modifiche",
         "saving": "Salvataggio...",
         "cancel": "Annulla",
-        "update_items": "Aggiorna Articoli"
+        "update_items": "Aggiorna Articoli",
+        "items_heading": "Articoli dell'Ordine"
     },
     "cities": {
         "damanhour": "Damanhour",

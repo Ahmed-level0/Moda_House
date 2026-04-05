@@ -119,32 +119,24 @@
                     </div>
                 </div>
 
-                @if (isEditing()) {
-                <div class="edit-items-section">
-                    <h4>{{ t('track_order.update_items') }}</h4>
+                <!-- Items List (Read Only) -->
+                <div class="order-items-section">
+                    <h4>{{t('track_order.items_heading')}}</h4>
                     <div class="items-list">
-                        @for (item of editableData().items; track $index) {
-                        <div class="edit-item-row">
+                        @for (item of trackingData().items; track $index) {
+                        <div class="item-row">
                             <img [src]="item.image" alt="Product">
                             <div class="item-info">
                                 <span class="name">{{ item.name }}</span>
-                                <span class="price">{{ item.price | currency }}</span>
+                                <span class="price-qty">{{ item.price | currency }} x {{ item.qty }}</span>
                             </div>
-                            <div class="quantity-controls">
-                                <button (click)="updateItemQuantity($index, -1)">-</button>
-                                <span>{{ item.quantity }}</span>
-                                <button (click)="updateItemQuantity($index, 1)">+</button>
+                            <div class="item-total">
+                                {{ (item.price * item.qty) | currency }}
                             </div>
-                            <button class="btn-remove" (click)="removeItem($index)">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M18 6L6 18M6 6l12 12" />
-                                </svg>
-                            </button>
                         </div>
                         }
                     </div>
                 </div>
-                }
 
                 <div class="card-actions">
                     @if (isEditing()) {

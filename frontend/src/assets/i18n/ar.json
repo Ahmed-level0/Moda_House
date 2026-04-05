@@ -471,7 +471,8 @@
         "save_changes": "حفظ التغييرات",
         "saving": "جاري الحفظ...",
         "cancel": "إلغاء",
-        "update_items": "تحديث العناصر"
+        "update_items": "تحديث العناصر",
+        "items_heading": "عناصر الطلب"
     },
     "cities": {
         "damanhour": "دمنهور",

@@ -470,7 +470,8 @@
         "save_changes": "Save Changes",
         "saving": "Saving...",
         "cancel": "Cancel",
-        "update_items": "Update Items"
+        "update_items": "Update Items",
+        "items_heading": "Order Items"
     },
     "cities": {
         "damanhour": "Damanhour",

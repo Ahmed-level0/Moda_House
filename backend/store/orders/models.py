@@ -2,6 +2,7 @@
 
 from django.db import models
 from django.contrib.auth.models import User
+from decimal import Decimal
 from products.models import Product
 
 class Order(models.Model):
@@ -35,6 +36,26 @@ class Order(models.Model):
 
     def __str__(self):
         return f"Order {self.id} - {self.status}"
+    
+    def recalculate_total(self):
+        """
+        Recalculates the order's total price based on its items and any applied coupon.
+        """
+        items_total = sum(
+            (item.price * item.quantity)
+            for item in self.items.all()
+        )
+
+        if self.coupon:
+            if self.coupon.discount_type == 'percentage':
+                self.discount_amount = items_total * self.coupon.discount / 100
+            else:
+                self.discount_amount = min(self.coupon.discount, items_total)
+        else:
+            self.discount_amount = Decimal('0.00')
+
+        self.total_price = items_total - self.discount_amount + self.shipping_fee + self.cod_fee
+        return self.total_price
     
 
 class OrderItem(models.Model):

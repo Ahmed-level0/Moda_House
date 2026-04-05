@@ -118,32 +118,10 @@ export class TrackOrderComponent implements OnInit {
             const data = this.trackingData();
             this.editableData.set({
                 phone: data.phone,
-                address: data.address,
-                items: data.items.map((item: any) => ({
-                    product_id: item.product,
-                    name: item.name,
-                    quantity: item.qty,
-                    price: item.price,
-                    image: item.image
-                }))
+                address: data.address
             });
             this.isEditing.set(true);
         }
-    }
-
-    updateItemQuantity(index: number, delta: number) {
-        this.editableData.update(data => {
-            const items = [...data.items];
-            items[index].quantity = Math.max(1, items[index].quantity + delta);
-            return { ...data, items };
-        });
-    }
-
-    removeItem(index: number) {
-        this.editableData.update(data => {
-            const items = data.items.filter((_: any, i: number) => i !== index);
-            return { ...data, items };
-        });
     }
 
     saveOrder() {
@@ -151,11 +129,7 @@ export class TrackOrderComponent implements OnInit {
         const payload = {
             id: this.trackingData().id,
             phone: data.phone,
-            address: data.address,
-            items: data.items.map((item: any) => ({
-                product_id: item.product_id,
-                quantity: item.quantity
-            }))
+            address: data.address
         };
 
         this.isUpdating.set(true);

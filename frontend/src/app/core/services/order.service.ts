@@ -24,7 +24,7 @@ export class OrderService {
         return this.http.get<any>(`${this.baseUrl}/order_details/${id}/`, { headers: this.getHeaders() });
     }
 
-    updateOrder(data: { id: string, phone: string, address: string, items: { product_id: number, quantity: number }[] }): Observable<any> {
+    updateOrder(data: { id: string, phone?: string, address?: string }): Observable<any> {
         return this.http.post<any>(`${this.baseUrl}/update_order/`, data, { headers: this.getHeaders() });
     }
 }

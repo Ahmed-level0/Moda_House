@@ -7,11 +7,11 @@ from .serializers import ProductSerializer
 
 # API view to list all products
 class ProductListAPIView(ListAPIView):
-    queryset = Product.objects.all()
+    queryset = Product.objects.select_related('category', 'brand').all()
     serializer_class = ProductSerializer
 
     def get_queryset(self):
-        queryset = Product.objects.all()
+        queryset = Product.objects.select_related('category', 'brand').all()
         
         # Apply filters based on query parameters
         if self.request.GET.get('discounted') == 'true':
@@ -45,5 +45,5 @@ class ProductListAPIView(ListAPIView):
     
 # API view to retrieve a single product by its ID
 class ProductDetailAPIView(RetrieveAPIView):
-    queryset = Product.objects.all()
+    queryset = Product.objects.select_related('category', 'brand').all()
     serializer_class = ProductSerializer

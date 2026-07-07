@@ -35,13 +35,7 @@ class Product(models.Model):
     # Check if the product is in stock
     @property
     def in_stock(self):
-        return self.stock > 0
-    
-    def save (self, *args, **kwargs):
-        # Ensure stock is not 0 before saving
-        if self.stock == 0:
-            raise ValueError("Can't add 0 stock for a product")
-        super().save(*args, **kwargs)
+        return self.stock > 0    
     
     def __str__(self):
         return self.name
